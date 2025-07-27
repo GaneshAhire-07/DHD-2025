@@ -1,46 +1,46 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import johnSmith from '../../assets/mbr-1-816x544.jpg';
-import sarahPalmer from '../../assets/mbr-3-596x397.jpg';
-import jamesSwift from '../../assets/mbr-2-596x397.jpg';
-import helenSmith from '../../assets/mbr-596x401.jpeg';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import johnSmith from "../../assets/mbr-1-816x544.jpg";
+import sarahPalmer from "../../assets/mbr-3-596x397.jpg";
+import jamesSwift from "../../assets/mbr-2-596x397.jpg";
+import helenSmith from "../../assets/mbr-596x401.jpeg";
 
 const teamMembers = [
   {
-    name: 'John Smith',
-    role: 'Trader',
+    name: "John Smith",
+    role: "Trader",
     image: johnSmith,
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    profileLink: 'https://mobiri.se',
-    bio: 'John has over 10 years of experience in trading and financial markets, specializing in real estate investments.',
-    contact: 'john.smith@example.com | +1-234-567-890',
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    profileLink: "https://mobiri.se",
+    bio: "John has over 10 years of experience in trading and financial markets, specializing in real estate investments.",
+    contact: "john.smith@example.com | +1-234-567-890",
   },
   {
-    name: 'Sarah Palmer',
-    role: 'Manager',
+    name: "Sarah Palmer",
+    role: "Manager",
     image: sarahPalmer,
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    profileLink: 'https://mobiri.se',
-    bio: 'Sarah leads our management team with 15 years of experience in project oversight and team coordination.',
-    contact: 'sarah.palmer@example.com | +1-234-567-891',
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    profileLink: "https://mobiri.se",
+    bio: "Sarah leads our management team with 15 years of experience in project oversight and team coordination.",
+    contact: "sarah.palmer@example.com | +1-234-567-891",
   },
   {
-    name: 'James Swift',
-    role: 'Trader',
+    name: "James Swift",
+    role: "Trader",
     image: jamesSwift,
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    profileLink: 'https://mobiri.se',
-    bio: 'James brings expertise in global trading strategies with a focus on sustainable development.',
-    contact: 'james.swift@example.com | +1-234-567-892',
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    profileLink: "https://mobiri.se",
+    bio: "James brings expertise in global trading strategies with a focus on sustainable development.",
+    contact: "james.swift@example.com | +1-234-567-892",
   },
   {
-    name: 'Helen Smith',
-    role: 'Manager',
+    name: "Helen Smith",
+    role: "Manager",
     image: helenSmith,
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    profileLink: 'https://mobiri.se',
-    bio: 'Helen excels in operational management with a passion for innovative property solutions.',
-    contact: 'helen.smith@example.com | +1-234-567-893',
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    profileLink: "https://mobiri.se",
+    bio: "Helen excels in operational management with a passion for innovative property solutions.",
+    contact: "helen.smith@example.com | +1-234-567-893",
   },
 ];
 
@@ -67,7 +67,13 @@ const ProfessionalTeam = () => {
   };
 
   return (
-    <section className="bg-gray-100 py-16">
+    <section className="bg-slate-50 font-sans text-slate-800">
+      <section className="w-full bg-gradient-to-br from-[#002147] to-[#003366] text-white text-center py-24 px-5">
+        <h1 className="text-3xl md:text-5xl font-bold drop-shadow-lg">
+          Our Professional Team
+        </h1>
+      </section>
+
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -75,12 +81,18 @@ const ProfessionalTeam = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h3 className="text-4xl font-bold text-gray-800 font-montserrat uppercase tracking-tight">
-            Our Professional Team
-          </h3>
-          <p className="text-lg text-gray-600 mt-2 font-roboto">
-            Meet the experts driving our success with passion and expertise.
-          </p>
+          <section className="-mt-10 relative z-10 mx-auto max-w-4xl bg-white rounded-2xl shadow-2xl text-center px-6 py-12">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-4  tracking-tight text-gray-800 font-montserrat">
+              Our Professional
+              <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+                {" "}
+                team!
+              </span>
+            </h2>
+            <p className="text-lg text-gray-600 mt-2 font-roboto max-w-xl mx-auto">
+              Meet the experts driving our success with passion and expertise.
+            </p>
+          </section>
         </motion.div>
 
         <motion.div

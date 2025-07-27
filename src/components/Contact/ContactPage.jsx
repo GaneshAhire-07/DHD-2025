@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 const ContactPage = () => {
   const initialFormState = {
@@ -6,7 +7,7 @@ const ContactPage = () => {
     lastName: "",
     email: "",
     phone: "",
-    topic: "Administrative Services",
+    topic: "",
     message: "",
   };
 
@@ -46,10 +47,35 @@ const ContactPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
-    setIsSubmitted(true);
-    setFormData(initialFormState);
-    setTimeout(() => setIsSubmitted(false), 5000);
+
+    const templateParams = {
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      user_email: formData.email,
+      phone: formData.phone,
+      topic: formData.topic,
+      message: formData.message,
+    };
+
+    emailjs
+      .send(
+        "service_vxk15ka",
+        "template_qkm83rp",
+        templateParams,
+        "w5kzCPK-GSWcLLli0"
+      )
+      .then(
+        (result) => {
+          console.log("Email sent:", result.text);
+          setIsSubmitted(true);
+          setFormData(initialFormState);
+          setTimeout(() => setIsSubmitted(false), 5000);
+        },
+        (error) => {
+          console.error("Email send failed:", error.text);
+          alert("Something went wrong while sending your message.");
+        }
+      );
   };
 
   return (
@@ -90,7 +116,7 @@ const ContactPage = () => {
           required
           value={formData.firstName}
           onChange={handleChange}
-          className="p-4 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-900"
+          className="p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-900"
         />
         <input
           type="text"
@@ -99,7 +125,7 @@ const ContactPage = () => {
           required
           value={formData.lastName}
           onChange={handleChange}
-          className="p-4 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-900"
+          className="p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-900"
         />
         <input
           type="email"
@@ -108,7 +134,7 @@ const ContactPage = () => {
           required
           value={formData.email}
           onChange={handleChange}
-          className="p-4 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-900"
+          className="p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-900"
         />
         <input
           type="tel"
@@ -117,13 +143,13 @@ const ContactPage = () => {
           required
           value={formData.phone}
           onChange={handleChange}
-          className="p-4 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-900"
+          className="p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-900"
         />
         <select
           name="topic"
           value={formData.topic}
           onChange={handleChange}
-          className="md:col-span-2 p-4 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-900"
+          className="md:col-span-2 p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-900"
         >
           {topics.map((topic, idx) => (
             <option key={idx} value={topic}>

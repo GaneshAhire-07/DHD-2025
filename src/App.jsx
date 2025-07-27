@@ -26,15 +26,15 @@ function App() {
           <Route path="/about/team" element={<ProfessionalTeam />} />
           <Route
             path="/about/values"
-            element={<Placeholder title="Core Values" />}
+            element={<HistoryPage/>}
           />
           <Route
             path="/about/leadership"
-            element={<Placeholder title="Leadership" />}
+            element={<VisionMission />}
           />
           <Route
             path="/about/awards"
-            element={<Placeholder title="Awards & Recognition" />}
+            element={<ProfessionalTeam />}
           />
 
           {/* Expertise Routes */}
