@@ -168,7 +168,7 @@ function Navbar() {
     <header className="menu">
       <nav
         ref={navRef}
-        className="navbar fixed top-0 left-0 w-full z-50 bg-#ece5dd shadow-lg border-b border-gray-200"
+        className="navbar fixed top-0 left-0 w-full z-50 bg-white shadow-lg border-b border-gray-200"
       >
         <div className="container mx-auto px-4 py-3">
           {/* Mobile Layout */}
