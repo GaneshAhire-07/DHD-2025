@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import DHDLogo from "../../assets/DHDLogo.png"
 
 const DropdownMenu = ({
   title,
@@ -61,9 +62,8 @@ const DropdownMenu = ({
       >
         {title}
         <svg
-          className={`w-4 h-4 ml-1 transition-transform duration-300 ${
-            openMenu === menuKey ? "rotate-180" : ""
-          }`}
+          className={`w-4 h-4 ml-1 transition-transform duration-300 ${openMenu === menuKey ? "rotate-180" : ""
+            }`}
           fill="currentColor"
           viewBox="0 0 20 20"
           aria-hidden="true"
@@ -168,7 +168,7 @@ function Navbar() {
     <header className="menu">
       <nav
         ref={navRef}
-        className="navbar fixed top-0 left-0 w-full z-50 bg-white shadow-lg border-b border-gray-200"
+        className="navbar fixed top-0 left-0 w-full z-50 bg-#ece5dd shadow-lg border-b border-gray-200"
       >
         <div className="container mx-auto px-4 py-3">
           {/* Mobile Layout */}
@@ -176,9 +176,19 @@ function Navbar() {
             <Link
               to="/"
               onClick={closeAllMenus}
-              className="text-2xl font-bold text-oxford-blue hover:text-oxford-blue-dark transition-colors focus:outline-none"
+              className="flex items-center space-x-2"
             >
-              DHD Group
+              <img
+                src={DHDLogo} // Replace with actual path or import
+                alt="DHD Group Logo"
+                className="h-10 w-auto"
+              />
+              <span className="text-xl font-bold transition-colors">
+                <span style={{ color: "#be2227" }}>D</span>
+                <span style={{ color: "#2b2a29" }}>H</span>
+                <span style={{ color: "#2b4c80" }}>D</span>
+                <span className="text-oxford-blue"> Group</span>
+              </span>
             </Link>
 
             <button
@@ -189,19 +199,16 @@ function Navbar() {
             >
               <div className="space-y-1.5">
                 <span
-                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
-                    isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
-                  }`}
+                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
+                    }`}
                 />
                 <span
-                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
-                    isMobileMenuOpen ? "opacity-0" : ""
-                  }`}
+                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : ""
+                    }`}
                 />
                 <span
-                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
-                    isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-                  }`}
+                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+                    }`}
                 />
               </div>
             </button>
@@ -212,20 +219,30 @@ function Navbar() {
             <Link
               to="/"
               onClick={closeAllMenus}
-              className="text-2xl font-bold text-oxford-blue hover:text-oxford-blue-dark transition-colors focus:outline-none"
+              className="flex items-center space-x-2"
             >
-              DHD Group
+              <img
+                src={DHDLogo} // Replace with actual path or import
+                alt="DHD Group Logo"
+                className="h-10 w-auto"
+              />
+              <span className="text-2xl font-bold transition-colors">
+                <span style={{ color: "#be2227" }}>D</span>
+                <span style={{ color: "#2b2a29" }}>H</span>
+                <span style={{ color: "#2b4c80" }}>D</span>
+                <span className="text-oxford-blue"> Group</span>
+              </span>
             </Link>
+
 
             <ul className="navbar-nav flex items-center space-x-0">
               <li>
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${
-                      isActive
-                        ? "text-blue-600"
-                        : "text-gray-700 hover:text-blue-600"
+                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${isActive
+                      ? "text-blue-600"
+                      : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -410,10 +427,9 @@ function Navbar() {
                 <NavLink
                   to="/approach"
                   className={({ isActive }) =>
-                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${
-                      isActive
-                        ? "text-blue-600"
-                        : "text-gray-700 hover:text-blue-600"
+                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${isActive
+                      ? "text-blue-600"
+                      : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -426,10 +442,9 @@ function Navbar() {
                 <NavLink
                   to="/projects"
                   className={({ isActive }) =>
-                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${
-                      isActive
-                        ? "text-blue-600"
-                        : "text-gray-700 hover:text-blue-600"
+                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${isActive
+                      ? "text-blue-600"
+                      : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -442,10 +457,9 @@ function Navbar() {
                 <NavLink
                   to="/careers"
                   className={({ isActive }) =>
-                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${
-                      isActive
-                        ? "text-blue-600"
-                        : "text-gray-700 hover:text-blue-600"
+                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${isActive
+                      ? "text-blue-600"
+                      : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -458,10 +472,9 @@ function Navbar() {
                 <NavLink
                   to="/contact"
                   className={({ isActive }) =>
-                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${
-                      isActive
-                        ? "text-blue-600"
-                        : "text-gray-700 hover:text-blue-600"
+                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${isActive
+                      ? "text-blue-600"
+                      : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -469,26 +482,34 @@ function Navbar() {
                   Contact Us
                 </NavLink>
               </li>
+              <li>
+                <NavLink
+                  to="/partner"
+                  className="ml-2 px-4 py-2 rounded-md text-white hover:opacity-90 transition-colors"
+                  style={{ backgroundColor: "#2b4c80" }}
+                  onClick={closeAllMenus}
+                >
+                  Become a Partner
+                </NavLink>
+              </li>
             </ul>
           </div>
 
           {/* Mobile Menu */}
           <div
-            className={`md:hidden transition-all duration-300 overflow-hidden ${
-              isMobileMenuOpen
-                ? "max-h-[80vh] opacity-100 mt-4"
-                : "max-h-0 opacity-0"
-            }`}
+            className={`md:hidden transition-all duration-300 overflow-hidden ${isMobileMenuOpen
+              ? "max-h-[80vh] opacity-100 mt-4"
+              : "max-h-0 opacity-0"
+              }`}
           >
             <ul className="navbar-nav space-y-2 bg-gray-50 rounded-lg p-4">
               <li>
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${
-                      isActive
-                        ? "text-blue-600 bg-blue-50"
-                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${isActive
+                      ? "text-blue-600 bg-blue-50"
+                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -669,10 +690,9 @@ function Navbar() {
                 <NavLink
                   to="/approach"
                   className={({ isActive }) =>
-                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${
-                      isActive
-                        ? "text-blue-600 bg-blue-50"
-                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${isActive
+                      ? "text-blue-600 bg-blue-50"
+                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -685,10 +705,9 @@ function Navbar() {
                 <NavLink
                   to="/projects"
                   className={({ isActive }) =>
-                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${
-                      isActive
-                        ? "text-blue-600 bg-blue-50"
-                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${isActive
+                      ? "text-blue-600 bg-blue-50"
+                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -701,10 +720,9 @@ function Navbar() {
                 <NavLink
                   to="/careers"
                   className={({ isActive }) =>
-                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${
-                      isActive
-                        ? "text-blue-600 bg-blue-50"
-                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${isActive
+                      ? "text-blue-600 bg-blue-50"
+                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -717,15 +735,24 @@ function Navbar() {
                 <NavLink
                   to="/contact"
                   className={({ isActive }) =>
-                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${
-                      isActive
-                        ? "text-blue-600 bg-blue-50"
-                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${isActive
+                      ? "text-blue-600 bg-blue-50"
+                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
                     }`
                   }
                   onClick={closeAllMenus}
                 >
                   Contact Us
+                </NavLink>
+              </li>
+              <li className="pt-4 mt-4 border-t border-gray-200">
+                <NavLink
+                  to="/partner"
+                  className="w-full px-4 py-2 text-center rounded-md text-white hover:opacity-90 transition-colors"
+                  style={{ backgroundColor: "#2b4c80" }}
+                  onClick={closeAllMenus}
+                >
+                  Become a Partner
                 </NavLink>
               </li>
             </ul>
