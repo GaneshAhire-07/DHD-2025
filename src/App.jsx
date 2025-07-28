@@ -10,7 +10,8 @@ import Placeholder from "./components/placeholder/Placeholder";
 import OurApproach from "./Pages/landing/OurApproach";
 import OurProjects from "./Pages/ourprojects/OurProjects";
 import ContactPage from "./components/Contact/ContactPage";
-import CareersWithUs from "./components/carrers/CareersPage"; // Corrected path and filename
+import CareersWithUs from "./components/carrers/CareersPage";
+import PageLoaderWrapper from "./components/loader/PageLoaderWrapper";
 
 function App() {
   return (
@@ -18,56 +19,47 @@ function App() {
       <Navbar />
       <main className="pt-16 bg-light-gray">
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          {/* Landing Page */}
+          <Route
+            path="/"
+            element={
+              <PageLoaderWrapper>
+                <LandingPage />
+              </PageLoaderWrapper>
+            }
+          />
 
           {/* About Us Routes */}
-          <Route path="/about/history" element={<HistoryPage />} />
-          <Route path="/about/vision-mission" element={<VisionMission />} />
-          <Route path="/about/team" element={<ProfessionalTeam />} />
-          <Route
-            path="/about/values"
-            element={<HistoryPage/>}
-          />
-          <Route
-            path="/about/leadership"
-            element={<VisionMission />}
-          />
-          <Route
-            path="/about/awards"
-            element={<ProfessionalTeam />}
-          />
+          <Route path="/about/history" element={<PageLoaderWrapper><HistoryPage /></PageLoaderWrapper>} />
+          <Route path="/about/vision-mission" element={<PageLoaderWrapper><VisionMission /></PageLoaderWrapper>} />
+          <Route path="/about/team" element={<PageLoaderWrapper><ProfessionalTeam /></PageLoaderWrapper>} />
+          <Route path="/about/values" element={<PageLoaderWrapper><HistoryPage /></PageLoaderWrapper>} />
+          <Route path="/about/leadership" element={<PageLoaderWrapper><VisionMission /></PageLoaderWrapper>} />
+          <Route path="/about/awards" element={<PageLoaderWrapper><ProfessionalTeam /></PageLoaderWrapper>} />
 
           {/* Expertise Routes */}
-          <Route path="/expertise" element={<ExpertisePage />} />
-          <Route path="/expertise/construction" element={<ExpertisePage />} />
-          <Route path="/expertise/highways" element={<ExpertisePage />} />
-          <Route path="/expertise/utilities" element={<ExpertisePage />} />
-          <Route path="/expertise/rail" element={<ExpertisePage />} />
-          <Route path="/expertise/property" element={<ExpertisePage />} />
-          <Route path="/expertise/infrastructure" element={<ExpertisePage />} />
-          <Route path="/expertise/horticulture" element={<ExpertisePage />} />
-          <Route path="/expertise/facilities" element={<ExpertisePage />} />
-          <Route path="/expertise/environmental" element={<ExpertisePage />} />
-          <Route
-            path="/expertise/sustainable-design"
-            element={<ExpertisePage />}
-          />
-          <Route path="/expertise/housing" element={<ExpertisePage />} />
-          <Route path="/expertise/consulting" element={<ExpertisePage />} />
+          <Route path="/expertise" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
+          <Route path="/expertise/construction" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
+          <Route path="/expertise/highways" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
+          <Route path="/expertise/utilities" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
+          <Route path="/expertise/rail" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
+          <Route path="/expertise/property" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
+          <Route path="/expertise/infrastructure" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
+          <Route path="/expertise/horticulture" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
+          <Route path="/expertise/facilities" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
+          <Route path="/expertise/environmental" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
+          <Route path="/expertise/sustainable-design" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
+          <Route path="/expertise/housing" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
+          <Route path="/expertise/consulting" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
 
-          {/* Other Main Routes */}
-          <Route path="/approach" element={<OurApproach />} />
-          <Route path="/projects" element={<OurProjects />} />
-          <Route path="/contact" element={<ContactPage />} />
+          {/* Other Routes */}
+          <Route path="/approach" element={<PageLoaderWrapper><OurApproach /></PageLoaderWrapper>} />
+          <Route path="/projects" element={<PageLoaderWrapper><OurProjects /></PageLoaderWrapper>} />
+          <Route path="/contact" element={<PageLoaderWrapper><ContactPage /></PageLoaderWrapper>} />
+          <Route path="/careers" element={<PageLoaderWrapper><CareersWithUs /></PageLoaderWrapper>} />
 
-          {/* Main Careers Route - New unified page */}
-          <Route path="/careers" element={<CareersWithUs />} />
-
-          {/* Fallback Route */}
-          <Route
-            path="*"
-            element={<Placeholder title="404 - Page Not Found" />}
-          />
+          {/* 404 Fallback */}
+          <Route path="*" element={<PageLoaderWrapper><Placeholder title="404 - Page Not Found" /></PageLoaderWrapper>} />
         </Routes>
       </main>
       <Footer />
