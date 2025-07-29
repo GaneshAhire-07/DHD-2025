@@ -6,15 +6,3 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
- {/* Google Map */}
-          <div>
-            <iframe
-              title="Google Map"
-              className="w-full h-64 rounded-md border border-gray-600"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121059.04362142233!2d73.7929269393524!3d18.5245448375339!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e67461101%3A0x828d43bf9d9ee343!2sPune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1678201214152!5m2!1sen!2sin"
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
-          </div>
-        </div>
