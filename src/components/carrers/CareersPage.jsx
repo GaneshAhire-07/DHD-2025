@@ -1,4 +1,5 @@
 import React from "react";
+import usePageTitle from "../../hooks/usePageTitle";
 import {
   FaMoneyBillWave,
   FaBalanceScale,
@@ -18,6 +19,7 @@ import RewardsCity from "../../assets/RewardCity.jpg";
 import WorkingImage from "../../assets/WorkingExperienceConstruction.jpg";
 
 const CareersWithUs = () => {
+  usePageTitle("Careers With Usr");
   return (
     <div className="bg-slate-50 font-sans text-slate-800">
       <section className="bg-gradient-to-br from-[#002147] to-[#003366] text-white text-center py-24 px-5">

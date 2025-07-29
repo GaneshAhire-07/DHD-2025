@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import DHDLogo from "../../assets/DHDLogo.png"
+import DHDLogo from "../../assets/DHDLogo.png";
 
 const DropdownMenu = ({
   title,
@@ -62,8 +62,9 @@ const DropdownMenu = ({
       >
         {title}
         <svg
-          className={`w-4 h-4 ml-1 transition-transform duration-300 ${openMenu === menuKey ? "rotate-180" : ""
-            }`}
+          className={`w-4 h-4 ml-1 transition-transform duration-300 ${
+            openMenu === menuKey ? "rotate-180" : ""
+          }`}
           fill="currentColor"
           viewBox="0 0 20 20"
           aria-hidden="true"
@@ -199,16 +200,19 @@ function Navbar() {
             >
               <div className="space-y-1.5">
                 <span
-                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
-                    }`}
+                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
+                    isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
+                  }`}
                 />
                 <span
-                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : ""
-                    }`}
+                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
+                    isMobileMenuOpen ? "opacity-0" : ""
+                  }`}
                 />
                 <span
-                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-                    }`}
+                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
+                    isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+                  }`}
                 />
               </div>
             </button>
@@ -234,15 +238,15 @@ function Navbar() {
               </span>
             </Link>
 
-
             <ul className="navbar-nav flex items-center space-x-0">
               <li>
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${isActive
-                      ? "text-blue-600"
-                      : "text-gray-700 hover:text-blue-600"
+                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${
+                      isActive
+                        ? "text-blue-600"
+                        : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -427,9 +431,10 @@ function Navbar() {
                 <NavLink
                   to="/approach"
                   className={({ isActive }) =>
-                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${isActive
-                      ? "text-blue-600"
-                      : "text-gray-700 hover:text-blue-600"
+                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${
+                      isActive
+                        ? "text-blue-600"
+                        : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -442,9 +447,10 @@ function Navbar() {
                 <NavLink
                   to="/projects"
                   className={({ isActive }) =>
-                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${isActive
-                      ? "text-blue-600"
-                      : "text-gray-700 hover:text-blue-600"
+                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${
+                      isActive
+                        ? "text-blue-600"
+                        : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -457,9 +463,10 @@ function Navbar() {
                 <NavLink
                   to="/careers"
                   className={({ isActive }) =>
-                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${isActive
-                      ? "text-blue-600"
-                      : "text-gray-700 hover:text-blue-600"
+                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${
+                      isActive
+                        ? "text-blue-600"
+                        : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -472,9 +479,10 @@ function Navbar() {
                 <NavLink
                   to="/contact"
                   className={({ isActive }) =>
-                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${isActive
-                      ? "text-blue-600"
-                      : "text-gray-700 hover:text-blue-600"
+                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${
+                      isActive
+                        ? "text-blue-600"
+                        : "text-gray-700 hover:text-blue-600"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -497,19 +505,21 @@ function Navbar() {
 
           {/* Mobile Menu */}
           <div
-            className={`md:hidden transition-all duration-300 overflow-hidden ${isMobileMenuOpen
-              ? "max-h-[80vh] opacity-100 mt-4"
-              : "max-h-0 opacity-0"
-              }`}
+            className={`md:hidden transition-all duration-300 overflow-hidden ${
+              isMobileMenuOpen
+                ? "max-h-[80vh] opacity-100 mt-4"
+                : "max-h-0 opacity-0"
+            }`}
           >
             <ul className="navbar-nav space-y-2 bg-gray-50 rounded-lg p-4">
               <li>
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${isActive
-                      ? "text-blue-600 bg-blue-50"
-                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${
+                      isActive
+                        ? "text-blue-600 bg-blue-50"
+                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -690,9 +700,10 @@ function Navbar() {
                 <NavLink
                   to="/approach"
                   className={({ isActive }) =>
-                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${isActive
-                      ? "text-blue-600 bg-blue-50"
-                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${
+                      isActive
+                        ? "text-blue-600 bg-blue-50"
+                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -705,9 +716,10 @@ function Navbar() {
                 <NavLink
                   to="/projects"
                   className={({ isActive }) =>
-                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${isActive
-                      ? "text-blue-600 bg-blue-50"
-                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${
+                      isActive
+                        ? "text-blue-600 bg-blue-50"
+                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -720,9 +732,10 @@ function Navbar() {
                 <NavLink
                   to="/careers"
                   className={({ isActive }) =>
-                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${isActive
-                      ? "text-blue-600 bg-blue-50"
-                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${
+                      isActive
+                        ? "text-blue-600 bg-blue-50"
+                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
                     }`
                   }
                   onClick={closeAllMenus}
@@ -735,9 +748,10 @@ function Navbar() {
                 <NavLink
                   to="/contact"
                   className={({ isActive }) =>
-                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${isActive
-                      ? "text-blue-600 bg-blue-50"
-                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${
+                      isActive
+                        ? "text-blue-600 bg-blue-50"
+                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
                     }`
                   }
                   onClick={closeAllMenus}

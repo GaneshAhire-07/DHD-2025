@@ -1,6 +1,8 @@
 import React from 'react';
+import usePageTitle from "../../hooks/usePageTitle.js";
 
 const ResponsibleUsePolicy = () => {
+     usePageTitle('About Us - Responsible Use Policy');
   return (
     <div className="bg-slate-50 font-sans text-slate-800">
       {/* Header Section */}

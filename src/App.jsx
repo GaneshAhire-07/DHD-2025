@@ -12,12 +12,11 @@ import OurProjects from "./Pages/ourprojects/OurProjects";
 import ContactPage from "./components/Contact/ContactPage";
 import CareersWithUs from "./components/carrers/CareersPage";
 import PageLoaderWrapper from "./components/loader/PageLoaderWrapper";
-// Import new components
-import CustomerServiceGuide from "./Pages/customerGuide/CustomerServiceGuide"; // Assuming path
-import NRIPropertyInvestmentGuide from "./Pages/NRIPropertyInvestmentGuide/NRIPropertyInvestmentGuide"; // Assuming path
-import InvestorRelations from "./Pages/InvestorRelations/InvestorRelations"; // Assuming path
-import PrivacySecurity from "./Pages/PrivacySecurity/PrivacySecurity"; // Assuming path
-import ResponsibleUsePolicy from "./Pages/ResponsibleUsePolicy/ResponsibleUsePolicy"; // Assuming path
+import CustomerServiceGuide from "./Pages/customerGuide/CustomerServiceGuide"; 
+import NRIPropertyInvestmentGuide from "./Pages/NRIPropertyInvestmentGuide/NRIPropertyInvestmentGuide"; 
+import InvestorRelations from "./Pages/InvestorRelations/InvestorRelations"; 
+import PrivacySecurity from "./Pages/PrivacySecurity/PrivacySecurity"; 
+import ResponsibleUsePolicy from "./Pages/ResponsibleUsePolicy/ResponsibleUsePolicy"; 
 
 
 function App() {

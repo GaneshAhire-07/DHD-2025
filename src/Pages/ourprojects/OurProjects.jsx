@@ -7,6 +7,7 @@ import {
   FaHospitalAlt,
   FaFutbol,
 } from "react-icons/fa";
+import usePageTitle from "../../hooks/usePageTitle.js";
 
 // Import your project images
 import image1 from "../../assets/projectImage1.jpg";
@@ -69,6 +70,8 @@ const OptimizedImage = ({
 };
 
 const OurProjectsPage = () => {
+  usePageTitle("About Us - Projects");
+
   const [activeTab, setActiveTab] = useState("overview");
 
   // Data for the page

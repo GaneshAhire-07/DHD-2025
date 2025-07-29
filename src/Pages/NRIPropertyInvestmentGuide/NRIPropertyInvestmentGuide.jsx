@@ -1,6 +1,7 @@
 import React from "react";
-
+import usePageTitle from "../../hooks/usePageTitle";
 const NRIPropertyInvestmentGuide = () => {
+  usePageTitle("NRI Property Investment Guide");
   return (
     <div className="bg-slate-50 font-sans text-slate-800">
       {/* Header Section */}

@@ -10,8 +10,10 @@ import ProfessionalTeamSection from "../Pages/landing/ProfessionalTeam";
 import GetStartedSection from "../Pages/landing/GetStrated";
 import OurClientsSection from "../Pages/landing/OurClients";
 import FollowUsSection from "../Pages/landing/FollowUs";
+import usePageTitle from "../hooks/usePageTitle.js";
 
 function LandingPage() {
+  usePageTitle("Home");
   return (
     <div className="bg-off-white">
       <HeroSection />

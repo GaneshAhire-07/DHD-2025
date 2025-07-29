@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import AboutUsImage from "../../assets/2-1256x718.jpg"; // Verify this path
+import usePageTitle from "../../hooks/usePageTitle";
 
 const AboutUs = () => {
+  usePageTitle("About");
   return (
     <section className="py-12 sm:py-16 bg-gradient-to-br from-gray-50 to-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">

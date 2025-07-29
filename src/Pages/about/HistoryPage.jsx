@@ -1,6 +1,7 @@
 // This file is the same as the one in the previous response.
 // It uses the content from your requirements document and serves as a great template for other static pages.
 import React from "react";
+import usePageTitle from "../../hooks/usePageTitle";
 
 const images = {
   history: "https://picsum.photos/seed/dhd-history/800/600",
@@ -30,6 +31,7 @@ const InfoSection = ({ title, imageSrc, alt, children, reverse = false }) => (
 );
 
 const HistoryPage = () => {
+  usePageTitle("History");
   return (
     <div className="bg-light-gray min-h-screen">
       <section className="bg-gradient-to-br from-[#002147] to-[#003366] text-white text-center py-24 px-5">

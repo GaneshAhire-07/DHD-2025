@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ServiceCard from "../../components/serviceCard/ServiceCard";
+import usePageTitle from "../../hooks/usePageTitle";
 import {
   FaLeaf,
   FaBuilding,
@@ -38,6 +39,7 @@ const MissionStatement = ({ title, text }) => (
 );
 
 const ExpertisePage = () => {
+  usePageTitle("Expertise");
   const location = useLocation();
 
   useEffect(() => {

@@ -1,6 +1,9 @@
 import React from 'react';
+import usePageTitle from "../../hooks/usePageTitle.js";
 
 const PrivacySecurity = () => {
+     usePageTitle('About Us - Privacy Security');
+
   return (
     <div className="bg-slate-50 font-sans text-slate-800">
       {/* Header Section */}
