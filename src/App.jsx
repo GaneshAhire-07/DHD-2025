@@ -12,6 +12,13 @@ import OurProjects from "./Pages/ourprojects/OurProjects";
 import ContactPage from "./components/Contact/ContactPage";
 import CareersWithUs from "./components/carrers/CareersPage";
 import PageLoaderWrapper from "./components/loader/PageLoaderWrapper";
+// Import new components
+import CustomerServiceGuide from "./Pages/customerGuide/CustomerServiceGuide"; // Assuming path
+import NRIPropertyInvestmentGuide from "./Pages/NRIPropertyInvestmentGuide/NRIPropertyInvestmentGuide"; // Assuming path
+import InvestorRelations from "./Pages/InvestorRelations/InvestorRelations"; // Assuming path
+import PrivacySecurity from "./Pages/PrivacySecurity/PrivacySecurity"; // Assuming path
+import ResponsibleUsePolicy from "./Pages/ResponsibleUsePolicy/ResponsibleUsePolicy"; // Assuming path
+
 
 function App() {
   return (
@@ -52,11 +59,18 @@ function App() {
           <Route path="/expertise/housing" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
           <Route path="/expertise/consulting" element={<PageLoaderWrapper><ExpertisePage /></PageLoaderWrapper>} />
 
-          {/* Other Routes */}
+          {/* Other Core Routes */}
           <Route path="/approach" element={<PageLoaderWrapper><OurApproach /></PageLoaderWrapper>} />
           <Route path="/projects" element={<PageLoaderWrapper><OurProjects /></PageLoaderWrapper>} />
           <Route path="/contact" element={<PageLoaderWrapper><ContactPage /></PageLoaderWrapper>} />
           <Route path="/careers" element={<PageLoaderWrapper><CareersWithUs /></PageLoaderWrapper>} />
+
+          {/* New Routes for added components */}
+          <Route path="/customer-guide/complaint-guide" element={<PageLoaderWrapper><CustomerServiceGuide /></PageLoaderWrapper>} />
+          <Route path="/customer-guide/nri-buyers-guide" element={<PageLoaderWrapper><NRIPropertyInvestmentGuide /></PageLoaderWrapper>} />
+          <Route path="/investors" element={<PageLoaderWrapper><InvestorRelations /></PageLoaderWrapper>} />
+          <Route path="/privacy-security" element={<PageLoaderWrapper><PrivacySecurity /></PageLoaderWrapper>} />
+          <Route path="/responsible-use-policy" element={<PageLoaderWrapper><ResponsibleUsePolicy /></PageLoaderWrapper>} />
 
           {/* 404 Fallback */}
           <Route path="*" element={<PageLoaderWrapper><Placeholder title="404 - Page Not Found" /></PageLoaderWrapper>} />
