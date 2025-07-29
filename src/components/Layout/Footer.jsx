@@ -6,9 +6,7 @@ import {
   FaClock,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
-// Placeholder logo (replace this with actual logo when ready)
-const DHDLogoPlaceholder = "https://placehold.co/40x40/FFFFFF/BE2227?text=D";
+import Logo from "../../assets/DHDLogo.png"; // ✅ Correct import
 
 function Footer() {
   return (
@@ -19,12 +17,13 @@ function Footer() {
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <img
-                src={DHDLogoPlaceholder}
+                src={Logo}
                 alt="DHD Logo"
                 className="w-10 h-10 rounded-md object-contain bg-white p-1"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src = "https://placehold.co/40x40/FFFFFF/BE2227?text=D";
+                  e.target.src =
+                    "https://placehold.co/40x40/FFFFFF/BE2227?text=D";
                 }}
               />
               <h5 className="text-xl font-semibold text-black">
@@ -50,7 +49,10 @@ function Footer() {
                 { to: "/careers", label: "Careers" },
                 { to: "/contact", label: "Contact Us" },
                 { to: "/privacy-security", label: "Privacy & Security" },
-                { to: "/responsible-use-policy", label: "Responsible Use Policy" },
+                {
+                  to: "/responsible-use-policy",
+                  label: "Responsible Use Policy",
+                },
                 { to: "/privacy", label: "Privacy Policy" },
                 { to: "/terms", label: "Terms of Service" },
                 { to: "/cookie", label: "Cookie Policy" },
@@ -100,9 +102,7 @@ function Footer() {
 
           {/* Embedded Map */}
           <div>
-            <h5 className="text-xl font-semibold text-black mb-4">
-              Find Us
-            </h5>
+            <h5 className="text-xl font-semibold text-black mb-4">Find Us</h5>
             <iframe
               title="Google Map"
               className="w-full h-64 rounded-md border border-black"
