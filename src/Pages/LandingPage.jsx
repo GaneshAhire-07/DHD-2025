@@ -9,7 +9,6 @@ import WhyChooseDHDSection from "../Pages/landing/WhyChooseDHD";
 import ProfessionalTeamSection from "../Pages/landing/ProfessionalTeam";
 import GetStartedSection from "../Pages/landing/GetStrated";
 import OurClientsSection from "../Pages/landing/OurClients";
-import FollowUsSection from "../Pages/landing/FollowUs";
 import usePageTitle from "../hooks/usePageTitle.js";
 
 function LandingPage() {
@@ -24,7 +23,6 @@ function LandingPage() {
       <ProfessionalTeamSection />
       <GetStartedSection />
       <OurClientsSection />
-      <FollowUsSection />
     </div>
   );
 }
