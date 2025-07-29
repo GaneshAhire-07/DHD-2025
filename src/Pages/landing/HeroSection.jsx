@@ -11,7 +11,7 @@ const HeroSection = () => {
           <div className="w-full lg:w-1/2 text-center lg:text-left space-y-6">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-oxford-blue leading-tight space-y-1">
               <div>Driven by Vision.</div>
-              <div className="text-blue-600">Built on Trust.</div>
+              <div className="text-red-600">Built on Trust.</div>
               <div>Delivered with Excellence.</div>
             </h1>
             <div className="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
@@ -45,7 +45,7 @@ const HeroSection = () => {
                 to="/about/history"
                 className="px-6 py-3 bg-white text-black font-semibold rounded-lg text-sm border-2 border-red-500 hover:border-red-600 transition-all duration-300 hover:scale-105 shadow-md"
               >
-                Read More
+                Contact Us
               </Link>
             </div>
           </div>
@@ -54,9 +54,10 @@ const HeroSection = () => {
           <div className="w-full lg:w-1/2 flex justify-center lg:justify-end relative">
             {/* Double animated background circles */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-blue-100 rounded-full opacity-20 animate-ping absolute" />
-              <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-blue-100 rounded-full opacity-30 animate-pulse absolute" />
+              <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-[#002854] rounded-full opacity-20 animate-ping absolute" />
+              <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 bg-[#002854] rounded-full opacity-30 animate-pulse absolute" />
             </div>
+
             <div className="relative z-10 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
               <img
                 src={hero}

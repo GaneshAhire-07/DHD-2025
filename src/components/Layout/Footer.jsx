@@ -8,9 +8,23 @@ import {
 import { Link } from "react-router-dom";
 import Logo from "../../assets/DHDLogo.png"; // ✅ Correct import
 
+const links = [
+  { to: "/about/history", label: "Our History" },
+  { to: "/about/vision-mission", label: "Vision & Mission" },
+  { to: "/projects", label: "Our Projects" },
+  { to: "/careers", label: "Careers" },
+  { to: "/contact", label: "Contact Us" },
+  { to: "/privacy-security", label: "Privacy & Security" },
+  { to: "/responsible-use-policy", label: "Responsible Use Policy" },
+  { to: "/privacy", label: "Privacy Policy" },
+  { to: "/terms", label: "Terms of Service" },
+  { to: "/cookie", label: "Cookie Policy" },
+  { to: "/sitemap", label: "Sitemap" },
+];
+
 function Footer() {
   return (
-    <footer className="bg-[#be2227] text-black pt-16 pb-8 px-4 sm:px-6 font-sans border-t border-red-800">
+    <footer className="bg-[#ece5dd] text-black pt-5 px-4 sm:px-6 font-sans border-t border-red-800">
       <div className="container mx-auto max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Company Info */}
@@ -41,29 +55,14 @@ function Footer() {
             <h5 className="text-xl font-semibold text-black mb-4">
               Quick Links
             </h5>
-            <ul className="space-y-3">
-              {[
-                { to: "/about/history", label: "Our History" },
-                { to: "/about/vision-mission", label: "Vision & Mission" },
-                { to: "/projects", label: "Our Projects" },
-                { to: "/careers", label: "Careers" },
-                { to: "/contact", label: "Contact Us" },
-                { to: "/privacy-security", label: "Privacy & Security" },
-                {
-                  to: "/responsible-use-policy",
-                  label: "Responsible Use Policy",
-                },
-                { to: "/privacy", label: "Privacy Policy" },
-                { to: "/terms", label: "Terms of Service" },
-                { to: "/cookie", label: "Cookie Policy" },
-                { to: "/sitemap", label: "Sitemap" },
-              ].map((link, index) => (
+            <ul className="space-y-3 list-none">
+              {links.map((link, index) => (
                 <li key={index}>
                   <Link
                     to={link.to}
-                    className="text-sm sm:text-base text-black hover:text-white transition-colors flex items-start"
+                    className="group text-sm sm:text-base text-black hover:text-red-600 transition-colors flex items-start"
                   >
-                    <span className="inline-block w-2 h-2 bg-white rounded-full mt-2 mr-2"></span>
+                    <span className="inline-block w-2 h-2 bg-white rounded-full mt-2 mr-2 group-hover:bg-red-600"></span>
                     {link.label}
                   </Link>
                 </li>
@@ -91,7 +90,12 @@ function Footer() {
               </li>
               <li className="flex items-center">
                 <FaEnvelope className="text-white mr-3" />
-                <span>info@dhdgroup.com</span>
+                <a
+                  href="mailto:info@dhdgroup.com"
+                  className="hover:underline text-red-600"
+                >
+                  info@dhdgroup.com
+                </a>
               </li>
               <li className="flex items-center">
                 <FaClock className="text-white mr-3" />
@@ -115,7 +119,7 @@ function Footer() {
         </div>
 
         {/* Footer Bottom Text */}
-        <p className="mt-10 text-center text-sm text-black">
+        <p className="relative bottom-3 mt-10 text-center text-sm text-black">
           &copy; {new Date().getFullYear()} DHD Group. All rights reserved.
         </p>
       </div>
