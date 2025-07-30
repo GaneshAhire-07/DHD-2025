@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import DHDLogo from "../../assets/DHDLogo.png";
 
+// DropdownMenu Component: Handles the main dropdown logic for navigation items.
 const DropdownMenu = ({
   title,
   children,
@@ -11,59 +12,66 @@ const DropdownMenu = ({
   handleMouseEnter,
   handleMouseLeave,
 }) => {
-  const timeoutRef = useRef(null);
-  const dropdownRef = useRef(null);
+  const timeoutRef = useRef(null); // Ref to manage hover timeout for desktop
+  const dropdownRef = useRef(null); // Ref to the dropdown content for positioning
 
+  // Wrapper for mouse enter event to handle desktop hover behavior
   const handleMouseEnterWrapper = () => {
     if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
+      clearTimeout(timeoutRef.current); // Clear any pending mouse leave timeout
     }
     if (window.innerWidth >= 768) {
+      // Only trigger hover on desktop (md breakpoint and up)
       handleMouseEnter(menuKey);
     }
   };
 
+  // Wrapper for mouse leave event to handle desktop hover behavior with a delay
   const handleMouseLeaveWrapper = () => {
     if (window.innerWidth >= 768) {
+      // Only trigger hover on desktop
       timeoutRef.current = setTimeout(() => {
-        handleMouseLeave();
+        handleMouseLeave(); // Close menu after a short delay
       }, 200);
     }
   };
 
+  // Effect to adjust dropdown position if it goes off-screen on desktop
   useEffect(() => {
     if (openMenu === menuKey && dropdownRef.current) {
       const dropdown = dropdownRef.current;
       const rect = dropdown.getBoundingClientRect();
       const viewportWidth = window.innerWidth;
 
+      // If the right edge of the dropdown is beyond the viewport,
+      // position it to the right instead of left.
       if (rect.right > viewportWidth) {
         dropdown.style.left = "auto";
         dropdown.style.right = "0";
       }
     }
-  }, [openMenu, menuKey]);
+  }, [openMenu, menuKey]); // Re-run when openMenu or menuKey changes
 
   return (
     <li
-      className="relative"
+      className="relative" // Parent li for positioning the dropdown
       onMouseEnter={handleMouseEnterWrapper}
       onMouseLeave={handleMouseLeaveWrapper}
     >
       <button
         className="whitespace-nowrap px-2 py-2 text-gray-700 hover:text-blue-600 transition-all duration-300 flex items-center focus:outline-none w-full text-left"
         onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          handleMenuToggle(menuKey);
+          e.preventDefault(); // Prevent default link behavior
+          e.stopPropagation(); // Stop event propagation to prevent immediate closing
+          handleMenuToggle(menuKey); // Toggle the dropdown open/close
         }}
-        aria-expanded={openMenu === menuKey}
-        aria-haspopup="true"
+        aria-expanded={openMenu === menuKey} // Accessibility attribute
+        aria-haspopup="true" // Accessibility attribute
       >
         {title}
         <svg
           className={`w-4 h-4 ml-1 transition-transform duration-300 ${
-            openMenu === menuKey ? "rotate-180" : ""
+            openMenu === menuKey ? "rotate-180" : "" // Rotate arrow when menu is open
           }`}
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -77,34 +85,37 @@ const DropdownMenu = ({
         </svg>
       </button>
 
-      {openMenu === menuKey && (
+      {openMenu === menuKey && ( // Render dropdown content only if menu is open
         <div
           ref={dropdownRef}
           className="md:absolute md:left-0 md:top-full md:mt-2 bg-white shadow-2xl rounded-xl border border-gray-200 z-50 min-w-[320px] max-h-[70vh] overflow-auto animate-fadeIn"
-          onMouseEnter={handleMouseEnterWrapper}
-          onMouseLeave={handleMouseLeaveWrapper}
+          onMouseEnter={handleMouseEnterWrapper} // Keep menu open on hover over dropdown content
+          onMouseLeave={handleMouseLeaveWrapper} // Allow menu to close on mouse leave from content
         >
-          <div className="p-6">{children}</div>
+          <div className="p-6">{children}</div> {/* Content of the dropdown */}
         </div>
       )}
     </li>
   );
 };
 
+// DropdownLink Component: Renders a link within a dropdown menu.
 const DropdownLink = ({ to, children, closeMenu, external = false }) => {
   const baseClasses =
     "block w-full text-left py-2 px-3 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-all duration-200";
 
   if (external) {
+    // For external links, use <a> tag with target="_blank"
     return (
       <a
         href={to}
         target="_blank"
         rel="noopener noreferrer"
         className={`${baseClasses} flex items-center justify-between`}
-        onClick={closeMenu}
+        onClick={closeMenu} // Close all menus when clicked
       >
         {children}
+        {/* External link icon */}
         <svg className="w-3 h-3 ml-2" fill="currentColor" viewBox="0 0 20 20">
           <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
           <path d="M5 5a2 2 0 00-2 2v6a2 2 0 002 2h6a2 2 0 002-2v-1a1 1 0 10-2 0v1H5V7h1a1 1 0 000-2H5z" />
@@ -113,6 +124,7 @@ const DropdownLink = ({ to, children, closeMenu, external = false }) => {
     );
   }
 
+  // For internal links, use React Router's Link
   return (
     <Link to={to} className={baseClasses} onClick={closeMenu}>
       {children}
@@ -120,6 +132,7 @@ const DropdownLink = ({ to, children, closeMenu, external = false }) => {
   );
 };
 
+// ServiceCategory Component: Used within "Our Expertise" dropdown for grouping links.
 const ServiceCategory = ({ title, children }) => (
   <div className="mb-4">
     <h4 className="font-semibold text-gray-800 mb-2 pb-1 border-b border-gray-200">
@@ -129,37 +142,43 @@ const ServiceCategory = ({ title, children }) => (
   </div>
 );
 
+// ServiceItem Component: A specific link within a ServiceCategory.
 const ServiceItem = ({ to, children, closeMenu }) => (
   <Link
     to={to}
     className="block text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded cursor-pointer transition-all duration-200"
-    onClick={closeMenu}
+    onClick={closeMenu} // Close all menus when clicked
   >
     {children}
   </Link>
 );
 
+// Main Navbar Component
 function Navbar() {
-  const [openMenu, setOpenMenu] = useState(null);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navRef = useRef(null);
+  const [openMenu, setOpenMenu] = useState(null); // State for currently open desktop dropdown
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for mobile menu visibility
+  const navRef = useRef(null); // Ref for the navbar element (not directly used for logic here, but good practice)
 
+  // Toggles a specific dropdown menu (for mobile click or desktop hover fallback)
   const handleMenuToggle = (menu) => {
     setOpenMenu(openMenu === menu ? null : menu);
   };
 
+  // Handles mouse enter for desktop dropdowns
   const handleMouseEnter = (menu) => {
     if (window.innerWidth >= 768) {
       setOpenMenu(menu);
     }
   };
 
+  // Handles mouse leave for desktop dropdowns
   const handleMouseLeave = () => {
     if (window.innerWidth >= 768) {
       setOpenMenu(null);
     }
   };
 
+  // Closes all menus (mobile and desktop dropdowns)
   const closeAllMenus = () => {
     setIsMobileMenuOpen(false);
     setOpenMenu(null);
@@ -172,18 +191,14 @@ function Navbar() {
         className="navbar fixed top-0 left-0 w-full z-50 bg-white shadow-lg border-b border-gray-200"
       >
         <div className="container mx-auto px-4 py-3">
-          {/* Mobile Layout */}
+          {/* Mobile Layout: Logo and Hamburger Icon */}
           <div className="flex justify-between items-center md:hidden">
             <Link
               to="/"
               onClick={closeAllMenus}
               className="flex items-center space-x-2"
             >
-              <img
-                src={DHDLogo} // Replace with actual path or import
-                alt="DHD Group Logo"
-                className="h-10 w-auto"
-              />
+              <img src={DHDLogo} alt="DHD Group Logo" className="h-10 w-auto" />
               <span className="text-xl font-bold transition-colors">
                 <span style={{ color: "#be2227" }}>D</span>
                 <span style={{ color: "#2b2a29" }}>H</span>
@@ -218,18 +233,14 @@ function Navbar() {
             </button>
           </div>
 
-          {/* Desktop Layout */}
+          {/* Desktop Layout: Full Navigation */}
           <div className="hidden md:flex md:items-center md:justify-between w-full">
             <Link
               to="/"
               onClick={closeAllMenus}
               className="flex items-center space-x-2"
             >
-              <img
-                src={DHDLogo} // Replace with actual path or import
-                alt="DHD Group Logo"
-                className="h-10 w-auto"
-              />
+              <img src={DHDLogo} alt="DHD Group Logo" className="h-10 w-auto" />
               <span className="text-2xl font-bold transition-colors">
                 <span style={{ color: "#be2227" }}>D</span>
                 <span style={{ color: "#2b2a29" }}>H</span>
@@ -285,8 +296,8 @@ function Navbar() {
                   >
                     Leadership
                   </DropdownLink>
-                  <DropdownLink to="/about/awards" closeMenu={closeAllMenus}>
-                    Awards & Recognition
+                  <DropdownLink to="/about/customer" closeMenu={closeAllMenus}>
+                    Customer Guide
                   </DropdownLink>
                 </div>
               </DropdownMenu>
@@ -459,6 +470,23 @@ function Navbar() {
                 </NavLink>
               </li>
 
+              {/* Added Our Sectors Link */}
+              <li>
+                <NavLink
+                  to="/sectors" // Changed to '/sectors' for consistency
+                  className={({ isActive }) =>
+                    `nav-link whitespace-nowrap px-2 py-2 transition-all duration-300 focus:outline-none ${
+                      isActive
+                        ? "text-blue-600"
+                        : "text-gray-700 hover:text-blue-600"
+                    }`
+                  }
+                  onClick={closeAllMenus}
+                >
+                  Our Sectors
+                </NavLink>
+              </li>
+
               <li>
                 <NavLink
                   to="/careers"
@@ -503,12 +531,12 @@ function Navbar() {
             </ul>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile Menu Content (Toggles open/close) */}
           <div
             className={`md:hidden transition-all duration-300 overflow-hidden ${
               isMobileMenuOpen
-                ? "max-h-[80vh] opacity-100 mt-4"
-                : "max-h-0 opacity-0"
+                ? "max-h-[80vh] opacity-100 mt-4" // When open, expand and show
+                : "max-h-0 opacity-0" // When closed, collapse and hide
             }`}
           >
             <ul className="navbar-nav space-y-2 bg-gray-50 rounded-lg p-4">
@@ -533,10 +561,12 @@ function Navbar() {
                 menuKey="about"
                 openMenu={openMenu}
                 handleMenuToggle={handleMenuToggle}
-                handleMouseEnter={handleMouseEnter}
-                handleMouseLeave={handleMouseLeave}
+                handleMouseEnter={handleMouseEnter} // Still pass, but won't apply on mobile
+                handleMouseLeave={handleMouseLeave} // Still pass, but won't apply on mobile
               >
                 <div className="space-y-2 pl-4">
+                  {" "}
+                  {/* Added pl-4 for indentation */}
                   <DropdownLink to="/about/history" closeMenu={closeAllMenus}>
                     Our History
                   </DropdownLink>
@@ -558,8 +588,13 @@ function Navbar() {
                   >
                     Leadership
                   </DropdownLink>
-                  <DropdownLink to="/about/awards" closeMenu={closeAllMenus}>
-                    Awards & Recognition
+                  <DropdownLink
+                    to="/customer-guide/complaint-guide"
+                    closeMenu={closeAllMenus}
+                  >
+                    {" "}
+                    {/* Corrected path */}
+                    Customer Guide
                   </DropdownLink>
                 </div>
               </DropdownMenu>
@@ -569,10 +604,13 @@ function Navbar() {
                 menuKey="expertise"
                 openMenu={openMenu}
                 handleMenuToggle={handleMenuToggle}
-                handleMouseEnter={handleMouseEnter}
-                handleMouseLeave={handleMouseLeave}
+                handleMouseEnter={handleMouseEnter} // Still pass, but won't apply on mobile
+                handleMouseLeave={handleMouseLeave} // Still pass, but won't apply on mobile
               >
+                {/* On mobile, this grid will naturally stack due to grid-cols-1 */}
                 <div className="space-y-4 pl-4">
+                  {" "}
+                  {/* Added pl-4 for indentation */}
                   <ServiceCategory title="Core Services">
                     <DropdownLink
                       to="https://iresworld.com/"
@@ -594,7 +632,6 @@ function Navbar() {
                       Property Management
                     </DropdownLink>
                   </ServiceCategory>
-
                   <ServiceCategory title="Infrastructure">
                     <DropdownLink
                       to="/expertise/infrastructure"
@@ -621,7 +658,6 @@ function Navbar() {
                       Rail Infrastructure
                     </DropdownLink>
                   </ServiceCategory>
-
                   <ServiceCategory title="Horticulture">
                     <ServiceItem
                       to="/expertise/horticulture"
@@ -660,7 +696,6 @@ function Navbar() {
                       Sustainable Landscaping
                     </ServiceItem>
                   </ServiceCategory>
-
                   <ServiceCategory title="Specialized">
                     <ServiceItem
                       to="/expertise/facilities"
@@ -716,7 +751,7 @@ function Navbar() {
                 <NavLink
                   to="/projects"
                   className={({ isActive }) =>
-                    `nav-link block px-3 py-2 rounded-md transition-all duration-300 focus:outline-none ${
+                    `block px-3 py-2 rounded-md transition-all duration-300 ${
                       isActive
                         ? "text-blue-600 bg-blue-50"
                         : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
@@ -725,6 +760,22 @@ function Navbar() {
                   onClick={closeAllMenus}
                 >
                   Our Projects
+                </NavLink>
+              </li>
+              {/* Added Our Sectors Link for Mobile */}
+              <li>
+                <NavLink
+                  to="/sectors" // Changed to '/sectors' for consistency
+                  className={({ isActive }) =>
+                    `block px-3 py-2 rounded-md transition-all duration-300 ${
+                      isActive
+                        ? "text-blue-600 bg-blue-50"
+                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+                    }`
+                  }
+                  onClick={closeAllMenus}
+                >
+                  Our Sectors
                 </NavLink>
               </li>
 
@@ -816,15 +867,25 @@ function Navbar() {
           }
         }
 
-        /* Mobile dropdown styling */
+        /* Mobile dropdown styling: Overrides desktop absolute positioning for inline expansion */
         @media (max-width: 767px) {
-          .relative > div {
-            position: static;
-            box-shadow: none;
-            border: none;
-            max-height: none;
-            overflow: visible;
-            background: transparent;
+          .relative > div[ref="dropdownRef"] {
+            /* Target the dropdown content div specifically */
+            position: static !important; /* Force static positioning */
+            box-shadow: none !important;
+            border: none !important;
+            max-height: none !important;
+            overflow: visible !important;
+            background: transparent !important;
+            padding: 0; /* Remove padding for mobile dropdown content */
+          }
+          /* Adjust padding for children within mobile dropdowns */
+          .relative > div[ref="dropdownRef"] > div {
+            padding: 0; /* Remove inner padding as well */
+          }
+          .relative > div[ref="dropdownRef"] .space-y-2.pl-4,
+          .relative > div[ref="dropdownRef"] .space-y-4.pl-4 {
+            padding-left: 1rem; /* Re-apply desired indentation for sub-items */
           }
         }
       `}</style>

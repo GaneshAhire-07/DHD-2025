@@ -10,7 +10,8 @@ const teamMembers = [
     name: "John Smith",
     role: "Trader",
     image: johnSmith,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    description:
+      "Specializing in real estate investments with a decade of market expertise.", // Updated description
     profileLink: "https://mobiri.se",
     bio: "John has over 10 years of experience in trading and financial markets, specializing in real estate investments.",
     contact: "john.smith@example.com | +1-234-567-890",
@@ -19,7 +20,8 @@ const teamMembers = [
     name: "Sarah Palmer",
     role: "Manager",
     image: sarahPalmer,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    description:
+      "Leads our management team with 15 years in project oversight and coordination.", // Updated description
     profileLink: "https://mobiri.se",
     bio: "Sarah leads our management team with 15 years of experience in project oversight and team coordination.",
     contact: "sarah.palmer@example.com | +1-234-567-891",
@@ -28,7 +30,8 @@ const teamMembers = [
     name: "James Swift",
     role: "Trader",
     image: jamesSwift,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    description:
+      "Expert in global trading strategies with a focus on sustainable development.", // Updated description
     profileLink: "https://mobiri.se",
     bio: "James brings expertise in global trading strategies with a focus on sustainable development.",
     contact: "james.swift@example.com | +1-234-567-892",
@@ -37,7 +40,8 @@ const teamMembers = [
     name: "Helen Smith",
     role: "Manager",
     image: helenSmith,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    description:
+      "Excels in operational management with a passion for innovative property solutions.", // Updated description
     profileLink: "https://mobiri.se",
     bio: "Helen excels in operational management with a passion for innovative property solutions.",
     contact: "helen.smith@example.com | +1-234-567-893",
@@ -82,7 +86,7 @@ const ProfessionalTeam = () => {
           className="text-center mb-12"
         >
           <section className="-mt-10 relative z-10 mx-auto max-w-4xl bg-white rounded-2xl shadow-2xl text-center px-6 py-12">
-            <h2 className="text-2xl md:text-3xl font-semibold mb-4  tracking-tight text-gray-800 font-montserrat">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-4  tracking-tight text-gray-800 font-montserrat">
               Our Professional
               <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
                 {" "}
@@ -107,7 +111,7 @@ const ProfessionalTeam = () => {
               variants={cardVariants}
               className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="relative">
+              <div className="relative bottom-3">
                 <img
                   src={member.image}
                   alt={member.name}
@@ -150,7 +154,7 @@ const ProfessionalTeam = () => {
                 className="bg-white rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="flex justify-between items-center mb-4">
+                <div className="flex justify-between items-center mb-0">
                   <h4 className="text-2xl font-bold text-gray-800 font-lato uppercase">
                     {selectedMember.name}
                   </h4>

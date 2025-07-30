@@ -1,48 +1,48 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
-import hero from "../../assets/busy-businessman-working-tablet-mobile-phone-1-1256x1586.png";
+import hero from "../../assets/hero.png"; // Ensure this path is correct for your project
+
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef(null);
 
-  // Optimize mouse move with requestAnimationFrame
+  // Optimized mouse move handler for subtle parallax effect on background elements
   const handleMouseMove = useCallback((e) => {
     if (sectionRef.current) {
       const rect = sectionRef.current.getBoundingClientRect();
+      // Use requestAnimationFrame for smooth updates
       requestAnimationFrame(() => {
         setMousePosition({
-          x: (e.clientX - rect.left) / rect.width,
-          y: (e.clientY - rect.top) / rect.height,
+          x: (e.clientX - rect.left) / rect.width, // Normalized X position (0 to 1)
+          y: (e.clientY - rect.top) / rect.height, // Normalized Y position (0 to 1)
         });
       });
     }
   }, []);
 
+  // Intersection Observer to trigger entrance animations when the section becomes visible
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.1 }
+      { threshold: 0.1 } // Trigger when 10% of the section is visible
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    // Cleanup observer on component unmount
+    return () => {
+      if (sectionRef.current) observer.disconnect();
+    };
   }, []);
-
-  // Profile-like images (placeholders)
-  const profiles = [
-    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-    "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-  ];
 
   return (
     <section
       ref={sectionRef}
       className="relative bg-gradient-to-br from-slate-50 via-white to-blue-50 py-12 lg:py-16 min-h-screen flex items-center overflow-hidden"
-      onMouseMove={handleMouseMove}
+      onMouseMove={handleMouseMove} // Attach mouse move listener for parallax
     >
-      {/* Animated Background Elements */}
+      {/* Animated Background Elements (Subtle, large circles for visual depth) */}
       <div className="absolute inset-0 overflow-hidden">
+        {/* Existing animated elements */}
         <div
           className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-2xl animate-float"
           style={{
@@ -59,6 +59,20 @@ const HeroSection = () => {
               -mousePosition.y * 25 + 10
             }px)`,
             transition: "transform 0.3s ease-out",
+          }}
+        />
+
+        {/* NEW: Navy Blue Animated Circle */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                     w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px]
+                     bg-blue-900/15 rounded-full blur-3xl animate-pulse-slow-alt"
+          style={{
+            // Add subtle parallax to this new circle as well
+            transform: `translate(-50%, -50%) translate(${
+              mousePosition.x * 20 - 10
+            }px, ${mousePosition.y * 20 - 10}px)`,
+            transition: "transform 0.4s ease-out",
           }}
         />
       </div>
@@ -170,19 +184,22 @@ const HeroSection = () => {
               isVisible ? "animate-slideInRight" : "opacity-0"
             }`}
           >
-            <div className="relative z-10 w-full max-w-md lg:max-w-lg group">
-              <div className="relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-102">
+            {/* Image container with increased size and no direct shadow */}
+            <div className="relative z-10 w-full max-w-lg sm:max-w-xl lg:max-w-4xl group">
+              <div className="relative  transition-all duration-300 transform hover:scale-102">
                 <img
                   src={hero}
                   alt="Professional businessman working with tablet - DHD Group"
                   className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/10 via-transparent to-transparent" />
+                {/* Subtle gradient overlay on image for depth */}
               </div>
 
-              {/* Floating UI Elements */}
-              <div className="absolute -top-3 -left-3 bg-white/90 backdrop-blur-md p-2 rounded-xl shadow-md animate-float hover:scale-110 transition-all duration-200 -rotate-6 border border-blue-100"></div>
+              {/* Floating UI Elements (kept as they add dynamic flair) */}
+
+              {/* Another floating element, repositioned for better balance */}
+              <div className="absolute bottom-8 -right-3 bg-white/90 backdrop-blur-md p-2 rounded-xl shadow-md animate-float-alt hover:scale-110 transition-all duration-200 rotate-6 border border-blue-100"></div>
             </div>
           </div>
         </div>
@@ -212,6 +229,7 @@ const HeroSection = () => {
       </div>
 
       <style jsx>{`
+        /* Keyframe Animations */
         @keyframes slideUp {
           from {
             transform: translateY(20px);
@@ -257,10 +275,10 @@ const HeroSection = () => {
         @keyframes float {
           0%,
           100% {
-            transform: translateY(0);
+            transform: translateY(0) rotate(-6deg);
           }
           50% {
-            transform: translateY(-10px);
+            transform: translateY(-10px) rotate(-6deg);
           }
         }
 
@@ -274,13 +292,25 @@ const HeroSection = () => {
           }
         }
 
-        @keyframes profileFloat {
+        @keyframes float-alt {
           0%,
           100% {
-            transform: translateY(0);
+            transform: translateY(0) rotate(6deg);
           }
           50% {
-            transform: translateY(-5px);
+            transform: translateY(-10px) rotate(6deg);
+          }
+        }
+
+        @keyframes pulse-slow-alt {
+          0%,
+          100% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0.15;
+          }
+          50% {
+            transform: translate(-50%, -50%) scale(1.05);
+            opacity: 0.25;
           }
         }
 
@@ -304,6 +334,7 @@ const HeroSection = () => {
           }
         }
 
+        /* Apply Animations with Delays */
         .animate-slideUp {
           animation: slideUp 0.5s ease-out forwards;
         }
@@ -320,7 +351,7 @@ const HeroSection = () => {
           animation: typewriter 2s steps(40) forwards;
           overflow: hidden;
           white-space: nowrap;
-          border-right: 2px solid transparent;
+          border-right: 2px solid transparent; /* Mimics cursor */
         }
 
         .animate-float {
@@ -331,8 +362,12 @@ const HeroSection = () => {
           animation: float-delayed 5s ease-in-out infinite;
         }
 
-        .animate-profileFloat {
-          animation: profileFloat 3s ease-in-out infinite;
+        .animate-float-alt {
+          animation: float-alt 4.5s ease-in-out infinite;
+        }
+
+        .animate-pulse-slow-alt {
+          animation: pulse-slow-alt 4s ease-in-out infinite;
         }
 
         .animate-bounce-slow {
@@ -361,6 +396,22 @@ const HeroSection = () => {
 
         .delay-500 {
           animation-delay: 0.5s;
+        }
+
+        /* Responsive adjustments for headings */
+        @media (max-width: 640px) {
+          h1 {
+            font-size: 2.5rem; /* Slightly smaller on small phones */
+            line-height: 1.2;
+          }
+          p {
+            font-size: 0.95rem; /* Slightly smaller paragraph text */
+          }
+        }
+        @media (min-width: 641px) and (max-width: 767px) {
+          h1 {
+            font-size: 3rem; /* Medium phones */
+          }
         }
       `}</style>
     </section>

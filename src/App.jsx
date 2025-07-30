@@ -17,6 +17,7 @@ import NRIPropertyInvestmentGuide from "./Pages/NRIPropertyInvestmentGuide/NRIPr
 import { InvestorRelations } from "./Pages/InvestorRelations/InvestorRelations"; // FIX: Changed to named import
 import PrivacySecurity from "./Pages/PrivacySecurity/PrivacySecurity";
 import ResponsibleUsePolicy from "./Pages/ResponsibleUsePolicy/ResponsibleUsePolicy";
+import OurSectors from "./Pages/ourSectors/OurSectors";
 
 function App() {
   return (
@@ -76,10 +77,10 @@ function App() {
             }
           />
           <Route
-            path="/about/awards"
+            path="/about/customer"
             element={
               <PageLoaderWrapper>
-                <ProfessionalTeam />
+                <CustomerServiceGuide />
               </PageLoaderWrapper>
             }
           />
@@ -262,6 +263,14 @@ function App() {
             element={
               <PageLoaderWrapper>
                 <ResponsibleUsePolicy />
+              </PageLoaderWrapper>
+            }
+          />
+           <Route
+            path="/sectors"
+            element={
+              <PageLoaderWrapper>
+                <OurSectors />
               </PageLoaderWrapper>
             }
           />
