@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ServiceCard from "../../components/serviceCard/ServiceCard";
 import usePageTitle from "../../hooks/usePageTitle";
@@ -103,6 +103,7 @@ const ExpertisePage = () => {
               src={images.horticulture}
               alt="Horticulture Services"
               className="rounded-lg shadow-md w-full h-auto"
+              loading="lazy" // Added lazy loading
             />
           </div>
           <div className="md:w-1/2">
@@ -357,6 +358,7 @@ const ExpertisePage = () => {
                 src={images.sustainability}
                 alt="Sustainable Building"
                 className="rounded-lg shadow-md w-full h-auto"
+                loading="lazy" // Added lazy loading
               />
             </div>
             <div className="md:w-1/2">

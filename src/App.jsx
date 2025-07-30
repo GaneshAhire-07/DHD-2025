@@ -18,6 +18,7 @@ import { InvestorRelations } from "./Pages/InvestorRelations/InvestorRelations";
 import PrivacySecurity from "./Pages/PrivacySecurity/PrivacySecurity";
 import ResponsibleUsePolicy from "./Pages/ResponsibleUsePolicy/ResponsibleUsePolicy";
 import OurSectors from "./Pages/ourSectors/OurSectors";
+import OurRiskDepartment from "./Pages/landing/OurRiskDept";
 
 function App() {
   return (
@@ -287,6 +288,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
+      <OurRiskDepartment />
     </Router>
   );
 }

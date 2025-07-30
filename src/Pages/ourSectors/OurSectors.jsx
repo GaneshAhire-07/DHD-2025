@@ -236,20 +236,18 @@ const OurSectors = () => {
         <div className="relative z-10">
           {" "}
           {/* Ensure text is above background pattern */}
-          <h1 className="text-3xl md:text-5xl font-bold drop-shadow-lg">
-            Our{" "}
-            <span className="bg-gradient-to-r from-blue-300 to-cyan-300 bg-clip-text text-transparent">
-              Sectors
-            </span>
-          </h1>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl font-semibold mb-4">
+            Our Sectors
+          </h2>
         </div>
       </section>
 
       {/* Floating Introduction Section */}
       <section className="-mt-20 relative z-10 mx-auto max-w-5xl bg-white rounded-2xl shadow-2xl text-center px-6 py-12">
-        <h2 className="text-2xl md:text-3xl font-semibold text-[#003366]">
-          DHD | APGC:{" "}
-          <span className="bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
+        <h2 className="text-2xl md:text-3xl font-semibold text-[#0d0d0e]">
+          DHD | APGC :{" "}
+          <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+            {" "}
             Building a Better World
           </span>
         </h2>
