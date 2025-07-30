@@ -2,6 +2,21 @@ import React, { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ServiceCard from "../../components/serviceCard/ServiceCard";
 import usePageTitle from "../../hooks/usePageTitle";
+import horticulture from "../../assets/Holticulture.jpg";
+import Architecture from "../../assets/Architecture.jpg"; // Adjust path if needed
+import LandscapeImage from "../../assets/LandscapeArchitech.jpg";
+import VerticalGarden from "../../assets/VerticalGarden.jpg"; // adjust path if needed
+import CorporateGreenSolution from "../../assets/CorporateGreenSolution.jpg"; // adjust path as needed
+import garderDesign from "../../assets/garderDesign.jpg"; // Adjust the path as needed
+import GrassPlantation from "../../assets/GrassPlantation.jpg"; // adjust path if needed
+import TeraceGarden from "../../assets/TeraceGarden.jpg";
+import KitchenGarden from "../../assets/KitchenGarden .jpg";
+import Infrastructure from "../../assets/Infrastructure.jpg";
+import Utilities from "../../assets/utilities.jpg"; // ✅ Adjust the path if needed
+import Housing from "../../assets/housing.jpg"; // Adjust the path as needed
+import Property from "../../assets/property.jpg"; // Adjust path if needed
+import FacilitiesManagement from "../../assets/FacilitiesManagement.jpg"; // Adjust path as per your folder structure
+
 import {
   FaLeaf,
   FaBuilding,
@@ -53,26 +68,26 @@ const ExpertisePage = () => {
 
   const images = {
     horticulture:
-      "https://images.unsplash.com/photo-1605000797499-95a51c5269ae",
+     horticulture,
     architecture:
-      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7",
-    development: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf",
+     Architecture,
+    development: LandscapeImage,
     verticalGarden:
-      "https://images.unsplash.com/photo-1585698067914-63e643353599",
+     VerticalGarden,
     corporateGreen:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
+     CorporateGreenSolution,
     gardenDesign:
-      "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae",
-    grass: "https://images.unsplash.com/photo-1562590871-7f3a2b1d3c5e",
-    terrace: "https://images.unsplash.com/photo-1598808503746-f34c53b9323e",
-    kitchen: "https://images.unsplash.com/photo-1589927986089-35812388d1f4",
+     garderDesign,
+    grass: GrassPlantation,
+    terrace: TeraceGarden,
+    kitchen: KitchenGarden,
     infrastructure:
-      "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df",
-    utilities: "https://images.unsplash.com/photo-1509391366360-2e959784a276",
-    housing: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
+     Infrastructure,
+    utilities: Utilities,
+    housing:  Housing,
     rail: "https://images.unsplash.com/photo-1519817650390-64a93db51149",
-    property: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab",
-    fm: "https://images.unsplash.com/photo-1486401899868-0e435ed85128",
+    property:Property,
+    fm: FacilitiesManagement,
     sustainability:
       "https://images.unsplash.com/photo-1450101499163-c8848c66ca85",
     expertise: "https://images.unsplash.com/photo-1552581234-26160f608093",
