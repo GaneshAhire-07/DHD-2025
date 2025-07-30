@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
+import dhdLogo from "../../assets/DHDLOGO.png";
 
 const menuData = [
   { title: "Home", path: "/" },
@@ -139,30 +140,20 @@ const menuData = [
   { title: "Contact", path: "/contact" },
 ];
 
-// --- Logo ---
-const DHDLogo = () => (
-  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-    <rect width="40" height="40" rx="8" fill="url(#logo-gradient)" />
-    <text
-      x="50%"
-      y="50%"
-      dominantBaseline="middle"
-      textAnchor="middle"
-      fill="white"
-      fontSize="14"
-      fontWeight="bold"
-      dy=".1em"
-    >
-      DHD
-    </text>
-    <defs>
-      <linearGradient id="logo-gradient" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="#BE2227" />
-        <stop offset="100%" stopColor="#2B4C80" />
-      </linearGradient>
-    </defs>
-  </svg>
-);
+{
+  /* Logo + Company Name Top Left */
+}
+<div className="absolute top-6 left-6 z-20 flex items-center gap-3">
+  <img src={dhdLogo} alt="DHD Logo" className="w-10 h-10 object-contain" />
+  <div className="leading-tight">
+    <div className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">
+      DHD Group
+    </div>
+    <div className="text-sm sm:text-base text-gray-600 tracking-wide">
+      of Companies
+    </div>
+  </div>
+</div>;
 
 // --- Menu Item ---
 const MenuItem = ({ item, level = 0, closeMobileMenu }) => {
@@ -338,13 +329,22 @@ export default function Navbar() {
               onClick={() => setIsMobileMenuOpen(false)}
               className="flex items-center space-x-2 group"
             >
-              <DHDLogo />
-              <span className="text-xl font-bold transition-colors duration-200 group-hover:text-blue-600">
-                <span style={{ color: "#be2227" }}>D</span>
-                <span style={{ color: "#2b2a29" }}>H</span>
-                <span style={{ color: "#2b4c80" }}>D</span>
-                <span className="text-gray-800"> Group</span>
-              </span>
+              <img
+                src={dhdLogo}
+                alt="DHD Logo"
+                className="w-8 h-7 sm:w-9 sm:h-8 md:w-10 md:h-10 object-contain"
+              />
+              <div className="leading-tight">
+                <div className="text-[12px] sm:text-[14px] md:text-[20px] font-bold">
+                  <span style={{ color: "#be2227" }}>D</span>
+                  <span style={{ color: "#2b2a29" }}>H</span>
+                  <span style={{ color: "#2b4c80" }}>D</span>
+                  <span className="text-gray-800"> Group</span>
+                </div>
+                <div className="text-[10px] sm:text-[11px] md:text-[12px] text-gray-500 tracking-wide">
+                  of Companies
+                </div>
+              </div>
             </Link>
 
             <ul className="hidden lg:flex items-center space-x-2">

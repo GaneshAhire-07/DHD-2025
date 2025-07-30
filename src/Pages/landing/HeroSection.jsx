@@ -1,48 +1,41 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
-import hero from "../../assets/hero.png"; // Ensure this path is correct for your project
+import hero from "../../assets/hero.png";
 
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef(null);
 
-  // Optimized mouse move handler for subtle parallax effect on background elements
   const handleMouseMove = useCallback((e) => {
     if (sectionRef.current) {
       const rect = sectionRef.current.getBoundingClientRect();
-      // Use requestAnimationFrame for smooth updates
       requestAnimationFrame(() => {
         setMousePosition({
-          x: (e.clientX - rect.left) / rect.width, // Normalized X position (0 to 1)
-          y: (e.clientY - rect.top) / rect.height, // Normalized Y position (0 to 1)
+          x: (e.clientX - rect.left) / rect.width,
+          y: (e.clientY - rect.top) / rect.height,
         });
       });
     }
   }, []);
 
-  // Intersection Observer to trigger entrance animations when the section becomes visible
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.1 } // Trigger when 10% of the section is visible
+      { threshold: 0.1 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
-    // Cleanup observer on component unmount
-    return () => {
-      if (sectionRef.current) observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
     <section
       ref={sectionRef}
       className="relative bg-gradient-to-br from-slate-50 via-white to-blue-50 py-12 lg:py-16 min-h-screen flex items-center overflow-hidden"
-      onMouseMove={handleMouseMove} // Attach mouse move listener for parallax
+      onMouseMove={handleMouseMove}
     >
-      {/* Animated Background Elements (Subtle, large circles for visual depth) */}
+      {/* Background Blur Circles */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Existing animated elements */}
         <div
           className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-2xl animate-float"
           style={{
@@ -61,14 +54,11 @@ const HeroSection = () => {
             transition: "transform 0.3s ease-out",
           }}
         />
-
-        {/* NEW: Navy Blue Animated Circle */}
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-                     w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px]
-                     bg-blue-900/15 rounded-full blur-3xl animate-pulse-slow-alt"
+            w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px]
+            bg-blue-900/15 rounded-full blur-3xl animate-pulse-slow-alt"
           style={{
-            // Add subtle parallax to this new circle as well
             transform: `translate(-50%, -50%) translate(${
               mousePosition.x * 20 - 10
             }px, ${mousePosition.y * 20 - 10}px)`,
@@ -77,22 +67,21 @@ const HeroSection = () => {
         />
       </div>
 
+      {/* Content */}
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-          {/* Left Content */}
+          {/* Left Text Content */}
           <div
             className={`w-full lg:w-1/2 text-center lg:text-left space-y-6 ${
               isVisible ? "animate-fadeInUp" : "opacity-0"
             }`}
           >
-            {/* Animated Badge */}
             <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-sm border border-blue-200/30 text-blue-700 text-sm font-medium rounded-full hover:scale-105 transition-transform duration-200 animate-pulse-slow">
               <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
               Trusted Industry Leader
             </div>
 
-            {/* Main Heading with Staggered Animation */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight space-y-2">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-snug space-y-2">
               <div className="overflow-hidden">
                 <span className="inline-block animate-slideUp text-slate-800 hover:text-slate-900 transition-colors duration-200">
                   Driven by{" "}
@@ -121,8 +110,7 @@ const HeroSection = () => {
               </div>
             </h1>
 
-            {/* Description with Typewriter Effect */}
-            <p className="text-slate-600 text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium animate-typewriter">
+            <p className="text-slate-600 text-base leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium animate-typewriter">
               <span className="font-bold text-slate-800 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 We
               </span>{" "}
@@ -130,16 +118,15 @@ const HeroSection = () => {
               partnerships, and shared success with stakeholders.
             </p>
 
-            {/* CTA Buttons with Modern Hover Effects */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fadeInUp delay-300">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fadeInUp delay-300 mt-2">
               <Link
                 to="/contact"
-                className="group relative px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg text-sm overflow-hidden transform hover:scale-105 transition-all duration-200 shadow-md hover:shadow-lg"
+                className="group relative px-6 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg text-sm hover:scale-105 transition-all duration-200 shadow-md"
               >
                 <span className="relative z-10 flex items-center">
                   Get Started
                   <svg
-                    className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-200"
+                    className="w-4 h-4 ml-2"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -152,16 +139,15 @@ const HeroSection = () => {
                     />
                   </svg>
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-20 transition-opacity duration-200" />
               </Link>
               <Link
                 to="/about/history"
-                className="group px-6 py-3 bg-white/80 backdrop-blur-sm text-slate-700 font-semibold rounded-lg text-sm border border-slate-200 hover:border-red-400 hover:text-red-600 transition-all duration-200 hover:scale-105 shadow-md hover:shadow-lg"
+                className="group px-6 py-2.5 bg-white/80 backdrop-blur-sm text-slate-700 font-semibold rounded-lg text-sm border border-slate-200 hover:border-red-400 hover:text-red-600 transition-all duration-200 hover:scale-105 shadow-md"
               >
                 <span className="flex items-center">
                   Contact Us
                   <svg
-                    className="w-4 h-4 ml-2 transform group-hover:rotate-12 transition-transform duration-200"
+                    className="w-4 h-4 ml-2"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -178,242 +164,46 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right Image Section */}
+          {/* Image Section */}
           <div
             className={`w-full lg:w-1/2 flex justify-center lg:justify-end relative ${
               isVisible ? "animate-slideInRight" : "opacity-0"
             }`}
           >
-            {/* Image container with increased size and no direct shadow */}
             <div className="relative z-10 w-full max-w-lg sm:max-w-xl lg:max-w-4xl group">
-              <div className="relative  transition-all duration-300 transform hover:scale-102">
+              <div className="relative">
                 <img
                   src={hero}
-                  alt="Professional businessman working with tablet - DHD Group"
+                  alt="Professional businessman working with tablet"
                   className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
-                {/* Subtle gradient overlay on image for depth */}
               </div>
-
-              {/* Floating UI Elements (kept as they add dynamic flair) */}
-
-              {/* Another floating element, repositioned for better balance */}
-              <div className="absolute bottom-8 -right-3 bg-white/90 backdrop-blur-md p-2 rounded-xl shadow-md animate-float-alt hover:scale-110 transition-all duration-200 rotate-6 border border-blue-100"></div>
+              <div className="absolute bottom-8 -right-3 bg-white/90 backdrop-blur-md p-2 rounded-xl shadow-md animate-float-alt border border-blue-100" />
             </div>
           </div>
         </div>
 
-        {/* Enhanced Scroll Indicator */}
-        <div className="hidden lg:flex justify-center mt-12 animate-fadeInUp delay-500">
-          <div className="flex flex-col items-center gap-2 text-slate-400 hover:text-slate-600 transition-colors duration-200 cursor-pointer group">
+        {/* Explore More */}
+        <div className="hidden lg:flex justify-center mt-8 animate-fadeInUp delay-500">
+          <div className="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 transition duration-200 cursor-pointer group">
             <span className="text-sm font-medium">Explore More</span>
-            <div className="relative">
-              <svg
-                className="w-5 h-5 animate-bounce-slow group-hover:animate-pulse"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                />
-              </svg>
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-500/10 rounded-full blur-md scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
+            <svg
+              className="w-5 h-5 animate-bounce-slow group-hover:animate-pulse"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        /* Keyframe Animations */
-        @keyframes slideUp {
-          from {
-            transform: translateY(20px);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes typewriter {
-          from {
-            width: 0;
-          }
-          to {
-            width: 100%;
-          }
-        }
-
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0) rotate(-6deg);
-          }
-          50% {
-            transform: translateY(-10px) rotate(-6deg);
-          }
-        }
-
-        @keyframes float-delayed {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-8px);
-          }
-        }
-
-        @keyframes float-alt {
-          0%,
-          100% {
-            transform: translateY(0) rotate(6deg);
-          }
-          50% {
-            transform: translateY(-10px) rotate(6deg);
-          }
-        }
-
-        @keyframes pulse-slow-alt {
-          0%,
-          100% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 0.15;
-          }
-          50% {
-            transform: translate(-50%, -50%) scale(1.05);
-            opacity: 0.25;
-          }
-        }
-
-        @keyframes bounce-slow {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-5px);
-          }
-        }
-
-        @keyframes pulse-slow {
-          0%,
-          100% {
-            opacity: 0.2;
-          }
-          50% {
-            opacity: 0.5;
-          }
-        }
-
-        /* Apply Animations with Delays */
-        .animate-slideUp {
-          animation: slideUp 0.5s ease-out forwards;
-        }
-
-        .animate-fadeInUp {
-          animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .animate-slideInRight {
-          animation: slideInRight 0.7s ease-out forwards;
-        }
-
-        .animate-typewriter {
-          animation: typewriter 2s steps(40) forwards;
-          overflow: hidden;
-          white-space: nowrap;
-          border-right: 2px solid transparent; /* Mimics cursor */
-        }
-
-        .animate-float {
-          animation: float 4s ease-in-out infinite;
-        }
-
-        .animate-float-delayed {
-          animation: float-delayed 5s ease-in-out infinite;
-        }
-
-        .animate-float-alt {
-          animation: float-alt 4.5s ease-in-out infinite;
-        }
-
-        .animate-pulse-slow-alt {
-          animation: pulse-slow-alt 4s ease-in-out infinite;
-        }
-
-        .animate-bounce-slow {
-          animation: bounce-slow 3s ease-in-out infinite;
-        }
-
-        .animate-pulse-slow {
-          animation: pulse-slow 3s ease-in-out infinite;
-        }
-
-        .delay-100 {
-          animation-delay: 0.1s;
-        }
-
-        .delay-200 {
-          animation-delay: 0.2s;
-        }
-
-        .delay-300 {
-          animation-delay: 0.3s;
-        }
-
-        .delay-400 {
-          animation-delay: 0.4s;
-        }
-
-        .delay-500 {
-          animation-delay: 0.5s;
-        }
-
-        /* Responsive adjustments for headings */
-        @media (max-width: 640px) {
-          h1 {
-            font-size: 2.5rem; /* Slightly smaller on small phones */
-            line-height: 1.2;
-          }
-          p {
-            font-size: 0.95rem; /* Slightly smaller paragraph text */
-          }
-        }
-        @media (min-width: 641px) and (max-width: 767px) {
-          h1 {
-            font-size: 3rem; /* Medium phones */
-          }
-        }
-      `}</style>
     </section>
   );
 };
