@@ -61,18 +61,18 @@ function App() {
             }
           />
           <Route
-            path="/about/values"
+            path="/about/investor"
             element={
               <PageLoaderWrapper>
-                <HistoryPage />
+                <InvestorRelations />
               </PageLoaderWrapper>
             }
           />
           <Route
-            path="/about/leadership"
+            path="/about/NRI"
             element={
               <PageLoaderWrapper>
-                <VisionMission />
+                <NRIPropertyInvestmentGuide />
               </PageLoaderWrapper>
             }
           />
@@ -266,7 +266,7 @@ function App() {
               </PageLoaderWrapper>
             }
           />
-           <Route
+          <Route
             path="/sectors"
             element={
               <PageLoaderWrapper>

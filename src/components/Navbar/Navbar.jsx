@@ -133,6 +133,8 @@ const DropdownLink = ({ to, children, closeMenu, external = false }) => {
 };
 
 // ServiceCategory Component: Used within "Our Expertise" dropdown for grouping links.
+// This component is no longer directly used in the "Our Expertise" dropdown structure,
+// but kept for reference if needed elsewhere or for future expansion.
 const ServiceCategory = ({ title, children }) => (
   <div className="mb-4">
     <h4 className="font-semibold text-gray-800 mb-2 pb-1 border-b border-gray-200">
@@ -143,6 +145,8 @@ const ServiceCategory = ({ title, children }) => (
 );
 
 // ServiceItem Component: A specific link within a ServiceCategory.
+// This component is no longer directly used in the "Our Expertise" dropdown structure,
+// but kept for reference if needed elsewhere or for future expansion.
 const ServiceItem = ({ to, children, closeMenu }) => (
   <Link
     to={to}
@@ -296,7 +300,10 @@ function Navbar() {
                   >
                     Leadership
                   </DropdownLink>
-                  <DropdownLink to="/about/customer" closeMenu={closeAllMenus}>
+                  <DropdownLink
+                    to="/customer-guide/complaint-guide"
+                    closeMenu={closeAllMenus}
+                  >
                     Customer Guide
                   </DropdownLink>
                 </div>
@@ -310,131 +317,114 @@ function Navbar() {
                 handleMouseEnter={handleMouseEnter}
                 handleMouseLeave={handleMouseLeave}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-w-[320px] lg:min-w-[600px]">
-                  <div className="space-y-4">
-                    <ServiceCategory title="Core Services">
-                      <DropdownLink
-                        to="https://iresworld.com/"
-                        closeMenu={closeAllMenus}
-                        external={true}
-                      >
-                        Real Estate Solutions
-                      </DropdownLink>
-                      <DropdownLink
-                        to="/expertise/construction"
-                        closeMenu={closeAllMenus}
-                      >
-                        Construction Services
-                      </DropdownLink>
-                      <DropdownLink
-                        to="/expertise/property"
-                        closeMenu={closeAllMenus}
-                      >
-                        Property Management
-                      </DropdownLink>
-                    </ServiceCategory>
-
-                    <ServiceCategory title="Infrastructure">
-                      <DropdownLink
-                        to="/expertise/infrastructure"
-                        closeMenu={closeAllMenus}
-                      >
-                        Infrastructure Development
-                      </DropdownLink>
-                      <DropdownLink
-                        to="/expertise/highways"
-                        closeMenu={closeAllMenus}
-                      >
-                        Highways & Transportation
-                      </DropdownLink>
-                      <DropdownLink
-                        to="/expertise/utilities"
-                        closeMenu={closeAllMenus}
-                      >
-                        Utilities & Services
-                      </DropdownLink>
-                      <DropdownLink
-                        to="/expertise/rail"
-                        closeMenu={closeAllMenus}
-                      >
-                        Rail Infrastructure
-                      </DropdownLink>
-                    </ServiceCategory>
-                  </div>
-
-                  <div className="space-y-4">
-                    <ServiceCategory title="Horticulture">
-                      <ServiceItem
-                        to="/expertise/horticulture"
-                        closeMenu={closeAllMenus}
-                      >
-                        Landscape Architecture & Design
-                      </ServiceItem>
-                      <ServiceItem
-                        to="/expertise/horticulture"
-                        closeMenu={closeAllMenus}
-                      >
-                        Vertical Gardens & Bio Walls
-                      </ServiceItem>
-                      <ServiceItem
-                        to="/expertise/horticulture"
-                        closeMenu={closeAllMenus}
-                      >
-                        Corporate Green Solutions
-                      </ServiceItem>
-                      <ServiceItem
-                        to="/expertise/horticulture"
-                        closeMenu={closeAllMenus}
-                      >
-                        Garden Design & Maintenance
-                      </ServiceItem>
-                      <ServiceItem
-                        to="/expertise/horticulture"
-                        closeMenu={closeAllMenus}
-                      >
-                        Terrace & Kitchen Gardening
-                      </ServiceItem>
-                      <ServiceItem
-                        to="/expertise/horticulture"
-                        closeMenu={closeAllMenus}
-                      >
-                        Sustainable Landscaping
-                      </ServiceItem>
-                    </ServiceCategory>
-
-                    <ServiceCategory title="Specialized">
-                      <ServiceItem
-                        to="/expertise/facilities"
-                        closeMenu={closeAllMenus}
-                      >
-                        Facilities Management
-                      </ServiceItem>
-                      <ServiceItem
-                        to="/expertise/environmental"
-                        closeMenu={closeAllMenus}
-                      >
-                        Environmental Solutions
-                      </ServiceItem>
-                      <ServiceItem
-                        to="/expertise/sustainable-design"
-                        closeMenu={closeAllMenus}
-                      >
-                        Sustainable Building Design
-                      </ServiceItem>
-                      <ServiceItem
-                        to="/expertise/housing"
-                        closeMenu={closeAllMenus}
-                      >
-                        Housing Maintenance
-                      </ServiceItem>
-                      <ServiceItem
-                        to="/expertise/consulting"
-                        closeMenu={closeAllMenus}
-                      >
-                        Project Consulting
-                      </ServiceItem>
-                    </ServiceCategory>
-                  </div>
+                {/* Updated structure for "Our Expertise" dropdown to be a single column */}
+                <div className="space-y-2">
+                  <DropdownLink
+                    to="https://iresworld.com/"
+                    closeMenu={closeAllMenus}
+                    external={true}
+                  >
+                    Real Estate Solutions
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/construction"
+                    closeMenu={closeAllMenus}
+                  >
+                    Construction Services
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/property"
+                    closeMenu={closeAllMenus}
+                  >
+                    Property Management
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/infrastructure"
+                    closeMenu={closeAllMenus}
+                  >
+                    Infrastructure Development
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/highways"
+                    closeMenu={closeAllMenus}
+                  >
+                    Highways & Transportation
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/utilities"
+                    closeMenu={closeAllMenus}
+                  >
+                    Utilities & Services
+                  </DropdownLink>
+                  <DropdownLink to="/expertise/rail" closeMenu={closeAllMenus}>
+                    Rail Infrastructure
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/horticulture"
+                    closeMenu={closeAllMenus}
+                  >
+                    Landscape Architecture & Design
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/horticulture"
+                    closeMenu={closeAllMenus}
+                  >
+                    Vertical Gardens & Bio Walls
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/horticulture"
+                    closeMenu={closeAllMenus}
+                  >
+                    Corporate Green Solutions
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/horticulture"
+                    closeMenu={closeAllMenus}
+                  >
+                    Garden Design & Maintenance
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/horticulture"
+                    closeMenu={closeAllMenus}
+                  >
+                    Terrace & Kitchen Gardening
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/horticulture"
+                    closeMenu={closeAllMenus}
+                  >
+                    Sustainable Landscaping
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/facilities"
+                    closeMenu={closeAllMenus}
+                  >
+                    Facilities Management
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/environmental"
+                    closeMenu={closeAllMenus}
+                  >
+                    Environmental Solutions
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/sustainable-design"
+                    closeMenu={closeAllMenus}
+                  >
+                    Sustainable Building Design
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/housing"
+                    closeMenu={closeAllMenus}
+                  >
+                    Housing Maintenance
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/consulting"
+                    closeMenu={closeAllMenus}
+                  >
+                    Project Consulting
+                  </DropdownLink>
                 </div>
               </DropdownMenu>
 
@@ -592,8 +582,6 @@ function Navbar() {
                     to="/customer-guide/complaint-guide"
                     closeMenu={closeAllMenus}
                   >
-                    {" "}
-                    {/* Corrected path */}
                     Customer Guide
                   </DropdownLink>
                 </div>
@@ -607,127 +595,116 @@ function Navbar() {
                 handleMouseEnter={handleMouseEnter} // Still pass, but won't apply on mobile
                 handleMouseLeave={handleMouseLeave} // Still pass, but won't apply on mobile
               >
-                {/* On mobile, this grid will naturally stack due to grid-cols-1 */}
-                <div className="space-y-4 pl-4">
+                {/* Updated structure for "Our Expertise" dropdown to be a single column */}
+                <div className="space-y-2 pl-4">
                   {" "}
                   {/* Added pl-4 for indentation */}
-                  <ServiceCategory title="Core Services">
-                    <DropdownLink
-                      to="https://iresworld.com/"
-                      closeMenu={closeAllMenus}
-                      external={true}
-                    >
-                      Real Estate Solutions
-                    </DropdownLink>
-                    <DropdownLink
-                      to="/expertise/construction"
-                      closeMenu={closeAllMenus}
-                    >
-                      Construction Services
-                    </DropdownLink>
-                    <DropdownLink
-                      to="/expertise/property"
-                      closeMenu={closeAllMenus}
-                    >
-                      Property Management
-                    </DropdownLink>
-                  </ServiceCategory>
-                  <ServiceCategory title="Infrastructure">
-                    <DropdownLink
-                      to="/expertise/infrastructure"
-                      closeMenu={closeAllMenus}
-                    >
-                      Infrastructure Development
-                    </DropdownLink>
-                    <DropdownLink
-                      to="/expertise/highways"
-                      closeMenu={closeAllMenus}
-                    >
-                      Highways & Transportation
-                    </DropdownLink>
-                    <DropdownLink
-                      to="/expertise/utilities"
-                      closeMenu={closeAllMenus}
-                    >
-                      Utilities & Services
-                    </DropdownLink>
-                    <DropdownLink
-                      to="/expertise/rail"
-                      closeMenu={closeAllMenus}
-                    >
-                      Rail Infrastructure
-                    </DropdownLink>
-                  </ServiceCategory>
-                  <ServiceCategory title="Horticulture">
-                    <ServiceItem
-                      to="/expertise/horticulture"
-                      closeMenu={closeAllMenus}
-                    >
-                      Landscape Architecture & Design
-                    </ServiceItem>
-                    <ServiceItem
-                      to="/expertise/horticulture"
-                      closeMenu={closeAllMenus}
-                    >
-                      Vertical Gardens & Bio Walls
-                    </ServiceItem>
-                    <ServiceItem
-                      to="/expertise/horticulture"
-                      closeMenu={closeAllMenus}
-                    >
-                      Corporate Green Solutions
-                    </ServiceItem>
-                    <ServiceItem
-                      to="/expertise/horticulture"
-                      closeMenu={closeAllMenus}
-                    >
-                      Garden Design & Maintenance
-                    </ServiceItem>
-                    <ServiceItem
-                      to="/expertise/horticulture"
-                      closeMenu={closeAllMenus}
-                    >
-                      Terrace & Kitchen Gardening
-                    </ServiceItem>
-                    <ServiceItem
-                      to="/expertise/horticulture"
-                      closeMenu={closeAllMenus}
-                    >
-                      Sustainable Landscaping
-                    </ServiceItem>
-                  </ServiceCategory>
-                  <ServiceCategory title="Specialized">
-                    <ServiceItem
-                      to="/expertise/facilities"
-                      closeMenu={closeAllMenus}
-                    >
-                      Facilities Management
-                    </ServiceItem>
-                    <ServiceItem
-                      to="/expertise/environmental"
-                      closeMenu={closeAllMenus}
-                    >
-                      Environmental Solutions
-                    </ServiceItem>
-                    <ServiceItem
-                      to="/expertise/sustainable-design"
-                      closeMenu={closeAllMenus}
-                    >
-                      Sustainable Building Design
-                    </ServiceItem>
-                    <ServiceItem
-                      to="/expertise/housing"
-                      closeMenu={closeAllMenus}
-                    >
-                      Housing Maintenance
-                    </ServiceItem>
-                    <ServiceItem
-                      to="/expertise/consulting"
-                      closeMenu={closeAllMenus}
-                    >
-                      Project Consulting
-                    </ServiceItem>
-                  </ServiceCategory>
+                  <DropdownLink
+                    to="https://iresworld.com/"
+                    closeMenu={closeAllMenus}
+                    external={true}
+                  >
+                    Real Estate Solutions
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/construction"
+                    closeMenu={closeAllMenus}
+                  >
+                    Construction Services
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/property"
+                    closeMenu={closeAllMenus}
+                  >
+                    Property Management
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/infrastructure"
+                    closeMenu={closeAllMenus}
+                  >
+                    Infrastructure Development
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/highways"
+                    closeMenu={closeAllMenus}
+                  >
+                    Highways & Transportation
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/utilities"
+                    closeMenu={closeAllMenus}
+                  >
+                    Utilities & Services
+                  </DropdownLink>
+                  <DropdownLink to="/expertise/rail" closeMenu={closeAllMenus}>
+                    Rail Infrastructure
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/horticulture"
+                    closeMenu={closeAllMenus}
+                  >
+                    Landscape Architecture & Design
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/horticulture"
+                    closeMenu={closeAllMenus}
+                  >
+                    Vertical Gardens & Bio Walls
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/horticulture"
+                    closeMenu={closeAllMenus}
+                  >
+                    Corporate Green Solutions
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/horticulture"
+                    closeMenu={closeAllMenus}
+                  >
+                    Garden Design & Maintenance
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/horticulture"
+                    closeMenu={closeAllMenus}
+                  >
+                    Terrace & Kitchen Gardening
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/horticulture"
+                    closeMenu={closeAllMenus}
+                  >
+                    Sustainable Landscaping
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/facilities"
+                    closeMenu={closeAllMenus}
+                  >
+                    Facilities Management
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/environmental"
+                    closeMenu={closeAllMenus}
+                  >
+                    Environmental Solutions
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/sustainable-design"
+                    closeMenu={closeAllMenus}
+                  >
+                    Sustainable Building Design
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/housing"
+                    closeMenu={closeAllMenus}
+                  >
+                    Housing Maintenance
+                  </DropdownLink>
+                  <DropdownLink
+                    to="/expertise/consulting"
+                    closeMenu={closeAllMenus}
+                  >
+                    Project Consulting
+                  </DropdownLink>
                 </div>
               </DropdownMenu>
 
