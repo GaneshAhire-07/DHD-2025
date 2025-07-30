@@ -14,7 +14,7 @@ function App() {
         <Routes>
           {MainRoutes()}
           {AboutRoutes()}
-          {ExpertiseRoutes()}
+          {ExpertiseRoutes()}  
           {OtherRoutes()}
         </Routes>
       </main>

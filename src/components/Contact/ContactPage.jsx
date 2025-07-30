@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { CheckCircle, X, Mail, Clock, Loader2 } from "lucide-react";
+import emailjs from "@emailjs/browser";
+import usePageTitle from "../../hooks/usePageTitle";
+// FIX 1: Added missing imports for icons (assuming lucide-react)
+import { Loader2, CheckCircle, X, Mail, Clock } from "lucide-react";
 
 const ContactPage = () => {
+  usePageTitle("Contact - Page");
   const initialFormState = {
     firstName: "",
     lastName: "",
@@ -12,9 +16,11 @@ const ContactPage = () => {
   };
 
   const [formData, setFormData] = useState(initialFormState);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  // FIX 2: Added state to store the last submitted topic for the popup
+  const [lastSubmittedTopic, setLastSubmittedTopic] = useState("");
 
   const topics = [
     "Administrative Services",
@@ -47,9 +53,13 @@ const ContactPage = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  // FIX 3: Completely refactored handleSubmit to be logical and sequential
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsLoading(true); // Start loading state immediately
+
+    // Store the topic before it gets cleared
+    setLastSubmittedTopic(formData.topic);
 
     const templateParams = {
       first_name: formData.firstName,
@@ -60,23 +70,6 @@ const ContactPage = () => {
       message: formData.message,
     };
 
-    // Simulate backend API call with 2 seconds loading
-    setTimeout(() => {
-      console.log("Message sent to backend successfully");
-      setIsLoading(false);
-      setIsSubmitted(true);
-      setShowSuccessPopup(true);
-      setFormData(initialFormState);
-
-      // Auto-close popup after 5 seconds
-      setTimeout(() => {
-        setShowSuccessPopup(false);
-        setIsSubmitted(false);
-      }, 5000);
-    }, 2000);
-
-    // Uncomment below for actual EmailJS implementation
-    /*
     emailjs
       .send(
         "service_vxk15ka",
@@ -87,33 +80,34 @@ const ContactPage = () => {
       .then(
         (result) => {
           console.log("Email sent:", result.text);
-          setIsLoading(false);
           setIsSubmitted(true);
           setShowSuccessPopup(true);
-          setFormData(initialFormState);
-          
+          setFormData(initialFormState); // Reset form only after success
+
+          // Auto-close popup after 5 seconds
           setTimeout(() => {
             setShowSuccessPopup(false);
-            setIsSubmitted(false);
+            setIsSubmitted(false); // Reset button state when popup closes
           }, 5000);
         },
         (error) => {
           console.error("Email send failed:", error.text);
-          setIsLoading(false);
           alert("Something went wrong while sending your message.");
         }
-      );
-    */
+      )
+      .finally(() => {
+        setIsLoading(false); // Stop loading state regardless of success or failure
+      });
   };
 
   const closePopup = () => {
     setShowSuccessPopup(false);
-    setIsSubmitted(false);
+    setIsSubmitted(false); // Also reset button state on manual close
   };
 
   return (
     <div className="bg-slate-50 font-sans text-slate-800 relative">
-      {/* Loading Modal */}
+      {/* Loading Modal (Now works correctly) */}
       {isLoading && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl shadow-2xl p-8 text-center max-w-sm mx-4">
@@ -134,7 +128,6 @@ const ContactPage = () => {
       {showSuccessPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 overflow-hidden animate-bounce">
-            {/* Header */}
             <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 relative">
               <button
                 onClick={closePopup}
@@ -148,23 +141,17 @@ const ContactPage = () => {
                   <h3 className="text-xl font-bold">
                     Message Sent Successfully!
                   </h3>
-                  <p className="text-green-100 text-sm">
-                    Direct to backend processed
-                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Content */}
             <div className="px-6 py-6 space-y-4">
               <div className="flex items-start space-x-3">
                 <Mail className="text-blue-600 mt-1" size={20} />
                 <div>
-                  <p className="text-gray-700 font-medium">
-                    Backend Confirmation
-                  </p>
+                  <p className="text-gray-700 font-medium">Message Received</p>
                   <p className="text-gray-600 text-sm">
-                    Your message has been directly sent to our backend system
+                    Your message has been successfully sent.
                   </p>
                 </div>
               </div>
@@ -184,16 +171,16 @@ const ContactPage = () => {
 
               <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
                 <p className="text-sm text-green-800">
-                  <span className="font-semibold">Message processed!</span> Your
-                  inquiry about{" "}
+                  <span className="font-semibold">Inquiry logged!</span> Your
+                  question about{" "}
+                  {/* FIX 4: Display the topic correctly from state */}
                   <span className="font-medium">
-                    {formData.topic || "your selected topic"}
+                    {lastSubmittedTopic || "your selected topic"}
                   </span>{" "}
-                  has been successfully received by our backend.
+                  has been received.
                 </p>
               </div>
 
-              {/* Auto-close countdown */}
               <div className="text-center">
                 <p className="text-xs text-gray-500">
                   This popup will close automatically in 5 seconds
@@ -201,12 +188,7 @@ const ContactPage = () => {
               </div>
             </div>
 
-            {/* Footer */}
-            <div className="bg-gray-50 px-6 py-4 flex justify-between items-center">
-              <div className="text-xs text-gray-500">
-                Backend ID: BE-
-                {Math.random().toString(36).substr(2, 9).toUpperCase()}
-              </div>
+            <div className="bg-gray-50 px-6 py-4 flex justify-end">
               <button
                 onClick={closePopup}
                 className="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors"
@@ -243,7 +225,11 @@ const ContactPage = () => {
         </div>
       </section>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white rounded-2xl shadow-xl max-w-4xl mx-auto my-10 px-8 py-10">
+      {/* FIX 5: Changed div to a proper <form> element with onSubmit */}
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white rounded-2xl shadow-xl max-w-4xl mx-auto my-10 px-8 py-10"
+      >
         <input
           type="text"
           name="firstName"
@@ -282,11 +268,12 @@ const ContactPage = () => {
         />
         <select
           name="topic"
+          required
           value={formData.topic}
           onChange={handleChange}
           className="md:col-span-2 p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-900"
         >
-          <option value="">Select a topic...</option>
+          <option value="">Select a topic*</option>
           {topics.map((topic, idx) => (
             <option key={idx} value={topic}>
               {topic}
@@ -303,15 +290,15 @@ const ContactPage = () => {
           className="md:col-span-2 p-4 border border-gray-300 rounded-lg bg-gray-100 resize-vertical min-h-[120px] focus:outline-none focus:ring-2 focus:ring-blue-900"
         />
 
+        {/* FIX 6: Changed to type="submit" and removed onClick */}
         <button
           type="submit"
           disabled={isLoading || isSubmitted}
-          onClick={handleSubmit}
           className={`md:col-span-2 p-4 font-semibold uppercase rounded-lg transition-all duration-300 shadow-md flex items-center justify-center space-x-2 ${
             isLoading
-              ? "bg-blue-400 text-white cursor-not-allowed"
-              : isSubmitted
               ? "bg-blue-600 text-white cursor-not-allowed"
+              : isSubmitted
+              ? "bg-green-600 text-white cursor-not-allowed"
               : "bg-[#002147] text-white hover:bg-[#003366] hover:-translate-y-1"
           }`}
         >
@@ -329,7 +316,7 @@ const ContactPage = () => {
             <span>Submit Message</span>
           )}
         </button>
-      </div>
+      </form>
     </div>
   );
 };

@@ -341,7 +341,7 @@ export default function Navbar() {
             <Link
               to="/"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center space-x-2 group"
+              className="flex items-center space-x-0 group"
             >
               <img
                 src={dhdLogo}
@@ -349,7 +349,7 @@ export default function Navbar() {
                 className="w-8 h-7 sm:w-9 sm:h-8 md:w-10 md:h-10 object-contain"
               />
               <div className="leading-tight">
-                <div className="text-[12px] sm:text-[14px] md:text-[20px] font-bold">
+                <div className="text-[14px] sm:text-[14px] md:text-[20px] font-bold">
                   <span style={{ color: "#be2227" }}>D</span>
                   <span style={{ color: "#2b2a29" }}>H</span>
                   <span style={{ color: "#2b4c80" }}>D</span>
