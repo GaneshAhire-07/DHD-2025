@@ -347,7 +347,7 @@ export default function Navbar() {
               </div>
             </Link>
 
-            <ul className="hidden lg:flex items-center space-x-2">
+            <ul className="hidden lg:flex items-center space-x-0">
               {menuData.map((item) => (
                 <MenuItem key={item.title} item={item} />
               ))}
