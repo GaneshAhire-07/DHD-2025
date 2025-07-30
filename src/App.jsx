@@ -19,7 +19,9 @@ import PrivacySecurity from "./Pages/PrivacySecurity/PrivacySecurity";
 import ResponsibleUsePolicy from "./Pages/ResponsibleUsePolicy/ResponsibleUsePolicy";
 import OurSectors from "./Pages/ourSectors/OurSectors";
 import OurRiskDepartment from "./Pages/landing/OurRiskDept";
-
+import OurAuditors from "./Pages/landing/OurAuditors";
+import Governance from "./Pages/landing/Governance";
+import Rail from "./Pages/OurExpertisePages/Rail";
 function App() {
   return (
     <Router>
@@ -86,6 +88,27 @@ function App() {
             }
           />
 
+           <Route
+            path="/about/governance"
+            element={
+              <PageLoaderWrapper>
+                <Governance />
+              </PageLoaderWrapper>
+            }
+          />
+
+              <Route
+            path="/about/our-policies"
+            element={
+              <PageLoaderWrapper>
+                <PrivacySecurity />
+              </PageLoaderWrapper>
+            }
+          />
+
+
+          
+
           {/* Expertise Routes */}
           <Route
             path="/expertise"
@@ -123,7 +146,7 @@ function App() {
             path="/expertise/rail"
             element={
               <PageLoaderWrapper>
-                <ExpertisePage />
+                <Rail />
               </PageLoaderWrapper>
             }
           />
@@ -275,6 +298,23 @@ function App() {
               </PageLoaderWrapper>
             }
           />
+          <Route
+            path="/about/committee/risk-department"
+            element={
+              <PageLoaderWrapper>
+                <OurRiskDepartment />
+              </PageLoaderWrapper>
+            }
+          />
+
+           <Route
+            path="/about/committee/auditors-department"
+            element={
+              <PageLoaderWrapper>
+                <OurAuditors />
+              </PageLoaderWrapper>
+            }
+          />
 
           {/* 404 Fallback */}
           <Route
@@ -288,7 +328,6 @@ function App() {
         </Routes>
       </main>
       <Footer />
-      <OurRiskDepartment />
     </Router>
   );
 }

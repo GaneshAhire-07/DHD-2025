@@ -1,7 +1,7 @@
 // src/pages/Governance.jsx
 import React from "react";
-import usePageTitle from "../hooks/usePageTitle";
-import InfoSection from "../components/InfoSection";
+import usePageTitle from "../../hooks/usePageTitle";
+import InfoSection from "../landing/InfoSection";
 
 // Sample images - replace with your actual image paths
 const images = {
