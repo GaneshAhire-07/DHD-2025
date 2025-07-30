@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import horticulture from "../../assets/horticulture.jpg";
+import horticulture from "../../assets/Holticulture.jpg";
 import cityPark from "../../assets/city-park-with-lake.jpg";
 import sustainablePractices from "../../assets/sustainable-practises.jpg";
 import customerCentric from "../../assets/customer-centric.jpg";

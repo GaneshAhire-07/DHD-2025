@@ -354,7 +354,7 @@ export default function Navbar() {
               <li>
                 <NavLink
                   to="/partner"
-                  className="ml-4 px-4 py-2.5 rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-all duration-200 text-sm shadow-md"
+                  className="ml-4 px-4 py-2.5 rounded-lg text-white bg-navy-blue-600 hover:bg-blue-700 transition-all duration-200 text-sm shadow-md"
                 >
                   Become a Partner
                 </NavLink>
