@@ -1,11 +1,8 @@
 import React from 'react';
-import Navbar from '../../components/Navbar/Navbar';
-import Footer from '../../components/Footer/Footer';
 
 const History = () => {
   return (
     <>
-    <Navbar/>
     <div className="bg-gray-50 min-h-screen mt-20">
       {/* Header */}
       <header className="bg-white shadow-sm">

@@ -1,7 +1,7 @@
 import React from "react";
 import usePageTitle from "../../hooks/usePageTitle";
 
-export const InvestorRelations = () => {
+const InvestorRelations = () => {
   usePageTitle("Investor Relations");
   return (
     <div className="bg-slate-50 font-sans text-slate-800">
@@ -264,3 +264,5 @@ export const InvestorRelations = () => {
     </div>
   );
 };
+
+export default InvestorRelations;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { HashLink } from "react-router-hash-link"; // Import HashLink
 import dhdLogo from "../../assets/DHDLOGO.png";
 
 const menuData = [
@@ -66,7 +67,7 @@ const menuData = [
       },
       {
         title: "Horticulture Services",
-        path: "/expertise/horticulture",
+        path: "/expertise/infrastructure",
         submenu: [
           {
             title: "Landscape Architecture & Design",
@@ -140,25 +141,12 @@ const menuData = [
   { title: "Contact", path: "/contact" },
 ];
 
-{
-  /* Logo + Company Name Top Left */
-}
-<div className="absolute top-6 left-6 z-20 flex items-center gap-3">
-  <img src={dhdLogo} alt="DHD Logo" className="w-10 h-10 object-contain" />
-  <div className="leading-tight">
-    <div className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800">
-      DHD Group
-    </div>
-    <div className="text-sm sm:text-base text-gray-600 tracking-wide">
-      of Companies
-    </div>
-  </div>
-</div>;
-
-// --- Menu Item ---
+// --- Updated Menu Item Component ---
 const MenuItem = ({ item, level = 0, closeMobileMenu }) => {
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = useRef(null);
+  const location = useLocation();
+
   const isMobile = () =>
     typeof window !== "undefined" && window.innerWidth < 1024;
   const hasSubmenu = item.submenu && item.submenu.length > 0;
@@ -185,11 +173,25 @@ const MenuItem = ({ item, level = 0, closeMobileMenu }) => {
 
   const commonLinkClasses =
     "flex items-center justify-between w-full px-3 py-2 text-left transition duration-200 rounded-md text-sm";
+
+  // Check if the main path (before any #) is active
+  const isActive = location.pathname === (item.path || "").split("#")[0];
+
   const activeLinkClasses = "font-semibold text-blue-600 bg-blue-100";
   const inactiveLinkClasses =
     "text-gray-700 hover:bg-gray-100 hover:text-blue-600";
 
   const renderLink = () => {
+    const isHashLink = item.path && item.path.includes("#");
+
+    // Determine the classes for the link
+    const linkClasses = `${commonLinkClasses} ${
+      isActive && !hasSubmenu && !isHashLink
+        ? activeLinkClasses
+        : inactiveLinkClasses
+    }`;
+
+    // External Link
     if (item.external) {
       return (
         <a
@@ -197,7 +199,7 @@ const MenuItem = ({ item, level = 0, closeMobileMenu }) => {
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleLinkClick}
-          className={`${commonLinkClasses} ${inactiveLinkClasses}`}
+          className={linkClasses}
         >
           <span>{item.title}</span>
           <svg
@@ -216,15 +218,27 @@ const MenuItem = ({ item, level = 0, closeMobileMenu }) => {
         </a>
       );
     }
+
+    // Hash Link for in-page scrolling
+    if (isHashLink) {
+      return (
+        <HashLink
+          smooth
+          to={item.path}
+          onClick={handleLinkClick}
+          className={linkClasses}
+        >
+          <span>{item.title}</span>
+        </HashLink>
+      );
+    }
+
+    // Regular Internal Link
     return (
       <NavLink
         to={item.path || "#"}
         onClick={handleLinkClick}
-        className={({ isActive }) =>
-          `${commonLinkClasses} ${
-            isActive && !hasSubmenu ? activeLinkClasses : inactiveLinkClasses
-          }`
-        }
+        className={linkClasses}
       >
         <span>{item.title}</span>
         {hasSubmenu && (
@@ -285,7 +299,7 @@ const MenuItem = ({ item, level = 0, closeMobileMenu }) => {
   );
 };
 
-// --- Navbar ---
+// --- Navbar Component ---
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);

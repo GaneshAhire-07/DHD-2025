@@ -3,19 +3,19 @@ import { useLocation } from "react-router-dom";
 import ServiceCard from "../../components/serviceCard/ServiceCard";
 import usePageTitle from "../../hooks/usePageTitle";
 import horticulture from "../../assets/Holticulture.jpg";
-import Architecture from "../../assets/Architecture.jpg"; // Adjust path if needed
+import Architecture from "../../assets/Architecture.jpg";
 import LandscapeImage from "../../assets/LandscapeArchitech.jpg";
-import VerticalGarden from "../../assets/VerticalGarden.jpg"; // adjust path if needed
-import CorporateGreenSolution from "../../assets/CorporateGreenSolution.jpg"; // adjust path as needed
-import garderDesign from "../../assets/garderDesign.jpg"; // Adjust the path as needed
-import GrassPlantation from "../../assets/GrassPlantation.jpg"; // adjust path if needed
+import VerticalGarden from "../../assets/VerticalGarden.jpg";
+import CorporateGreenSolution from "../../assets/CorporateGreenSolution.jpg";
+import garderDesign from "../../assets/garderDesign.jpg";
+import GrassPlantation from "../../assets/GrassPlantation.jpg";
 import TeraceGarden from "../../assets/TeraceGarden.jpg";
 import KitchenGarden from "../../assets/KitchenGarden .jpg";
 import Infrastructure from "../../assets/Infrastructure.jpg";
-import Utilities from "../../assets/utilities.jpg"; // ✅ Adjust the path if needed
-import Housing from "../../assets/housing.jpg"; // Adjust the path as needed
-import Property from "../../assets/property.jpg"; // Adjust path if needed
-import FacilitiesManagement from "../../assets/FacilitiesManagement.jpg"; // Adjust path as per your folder structure
+import Utilities from "../../assets/utilities.jpg";
+import Housing from "../../assets/housing.jpg";
+import Property from "../../assets/property.jpg";
+import FacilitiesManagement from "../../assets/FacilitiesManagement.jpg";
 
 import {
   FaLeaf,
@@ -57,36 +57,34 @@ const ExpertisePage = () => {
   usePageTitle("Expertise");
   const location = useLocation();
 
+  // This useEffect is correct and will handle scrolling once the IDs are in place.
   useEffect(() => {
     if (location.hash) {
       const element = document.getElementById(location.hash.substring(1));
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        // Adding a timeout can help ensure the element is rendered before scrolling
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
       }
     }
   }, [location]);
 
   const images = {
-    horticulture:
-     horticulture,
-    architecture:
-     Architecture,
+    horticulture,
+    architecture: Architecture,
     development: LandscapeImage,
-    verticalGarden:
-     VerticalGarden,
-    corporateGreen:
-     CorporateGreenSolution,
-    gardenDesign:
-     garderDesign,
+    verticalGarden: VerticalGarden,
+    corporateGreen: CorporateGreenSolution,
+    gardenDesign: garderDesign,
     grass: GrassPlantation,
     terrace: TeraceGarden,
     kitchen: KitchenGarden,
-    infrastructure:
-     Infrastructure,
+    infrastructure: Infrastructure,
     utilities: Utilities,
-    housing:  Housing,
+    housing: Housing,
     rail: "https://images.unsplash.com/photo-1519817650390-64a93db51149",
-    property:Property,
+    property: Property,
     fm: FacilitiesManagement,
     sustainability:
       "https://images.unsplash.com/photo-1450101499163-c8848c66ca85",
@@ -118,7 +116,7 @@ const ExpertisePage = () => {
               src={images.horticulture}
               alt="Horticulture Services"
               className="rounded-lg shadow-md w-full h-auto"
-              loading="lazy" // Added lazy loading
+              loading="lazy"
             />
           </div>
           <div className="md:w-1/2">
@@ -150,61 +148,76 @@ const ExpertisePage = () => {
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            <ServiceCard
-              image={images.architecture}
-              title="Landscape Architecture & Design"
-              icon={<FaTree />}
-            >
-              DHD offers expert landscape architectural services, encompassing
-              master planning, site analysis, and conceptual design. Our
-              experienced architects work closely with clients to develop
-              customized solutions that harmonize with the surrounding
-              environment and fulfill their unique vision.
-            </ServiceCard>
-            <ServiceCard
-              image={images.development}
-              title="Landscape Development & Construction"
-              icon={<FaWrench />}
-            >
-              We provide turnkey landscape development and construction
-              services, managing all aspects of the project from site
-              preparation and planting to hardscaping and irrigation
-              installation. Our skilled team ensures meticulous execution and
-              adheres to the highest industry standards.
-            </ServiceCard>
-            <ServiceCard
-              image={images.verticalGarden}
-              title="Vertical Gardens & Bio Walls"
-              icon={<FaSeedling />}
-            >
-              We specialize in the design and installation of innovative
-              vertical gardens and bio walls, transforming interior and exterior
-              spaces with lush greenery. These solutions maximize space
-              utilization and create stunning visual focal points while
-              promoting biodiversity and improving air quality.
-            </ServiceCard>
-            <ServiceCard
-              image={images.corporateGreen}
-              title="Corporate Green Solutions"
-              icon={<FaBuilding />}
-            >
-              DHD offers tailored green solutions for corporate clients,
-              including "Plants on Rent" and "Maali on Rent" programs. We
-              understand the importance of a healthy and inspiring work
-              environment and provide sustainable solutions that enhance
-              employee well-being and promote corporate social responsibility.
-            </ServiceCard>
-            <ServiceCard
-              image={images.gardenDesign}
-              title="Garden Design & Maintenance"
-              icon={<FaLeaf />}
-            >
-              Our team of horticultural experts provides comprehensive garden
-              design and maintenance services, ensuring vibrant and thriving
-              landscapes. We offer a wide selection of plants, decorative
-              elements, and maintenance programs to suit diverse needs and
-              preferences.
-            </ServiceCard>
+            {/* Added ID for scrolling */}
+            <div id="design">
+              <ServiceCard
+                image={images.architecture}
+                title="Landscape Architecture & Design"
+                icon={<FaTree />}
+              >
+                DHD offers expert landscape architectural services, encompassing
+                master planning, site analysis, and conceptual design. Our
+                experienced architects work closely with clients to develop
+                customized solutions that harmonize with the surrounding
+                environment and fulfill their unique vision.
+              </ServiceCard>
+            </div>
+            {/* Added ID for scrolling */}
+            <div id="construction">
+              <ServiceCard
+                image={images.development}
+                title="Landscape Development & Construction"
+                icon={<FaWrench />}
+              >
+                We provide turnkey landscape development and construction
+                services, managing all aspects of the project from site
+                preparation and planting to hardscaping and irrigation
+                installation. Our skilled team ensures meticulous execution and
+                adheres to the highest industry standards.
+              </ServiceCard>
+            </div>
+            {/* Added ID for scrolling */}
+            <div id="vertical-gardens">
+              <ServiceCard
+                image={images.verticalGarden}
+                title="Vertical Gardens & Bio Walls"
+                icon={<FaSeedling />}
+              >
+                We specialize in the design and installation of innovative
+                vertical gardens and bio walls, transforming interior and
+                exterior spaces with lush greenery. These solutions maximize
+                space utilization and create stunning visual focal points while
+                promoting biodiversity and improving air quality.
+              </ServiceCard>
+            </div>
+            {/* Added ID for scrolling */}
+            <div id="corporate-green">
+              <ServiceCard
+                image={images.corporateGreen}
+                title="Corporate Green Solutions"
+                icon={<FaBuilding />}
+              >
+                DHD offers tailored green solutions for corporate clients,
+                including "Plants on Rent" and "Maali on Rent" programs. We
+                understand the importance of a healthy and inspiring work
+                environment and provide sustainable solutions that enhance
+                employee well-being and promote corporate social responsibility.
+              </ServiceCard>
+            </div>
+            {/* Added ID for scrolling */}
+            <div id="garden-design">
+              <ServiceCard
+                image={images.gardenDesign}
+                title="Garden Design & Maintenance"
+                icon={<FaLeaf />}
+              >
+                Our team of horticultural experts provides comprehensive garden
+                design and maintenance services, ensuring vibrant and thriving
+                landscapes. We offer a wide selection of plants, decorative
+                elements, and maintenance programs to suit diverse needs and
+                preferences.
+              </ServiceCard>
+            </div>
           </div>
 
           <h3 className="text-2xl font-semibold text-center mb-8 text-oxford-blue">
@@ -212,36 +225,49 @@ const ExpertisePage = () => {
           </h3>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <ServiceCard
-              image={images.grass}
-              title="Grass Plantation"
-              icon={<FaGlobe />}
-            >
-              We offer a diverse selection of high-quality grasses suitable for
-              various applications, including lawns, sports fields, and erosion
-              control.
-            </ServiceCard>
-            <ServiceCard
-              image={images.terrace}
-              title="Terrace Gardening"
-              icon={<FaHome />}
-            >
-              We create functional and aesthetically pleasing terrace gardens,
-              maximizing outdoor living space and promoting urban agriculture.
-            </ServiceCard>
-            <ServiceCard
-              image={images.kitchen}
-              title="Kitchen Gardening"
-              icon={<FaSeedling />}
-            >
-              We design and implement kitchen gardens, enabling clients to
-              cultivate fresh produce in limited spaces.
-            </ServiceCard>
+            {/* Added ID for scrolling */}
+            <div id="grass-plantation">
+              <ServiceCard
+                image={images.grass}
+                title="Grass Plantation"
+                icon={<FaGlobe />}
+              >
+                We offer a diverse selection of high-quality grasses suitable
+                for various applications, including lawns, sports fields, and
+                erosion control.
+              </ServiceCard>
+            </div>
+            {/* Added ID for scrolling */}
+            <div id="terrace">
+              <ServiceCard
+                image={images.terrace}
+                title="Terrace Gardening"
+                icon={<FaHome />}
+              >
+                We create functional and aesthetically pleasing terrace gardens,
+                maximizing outdoor living space and promoting urban agriculture.
+              </ServiceCard>
+            </div>
+            {/* Added ID for scrolling */}
+            <div id="kitchen">
+              <ServiceCard
+                image={images.kitchen}
+                title="Kitchen Gardening"
+                icon={<FaSeedling />}
+              >
+                We design and implement kitchen gardens, enabling clients to
+                cultivate fresh produce in limited spaces.
+              </ServiceCard>
+            </div>
           </div>
         </section>
 
         {/* Our Expertise Section */}
-        <section className="mb-24 bg-white rounded-xl shadow-md p-8">
+        {/* Added ID for scrolling */}
+        <section
+          id="expertise"
+          className="mb-24 bg-white rounded-xl shadow-md p-8"
+        >
           <SectionTitle title="Our Horticulture Expertise" />
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center p-6 bg-gray-50 rounded-lg">
@@ -254,7 +280,11 @@ const ExpertisePage = () => {
                 knowledge of plant selection, care, and maintenance.
               </p>
             </div>
-            <div className="text-center p-6 bg-gray-50 rounded-lg">
+            {/* Added ID for scrolling */}
+            <div
+              id="sustainable"
+              className="text-center p-6 bg-gray-50 rounded-lg"
+            >
               <FaRecycle className="text-4xl mx-auto text-green-600 mb-4" />
               <h3 className="text-xl font-semibold mb-3">
                 Sustainable Practices
@@ -293,6 +323,7 @@ const ExpertisePage = () => {
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Note: Add IDs here if your navbar links to these sections */}
             <ServiceCard
               image={images.infrastructure}
               title="Infrastructure"
@@ -358,7 +389,7 @@ const ExpertisePage = () => {
 
         {/* Sustainability Section */}
         <section
-          id="sustainability"
+          id="sustainability-design" // Changed ID to be more specific
           className="mt-24 bg-white rounded-xl shadow-md p-8"
         >
           <SectionTitle
@@ -373,7 +404,7 @@ const ExpertisePage = () => {
                 src={images.sustainability}
                 alt="Sustainable Building"
                 className="rounded-lg shadow-md w-full h-auto"
-                loading="lazy" // Added lazy loading
+                loading="lazy"
               />
             </div>
             <div className="md:w-1/2">

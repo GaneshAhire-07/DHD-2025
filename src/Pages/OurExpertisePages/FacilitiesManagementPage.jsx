@@ -1,13 +1,13 @@
 import React from 'react';
 
-// The main component for the Utilities page.
-export default function UtilitiesPage() {
+// The main component for the Facilities Management page.
+export default function FacilitiesManagementPage() {
     return (
         <div>
             {/* Hero Section with a background image and overlay */}
-            <div className="relative h-80 bg-cover bg-center" style={{ backgroundImage: "url('https://img.freepik.com/free-photo/power-lines-highlight-vast-industrial-landscape_1258-191409.jpg')" }}>
+            <div className="relative h-80 bg-cover bg-center" style={{ backgroundImage: "url('https://img.freepik.com/free-photo/corporate-buildings-from-low-angle-view_1359-115.jpg')" }}>
                 <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white p-4">
-                    <h1 className="text-5xl font-extrabold text-center">Utilities</h1>
+                    <h1 className="text-5xl font-extrabold text-center">Facilities Management</h1>
                 </div>
             </div>
 
@@ -16,16 +16,16 @@ export default function UtilitiesPage() {
                 <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                     {/* Text Content */}
                     <div>
-                         <h2 className="text-3xl font-bold text-[#002147] mb-6">Reliable & Sustainable Solutions</h2>
+                         <h2 className="text-3xl font-bold text-[#002147] mb-6">Comprehensive Operational Support</h2>
                          <p className="text-lg text-gray-700 leading-relaxed">
-                            DHD provides expert installation and maintenance services for vital utility connections, ensuring the seamless operation of water, energy, and telecommunications networks. We are committed to delivering reliable and sustainable solutions that support the needs of communities and businesses.
+                            DHD Places provides comprehensive facilities management services, ensuring the optimal operation of buildings and infrastructure. Our services encompass building maintenance, energy management, security, and sustainability initiatives.
                         </p>
                     </div>
                     {/* Image Content */}
                     <div>
                         <img 
-                            src="https://placehold.co/600x400/e2e8f0/334155?text=Utility+Services" 
-                            alt="Utility Services" 
+                            src="https://placehold.co/600x400/e2e8f0/334155?text=Our+Services" 
+                            alt="Facilities Management Services" 
                             className="rounded-lg shadow-xl w-full h-auto"
                             onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/600x400/e2e8f0/334155?text=Image+Not+Found'; }}
                         />
