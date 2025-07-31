@@ -1,28 +1,16 @@
-import localImpactImage from "../../assets/localImpactImage.jpeg"
-import commitmentImage from "../../assets/commitmentImage.jpeg";
-
-const modernMethodsImage =
-  "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=400&fit=crop";
-const covidResponseImage =
-  "https://images.unsplash.com/photo-1584744982491-665216d95f8b?w=800&h=400&fit=crop";
-const careerEventsImage =
-  "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=800&h=400&fit=crop";
-const offsiteMethodsImage =
-  "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&h=400&fit=crop";
-const bimIntegrationImage =
-  "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=400&fit=crop";
-const bimTechnologyImage =
-  "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=400&fit=crop";
-const bimCollaborationImage =
-  "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop";
-const supplyChainImage =
-  "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=400&fit=crop";
-const paymentPracticesImage =
-  "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=400&fit=crop";
-const sustainableWorldImage =
-  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=400&fit=crop";
-const sustainabilityFrameworkImage =
-  "https://images.unsplash.com/photo-1473172707857-f9e276582ab6?w=800&h=400&fit=crop";
+import localImpactImage from "../../assets/localImpactImage.jpeg";
+import commitmentImage from "../../assets/commitment.jpeg";
+import modernMethodsImage from "../../assets/modernMethodsImage.jpg";
+import covidResponseImage from "../../assets/covid.webp";
+import careerEventsImage from "../../assets/careerEventsImage.avif";
+import offsiteMethodsImage from "../../assets/offsiteMethodsImage.jpg";
+import bimIntegrationImage from "../../assets/bimIntegrationImage.jpg";
+import bimTechnologyImage from "../../assets/bimTechnologyImage.jpg";
+import bimCollaborationImage from "../../assets/bimCollaborationImage.jpg";
+import supplyChainImage from "../../assets/supplyChainImage.jpg";
+import paymentPracticesImage from "../../assets/paymentPracticesImage.jpg";
+import sustainableWorldImage from "../../assets/sustainableWorldImage.jpg";
+import sustainabilityFrameworkImage from "../../assets/sustainabilityFrameworkImage.jpg";
 
 const OurApproach = () => {
   return (
