@@ -1,5 +1,5 @@
-import localImpactImage from "../../assets/localImpactImage.jpeg"
-import commitmentImage from "../../assets/commitmentImage.jpeg";
+// import localImpactImage from "../../assets/localImpactImage.jpeg"
+// import commitmentImage from "../../assets/commitmentImage.jpeg";
 
 const modernMethodsImage =
   "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=400&fit=crop";
