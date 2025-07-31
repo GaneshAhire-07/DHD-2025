@@ -13,6 +13,12 @@ import {
   Home,
   ArrowRight,
 } from "lucide-react";
+import degree from "../../assets/degree.avif";
+import energy from "../../assets/energy.avif";
+import environmental from "../../assets/environmental.avif";
+import health from "../../assets/health.avif";
+import highways from "../../assets/highways.avif";
+import industrial from "../../assets/industrial.avif";
 
 const OurSectors = () => {
   const primaryColor = "#002C59"; // Kept for reference
@@ -23,8 +29,7 @@ const OurSectors = () => {
       title: "Education",
       icon: GraduationCap,
       color: "from-blue-500 to-indigo-600",
-      image:
-        "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      image: degree,
       description:
         "DHD | APGC is a world-leading provider of school and university buildings, delivering over $1 billion worth of educational facilities and fostering inspiring learning environments across all levels.",
       highlights: [
@@ -51,8 +56,7 @@ const OurSectors = () => {
       title: "Energy",
       icon: Zap,
       color: "from-yellow-500 to-orange-600",
-      image:
-        "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      image: energy,
       description:
         "In the dynamic energy sector, DHD | APGC enhances customer service, fosters innovation, and delivers exceptional value across electricity and gas networks, including emerging markets.",
       highlights: [
@@ -79,8 +83,7 @@ const OurSectors = () => {
       title: "Environmental",
       icon: Leaf,
       color: "from-green-500 to-emerald-600",
-      image:
-        "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      image: environmental,
       description:
         "DHD | APGC partners with local authorities to achieve significant cost savings and environmental targets through efficient waste management, recycling, and comprehensive street services.",
       highlights: [
@@ -107,8 +110,7 @@ const OurSectors = () => {
       title: "Health",
       icon: Heart,
       color: "from-red-500 to-pink-600",
-      image:
-        "https://images.unsplash.com/photo-1551190822-a9333d879b1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      image: health,
       description:
         "DHD collaborates with healthcare providers to deliver innovative building solutions, from strategic estates to ward refurbishments, prioritizing patient well-being and efficient delivery.",
       highlights: [
@@ -135,8 +137,7 @@ const OurSectors = () => {
       title: "Highways & Bridges",
       icon: Construction,
       color: "from-gray-600 to-slate-700",
-      image:
-        "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      image: highways,
       description:
         "As a leading highways service provider for over 25 years, DHD | APGC maintains and improves critical road infrastructure, from major schemes to routine maintenance, with a focus on safety and sustainability.",
       highlights: [
@@ -163,8 +164,7 @@ const OurSectors = () => {
       title: "Industrial",
       icon: Factory,
       color: "from-purple-600 to-indigo-700",
-      image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      image: industrial,
       description:
         "DHD | APGC provides comprehensive end-to-end solutions for the industrial sector, from site identification to facilities management, including warehouses, manufacturing plants, and data centers.",
       highlights: [
