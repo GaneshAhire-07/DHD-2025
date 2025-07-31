@@ -1,10 +1,10 @@
 // src/pages/OurRiskDepartment.jsx
 import React from "react";
 import InfoSection from "./InfoSection";
+import b1 from "../../assets/b1.jpeg";
 // Sample images - replace with your actual image paths
 const images = {
-  riskDepartment: "https://picsum.photos/seed/dhd-risk-department/800/600",
-  covidRisk: "https://picsum.photos/seed/dhd-covid-risk/800/600",
+  riskDepartment: b1,
 };
 
 const OurRiskDepartment = () => {

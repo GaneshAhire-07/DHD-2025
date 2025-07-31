@@ -1,12 +1,12 @@
 import usePageTitle from "../../hooks/usePageTitle";
 import InfoSection from "../landing/InfoSection";
 import supervisorBoard from "../../assets/supervisorBoard.jpg";
-import corporateGovernance from "../../assets/image01.jpg";
+import corpgov from "../../assets/corpgov.jpg";
 import boardCommittees from "../../assets/board.jpg";
 
 const images = {
   supervisorBoard: supervisorBoard,
-  corporateGovernance: corporateGovernance,
+  corpgov: corpgov,
   boardCommittees: boardCommittees,
 };
 
@@ -40,7 +40,7 @@ const Governance = () => {
       <main className="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">
         <InfoSection
           title="Corporate Governance"
-          imageSrc={images.corporateGovernance}
+          imageSrc={images.corpgov}
           alt="Corporate Governance"
         >
           <p>

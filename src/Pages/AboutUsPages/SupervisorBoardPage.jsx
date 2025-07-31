@@ -1,27 +1,55 @@
+import React from "react";
 import usePageTitle from "../../hooks/usePageTitle";
+import supervisorBoard from "../../assets/supervisorBoard.jpg";
+
 const SupervisorBoardPage = () => {
-  usePageTitle("Super visor Board")
+  usePageTitle("Supervisor Board");
   return (
-    <div className="bg-slate-50 font-sans text-slate-800 py-12">
-      <main className="max-w-4xl mx-auto px-4">
-        <section className="bg-white p-8 rounded-xl shadow-lg">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Supervisor Board
-          </h1>
-          <div className="text-gray-700 space-y-4">
-            <p>
-              The Supervisor Board of DHD Group provides oversight and guidance to the executive management, ensuring that the company operates in line with its strategic objectives, values, and legal obligations. The board is composed of experienced leaders from diverse backgrounds who bring a wealth of knowledge to the organization.
+    <div className="bg-gray-50 min-h-screen">
+      {/* Gradient hero section */}
+      <section className="bg-gradient-to-br from-[#002147] to-[#003366] text-white text-center py-24 px-5">
+        <h1 className="text-4xl md:text-5xl font-extrabold drop-shadow-lg max-w-4xl mx-auto">
+          Supervisor Board
+        </h1>
+      </section>
+
+      {/* Overlapping content card section */}
+      <section className="-mt-16 relative z-10 mx-auto max-w-5xl bg-white rounded-2xl shadow-2xl px-6 sm:px-8 py-12">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          {/* Text Content */}
+          <div className="text-left">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">
+              Oversight &
+              <span className="bg-gradient-to-r from-sky-500 to-indigo-600 bg-clip-text text-transparent">
+                {" "}
+                Guidance
+              </span>
+            </h2>
+            <p className="text-slate-600 text-base leading-relaxed mb-4">
+              The Supervisor Board of DHD Group provides oversight and guidance
+              to the executive management, ensuring the company operates in line
+              with its strategic objectives, values, and legal obligations.
             </p>
-            <h2 className="text-2xl font-semibold mt-6 mb-2">Responsibilities</h2>
-            <ul className="list-disc list-inside space-y-2 pl-4">
+            <h3 className="text-xl font-semibold text-gray-800 mt-4 mb-2">
+              Responsibilities
+            </h3>
+            <ul className="text-slate-600 text-base list-disc list-inside space-y-2 pl-2">
               <li>Reviewing and approving long-term corporate strategy.</li>
               <li>Overseeing financial performance and risk management.</li>
               <li>Ensuring robust corporate governance and compliance.</li>
-              <li>Appointing and evaluating the performance of senior executives.</li>
+              <li>Appointing and evaluating senior executives.</li>
             </ul>
           </div>
-        </section>
-      </main>
+          {/* Image Content */}
+          <div>
+            <img
+              src={supervisorBoard}
+              alt="Professional board meeting in a modern office"
+              className="rounded-lg shadow-xl w-full h-auto object-cover"
+            />
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

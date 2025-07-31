@@ -1,34 +1,64 @@
+import React from "react";
 import usePageTitle from "../../hooks/usePageTitle";
+import su from "../../assets/su.avif";
 const ModernSlaveryPage = () => {
-  usePageTitle("Modern Slavery")
+  usePageTitle("Modern Slavery");
   return (
-    <div className="bg-slate-50 font-sans text-slate-800 py-12">
-      <main className="max-w-4xl mx-auto px-4">
-        <section className="bg-white p-8 rounded-xl shadow-lg">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Modern Slavery Statement
-          </h1>
-          <div className="text-gray-700 space-y-4">
-            <p>
-              DHD Group is committed to preventing acts of modern slavery and human trafficking from occurring within its business and supply chain. We impose the same high standards on our suppliers, contractors, and other business partners.
+    <div className="bg-gray-50 min-h-screen">
+      {/* Gradient hero section */}
+      <section className="bg-gradient-to-br from-[#002147] to-[#003366] text-white text-center py-24 px-5">
+        <h1 className="text-4xl md:text-5xl font-extrabold drop-shadow-lg max-w-4xl mx-auto">
+          Modern Slavery Statement
+        </h1>
+      </section>
+
+      {/* Overlapping content card section */}
+      <section className="-mt-16 relative z-10 mx-auto max-w-5xl bg-white rounded-2xl shadow-2xl px-6 sm:px-8 py-12">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+          {/* Text Content */}
+          <div className="text-left">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">
+              Commitment to
+              <span className="bg-gradient-to-r from-gray-500 to-slate-600 bg-clip-text text-transparent">
+                {" "}
+                Ethical Practices
+              </span>
+            </h2>
+            <p className="text-slate-600 text-base leading-relaxed mb-4">
+              DHD Group is committed to preventing acts of modern slavery and
+              human trafficking from occurring within its business and supply
+              chain. We impose the same high standards on our suppliers and
+              partners.
             </p>
-            <h2 className="text-2xl font-semibold mt-6 mb-2">Our Policy</h2>
-            <p>
-              Our anti-slavery policy reflects our commitment to acting ethically and with integrity in all our business relationships and to implementing and enforcing effective systems and controls to ensure slavery and human trafficking are not taking place anywhere in our supply chains.
-            </p>
-            <h2 className="text-2xl font-semibold mt-6 mb-2">Due Diligence</h2>
-            <p>
-              As part of our initiative to identify and mitigate risk, we have in place systems to:
-            </p>
-            <ul className="list-disc list-inside space-y-2 pl-4">
-              <li>Identify and assess potential risk areas in our supply chains.</li>
-              <li>Mitigate the risk of slavery and human trafficking occurring in our supply chains.</li>
+            <h3 className="text-xl font-semibold text-gray-800 mt-4 mb-2">
+              Due Diligence & Policy
+            </h3>
+            <ul className="text-slate-600 text-base list-disc list-inside space-y-2 pl-2">
+              <li>
+                Identify and assess potential risk areas in our supply chains.
+              </li>
+              <li>
+                Mitigate the risk of slavery and human trafficking occurring.
+              </li>
               <li>Monitor potential risk areas in our supply chains.</li>
-              <li>Protect whistleblowers.</li>
+              <li>Protect whistleblowers through our anti-slavery policy.</li>
             </ul>
           </div>
-        </section>
-      </main>
+          {/* Image Content */}
+          <div>
+            <img
+              src={su}
+              alt="Hands connecting puzzle pieces, symbolizing partnership and ethical supply chains"
+              className="rounded-lg shadow-xl w-full h-auto object-cover"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src =
+                  "https://placehold.co/600x400/e2e8f0/334155?text=Image+Not+Found";
+              }}
+            />
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

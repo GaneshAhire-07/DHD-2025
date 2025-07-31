@@ -1,11 +1,10 @@
-// src/pages/OurAuditors.jsx
 import React from "react";
 import usePageTitle from "../../hooks/usePageTitle";
 import InfoSection from "../landing/InfoSection";
+import word from "../../assets/word.jpg";
 
-// Sample image - replace with your actual image path
 const images = {
-  auditors: "https://picsum.photos/seed/dhd-auditors/800/600",
+  auditors: word,
 };
 
 const OurAuditors = () => {

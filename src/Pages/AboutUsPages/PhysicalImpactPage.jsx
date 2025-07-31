@@ -1,4 +1,5 @@
 import usePageTitle from "../../hooks/usePageTitle";
+import physical from "../../assets/physical.webp"
 const PhysicalImpactPage = () => {
   usePageTitle("Physical Impact")
   return (
@@ -9,7 +10,7 @@ const PhysicalImpactPage = () => {
             Physical Impact
           </h1>
           <img 
-            src="https://picsum.photos/seed/dhd-about-physical/800/600" 
+            src={physical} 
             alt="Physical Impact"
             className="w-full h-64 object-cover rounded-lg mb-6"
           />

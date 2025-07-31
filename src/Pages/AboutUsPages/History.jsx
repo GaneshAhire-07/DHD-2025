@@ -1,4 +1,7 @@
 import usePageTitle from "../../hooks/usePageTitle";
+import history from "../../assets/history.jpg";
+import who from "../../assets/who.webp";
+import we from "../../assets/we.jpg";
 const History = () => {
   usePageTitle("History");
   return (
@@ -18,7 +21,7 @@ const History = () => {
               <div className="md:flex-shrink-0">
                 <img
                   className="h-48 w-full object-cover md:w-48"
-                  src="https://picsum.photos/seed/dhd-history/800/600.jpg"
+                  src={history}
                   alt="DHD history"
                 />
               </div>
@@ -99,7 +102,7 @@ const History = () => {
               <div className="md:flex-shrink-0">
                 <img
                   className="h-48 w-full object-cover md:w-48"
-                  src="https://picsum.photos/seed/dhd-who/800/600.jpg"
+                  src={who}
                   alt="DHD team"
                 />
               </div>
@@ -129,7 +132,7 @@ const History = () => {
               <div className="md:flex-shrink-0">
                 <img
                   className="h-48 w-full object-cover md:w-48"
-                  src="https://picsum.photos/seed/dhd-do/800/600.jpg"
+                  src={we}
                   alt="DHD projects"
                 />
               </div>

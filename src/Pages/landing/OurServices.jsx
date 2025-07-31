@@ -1,14 +1,14 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
-import LandscapeImage from "../../assets/Landscape.jpg"; // adjust path based on your file structure
-import LandscapeDevelopmentImage from "../../assets/Landscape&Development.jpg"; // adjust path if needed
-import VerticalGarden from "../../assets/VerticalGarden.jpg"; // adjust path if needed
-import CorporateGreenSolution from "../../assets/CorporateGreenSolution.jpg"; // adjust path as needed
-import garderDesign from "../../assets/garderDesign.jpg"; // Adjust the path as needed
-import GrassPlantation from "../../assets/GrassPlantation.jpg"; // adjust path if needed
+import LandscapeImage from "../../assets/Landscape.jpg";
+import LandscapeDevelopmentImage from "../../assets/Landscape&Development.jpg";
+import VerticalGarden from "../../assets/VerticalGarden.jpg";
+import CorporateGreenSolution from "../../assets/CorporateGreenSolution.jpg";
+import garderDesign from "../../assets/garderDesign.jpg";
+import GrassPlantation from "../../assets/GrassPlantation.jpg";
 import TeraceGarden from "../../assets/TeraceGarden.jpg";
 import KitchenGarden from "../../assets/KitchenGarden .jpg";
+import usePageTitle from "../../hooks/usePageTitle";
 
-// Updated service data without icon, category, and stats
 const servicesData = {
   main: [
     {
@@ -211,6 +211,7 @@ const SectionHeader = ({ title, subtitle, isVisible }) => (
 );
 
 function OurServices() {
+  usePageTitle("Services");
   const [visibleSections, setVisibleSections] = useState({
     header: false,
     main: false,
