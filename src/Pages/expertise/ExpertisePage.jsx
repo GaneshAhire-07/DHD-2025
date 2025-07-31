@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ServiceCard from "../../components/serviceCard/ServiceCard";
 import usePageTitle from "../../hooks/usePageTitle";
@@ -16,6 +16,10 @@ import Utilities from "../../assets/utilities.jpg";
 import Housing from "../../assets/housing.jpg";
 import Property from "../../assets/property.jpg";
 import FacilitiesManagement from "../../assets/FacilitiesManagement.jpg";
+import rail from "../../assets/rail.jpeg";
+import sustainability from "../../assets/sustainability.jpeg";
+import expertise from "../../assets/expertise.jpeg";
+import mission from "../../assets/mission.jpeg";
 
 import {
   FaLeaf,
@@ -57,12 +61,10 @@ const ExpertisePage = () => {
   usePageTitle("Expertise");
   const location = useLocation();
 
-  // This useEffect is correct and will handle scrolling once the IDs are in place.
   useEffect(() => {
     if (location.hash) {
       const element = document.getElementById(location.hash.substring(1));
       if (element) {
-        // Adding a timeout can help ensure the element is rendered before scrolling
         setTimeout(() => {
           element.scrollIntoView({ behavior: "smooth", block: "start" });
         }, 100);
@@ -83,13 +85,12 @@ const ExpertisePage = () => {
     infrastructure: Infrastructure,
     utilities: Utilities,
     housing: Housing,
-    rail: "https://images.unsplash.com/photo-1519817650390-64a93db51149",
+    rail: rail,
     property: Property,
     fm: FacilitiesManagement,
-    sustainability:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85",
-    expertise: "https://images.unsplash.com/photo-1552581234-26160f608093",
-    mission: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735",
+    sustainability: sustainability,
+    expertise: expertise,
+    mission: mission,
   };
 
   return (

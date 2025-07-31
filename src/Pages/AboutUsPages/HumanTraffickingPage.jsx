@@ -1,6 +1,7 @@
 import React from 'react';
-
+import usePageTitle from '../../hooks/usePageTitle';
 const HumanTraffickingPage = () => {
+  usePageTitle("Human Trafficking")
   return (
     <div className="bg-slate-50 font-sans text-slate-800 py-12">
       <main className="max-w-4xl mx-auto px-4">

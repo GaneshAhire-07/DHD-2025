@@ -1,4 +1,3 @@
-import React from "react";
 import usePageTitle from "../../hooks/usePageTitle";
 import {
   FaMoneyBillWave,
@@ -14,12 +13,10 @@ import ApprenticeshipImage from "../../assets/ApprenticeshipConstruction.jpg";
 import DhdDegreeImage from "../../assets/DhdDegree.jpg";
 import GraduatesImage from "../../assets/Graduate.jpeg";
 import InternImage from "../../assets/Internships&Placement.jpg";
-import RewardsTeam from "../../assets/RewardsTeam.jpg";
-import RewardsCity from "../../assets/RewardCity.jpg";
 import WorkingImage from "../../assets/WorkingExperienceConstruction.jpg";
 
 const CareersWithUs = () => {
-  usePageTitle("Careers With Usr");
+  usePageTitle("Careers With Us");
   return (
     <div className="bg-slate-50 font-sans text-slate-800">
       <section className="bg-gradient-to-br from-[#002147] to-[#003366] text-white text-center py-24 px-5">

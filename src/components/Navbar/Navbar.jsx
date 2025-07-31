@@ -336,7 +336,7 @@ export default function Navbar() {
             : "bg-white/80 backdrop-blur-sm"
         }`}
       >
-        <div className="container mx-auto px-4 lg:px-6">
+        <div className="container mx-auto px-2 lg:px-2">
           <div className="flex justify-between items-center h-20">
             <Link
               to="/"

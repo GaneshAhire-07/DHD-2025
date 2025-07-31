@@ -1,6 +1,3 @@
-// src/components/InfoSection.jsx
-import React from "react";
-
 const InfoSection = ({ title, imageSrc, alt, children, reverse = false }) => (
   <section className="bg-white shadow-lg rounded-xl mb-12 overflow-hidden">
     <div

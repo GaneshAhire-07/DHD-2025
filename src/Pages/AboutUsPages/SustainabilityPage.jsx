@@ -1,6 +1,7 @@
-import React from 'react';
-
+import usePageTitle from "../../hooks/usePageTitle";
+import Sustainability from "../../assets/sustainability1.webp"
 const SustainabilityPage = () => {
+  usePageTitle("Sustainability")
   return (
     <div className="bg-slate-50 font-sans text-slate-800 py-12">
       <main className="max-w-4xl mx-auto px-4">
@@ -9,9 +10,9 @@ const SustainabilityPage = () => {
             Sustainability
           </h1>
           <img 
-            src="https://picsum.photos/seed/dhd-about-sustainability/800/600" 
+            src={Sustainability} 
             alt="Sustainability"
-            className="w-full h-64 object-cover rounded-lg mb-6"
+            className="w-full h-64 object-contain rounded-xl mb-6"
           />
           <div className="text-gray-700 space-y-4">
             <p>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
 import usePageTitle from "../../hooks/usePageTitle";
-// FIX 1: Added missing imports for icons (assuming lucide-react)
 import { Loader2, CheckCircle, X, Mail, Clock } from "lucide-react";
 
 const ContactPage = () => {

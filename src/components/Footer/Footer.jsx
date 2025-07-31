@@ -6,7 +6,8 @@ import {
   FaClock,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/DHDLogo.png"; // ✅ Correct import
+import Logo from "../../assets/DHDLogo.png"; 
+import usePageTitle from "../../hooks/usePageTitle";
 
 const links = [
   { to: "/about/history", label: "Our History" },
@@ -23,6 +24,7 @@ const links = [
 ];
 
 function Footer() {
+  usePageTitle("Footer")
   return (
     <footer className="bg-[#ece5dd] text-black pt-5 px-4 sm:px-6 font-sans border-t border-red-800">
       <div className="container mx-auto max-w-7xl">

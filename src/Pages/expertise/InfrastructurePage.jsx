@@ -1,6 +1,5 @@
-import React from "react";
+import usePageTitle from "../../hooks/usePageTitle";
 
-// A reusable card component for displaying features, styled to match the new theme.
 const FeatureCard = ({ title, children }) => (
   <div className="bg-slate-50 p-6 rounded-lg border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
     <h3 className="text-xl font-bold text-[#002147] mb-3">{title}</h3>
@@ -8,8 +7,8 @@ const FeatureCard = ({ title, children }) => (
   </div>
 );
 
-// The main page component for Infrastructure & Building Solutions.
 const InfrastructurePage = () => {
+  usePageTitle("Infrastructure");
   return (
     <div className="bg-slate-50 font-sans text-slate-800">
       {/* Header Section */}

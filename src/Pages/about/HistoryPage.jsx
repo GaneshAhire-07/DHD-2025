@@ -1,13 +1,14 @@
-// This file is the same as the one in the previous response.
-// It uses the content from your requirements document and serves as a great template for other static pages.
-import React from "react";
 import usePageTitle from "../../hooks/usePageTitle";
+import history from "../../assets/history.jpg";
+import whoWeAre from "../../assets/who.webp";
+import whatWeDo from "../../assets/what-we-do1.png";
+import sustainability from "../../assets/sustainability.webp";
 
 const images = {
-  history: "https://picsum.photos/seed/dhd-history/800/600",
-  whoWeAre: "https://picsum.photos/seed/dhd-who/800/600",
-  whatWeDo: "https://picsum.photos/seed/dhd-do/800/600",
-  sustainability: "https://picsum.photos/seed/dhd-sustainability/800/600",
+  history: history,
+  whoWeAre: whoWeAre,
+  whatWeDo: whatWeDo,
+  sustainability: sustainability,
 };
 
 const InfoSection = ({ title, imageSrc, alt, children, reverse = false }) => (

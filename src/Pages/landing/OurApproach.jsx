@@ -1,9 +1,6 @@
-import React from "react";
+import localImpactImage from "../../assets/localImpactImage.jpeg"
+import commitmentImage from "../../assets/commitmentImage.jpeg";
 
-// Online image URLs
-import commitmentImage from "../../assets/construction.jpg";
-const localImpactImage =
-  "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&h=400&fit=crop";
 const modernMethodsImage =
   "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=400&fit=crop";
 const covidResponseImage =
