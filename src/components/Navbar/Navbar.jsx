@@ -26,6 +26,7 @@ const menuData = [
         ],
       },
       { title: "Our Policies", path: "/about/our-policies" },
+      { title: "Careers", path: "/careers" },
     ],
   },
   {
