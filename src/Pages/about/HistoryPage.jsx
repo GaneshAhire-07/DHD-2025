@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import usePageTitle from "../../hooks/usePageTitle";
 import history from "../../assets/history.jpg";
 import whoWeAre from "../../assets/who.webp";
@@ -11,14 +12,32 @@ const images = {
   sustainability: sustainability,
 };
 
+// Animation variants for sections revealing on scroll
+const sectionVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+// Reusable animated InfoSection component
 const InfoSection = ({ title, imageSrc, alt, children, reverse = false }) => (
-  <section className="bg-white shadow-lg rounded-xl mb-12 overflow-hidden">
+  <motion.section
+    className="bg-white shadow-lg rounded-xl mb-16 overflow-hidden"
+    variants={sectionVariants}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.2 }} // Animate when 20% of the card is in view
+    whileHover={{ y: -8, transition: { duration: 0.2 } }} // Add a subtle lift on hover
+  >
     <div
       className={`flex flex-col ${
         reverse ? "md:flex-row-reverse" : "md:flex-row"
       }`}
     >
-      <div className="md:w-1/3">
+      <div className="md:w-1/3 h-64 md:h-auto">
         <img className="h-full w-full object-cover" src={imageSrc} alt={alt} />
       </div>
       <div className="md:w-2/3 p-8 md:p-12">
@@ -28,23 +47,48 @@ const InfoSection = ({ title, imageSrc, alt, children, reverse = false }) => (
         </div>
       </div>
     </div>
-  </section>
+  </motion.section>
 );
+
+// Animation variants for lists
+const listContainerVariants = {
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const listItemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: { opacity: 1, x: 0 },
+};
 
 const HistoryPage = () => {
   usePageTitle("History");
   return (
     <div className="bg-light-gray min-h-screen">
       <section className="bg-gradient-to-br from-[#002147] to-[#003366] text-white text-center py-24 px-5">
-        <h1 className="text-3xl md:text-5xl font-bold drop-shadow-lg">
+        <motion.h1
+          className="text-3xl md:text-5xl font-bold drop-shadow-lg"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           Our History
-        </h1>
+        </motion.h1>
       </section>
 
-      <section className="-mt-10 relative z-10 mx-auto max-w-4xl bg-white rounded-2xl shadow-2xl text-center px-6 py-12">
+      {/* Intro card with animation */}
+      <motion.section
+        className="-mt-10 relative z-10 mx-auto max-w-4xl bg-white rounded-2xl shadow-2xl text-center px-6 py-12"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
         <h2 className="text-2xl md:text-3xl font-semibold mb-6 leading-snug">
           The journey of DHD Group from a two-person team to an
-          <span className="block md:inline bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent font-bold ml-1">
+          <span className="block sm:inline bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent font-bold ml-1">
             industry leader.
           </span>
         </h2>
@@ -60,9 +104,9 @@ const HistoryPage = () => {
           on long-term partnerships, an integrated approach, and a commitment to
           shared success with all our collaborators.
         </p>
-      </section>
+      </motion.section>
 
-      <main className="max-w-7xl mx-auto py-12 sm:px-6 lg:px-8">
+      <main className="max-w-7xl mx-auto py-16 sm:px-6 lg:px-8">
         <InfoSection
           title="Our Story"
           imageSrc={images.history}
@@ -83,7 +127,15 @@ const HistoryPage = () => {
           </p>
         </InfoSection>
 
-        <section className="bg-white shadow-lg rounded-xl mb-12 p-8 md:p-12">
+        {/* Vision & Mission card with animation */}
+        <motion.section
+          className="bg-white shadow-lg rounded-xl mb-16 p-8 md:p-12"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          whileHover={{ y: -8, transition: { duration: 0.2 } }}
+        >
           <h2 className="text-3xl font-bold text-oxford-blue mb-6 text-center">
             Our Vision & Mission
           </h2>
@@ -101,27 +153,27 @@ const HistoryPage = () => {
               <h3 className="text-2xl font-semibold text-gray-800 mb-2">
                 Our Mission
               </h3>
-              <ul className="space-y-2 text-gray-600 list-disc list-inside">
-                <li>
-                  Embrace diverse talents and expertise to foster effective
-                  collaboration.
-                </li>
-                <li>
-                  Cultivate a knowledge-driven culture through technology and
-                  research.
-                </li>
-                <li>
-                  Create innovative living solutions that exceed stakeholder
-                  expectations.
-                </li>
-                <li>
-                  Continuously strive for advancement and the highest global
-                  standards.
-                </li>
-              </ul>
+              <motion.ul
+                className="space-y-2 text-gray-600 list-disc list-inside"
+                variants={listContainerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+              >
+                {[
+                  "Embrace diverse talents and expertise to foster effective collaboration.",
+                  "Cultivate a knowledge-driven culture through technology and research.",
+                  "Create innovative living solutions that exceed stakeholder expectations.",
+                  "Continuously strive for advancement and the highest global standards.",
+                ].map((item, index) => (
+                  <motion.li key={index} variants={listItemVariants}>
+                    {item}
+                  </motion.li>
+                ))}
+              </motion.ul>
             </div>
           </div>
-        </section>
+        </motion.section>
 
         <InfoSection
           title="Who We Are"
@@ -173,20 +225,23 @@ const HistoryPage = () => {
             recognized the importance of delivering value to the communities we
             serve. Our sustainability program, "Transforming India," includes:
           </p>
-          <ul className="space-y-2 text-gray-600 list-disc list-inside mt-4">
-            <li>
-              Launching the DHD Real Estate Academy program for veterans and
-              those facing employment challenges.
-            </li>
-            <li>
-              Committing to environmental improvements that support India's
-              Green agenda.
-            </li>
-            <li>
-              Delivering net-zero carbon developments by 2030 through
-              intelligent design.
-            </li>
-          </ul>
+          <motion.ul
+            className="space-y-2 text-gray-600 list-disc list-inside mt-4"
+            variants={listContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            {[
+              "Launching the DHD Real Estate Academy program for veterans and those facing employment challenges.",
+              "Committing to environmental improvements that support India's Green agenda.",
+              "Delivering net-zero carbon developments by 2030 through intelligent design.",
+            ].map((item, index) => (
+              <motion.li key={index} variants={listItemVariants}>
+                {item}
+              </motion.li>
+            ))}
+          </motion.ul>
         </InfoSection>
       </main>
     </div>

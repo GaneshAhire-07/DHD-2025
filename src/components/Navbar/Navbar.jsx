@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { HashLink } from "react-router-hash-link"; // Import HashLink
-import dhdLogo from "../../assets/DHDLOGO.png";
+import { HashLink } from "react-router-hash-link";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight, ChevronLeft, ArrowUpRight, Menu, X } from "lucide-react";
+import dhdLogo from "../../assets/logo.png";
 
+// --- Data ---
 const menuData = [
   { title: "Home", path: "/" },
   {
@@ -14,46 +17,15 @@ const menuData = [
         submenu: [
           { title: "History", path: "/about/history" },
           { title: "Vision & Mission", path: "/about/vision-mission" },
-          { title: "Who We Are", path: "/about/who-we-are" },
-          { title: "What We Do", path: "/about/what-we-do" },
         ],
       },
       {
         title: "Our Purpose",
         submenu: [
           { title: "Sustainability", path: "/about/purpose/sustainability" },
-          { title: "Social Impact", path: "/about/purpose/social-impact" },
-          { title: "Physical Impact", path: "/about/purpose/physical-impact" },
         ],
       },
       { title: "Our Policies", path: "/about/our-policies" },
-      { title: "Governance", path: "/about/governance" },
-      {
-        title: "Our Committee",
-        submenu: [
-          { title: "Modern Slavery", path: "/about/committee/modern-slavery" },
-          {
-            title: "Human Trafficking Statement",
-            path: "/about/committee/human-trafficking",
-          },
-          {
-            title: "Supervisor Board",
-            path: "/about/committee/supervisor-board",
-          },
-          {
-            title: "Auditors Department",
-            path: "/about/committee/auditors-department",
-          },
-          {
-            title: "Risk Department",
-            path: "/about/committee/risk-department",
-          },
-          {
-            title: "COVID-19 Secure Risk Assessment",
-            path: "/about/committee/covid-risk-assessment",
-          },
-        ],
-      },
     ],
   },
   {
@@ -61,406 +33,399 @@ const menuData = [
     path: "/expertise",
     submenu: [
       {
-        title: "Real Estate End to End Solutions",
+        title: "Real Estate Solutions",
         path: "https://iresworld.com/",
         external: true,
       },
-      {
-        title: "Horticulture Services",
-        path: "/expertise/infrastructure",
-        submenu: [
-          {
-            title: "Landscape Architecture & Design",
-            path: "/expertise/horticulture#design",
-          },
-          {
-            title: "Landscape Development & Construction",
-            path: "/expertise/horticulture#construction",
-          },
-          {
-            title: "Vertical Gardens & Bio Walls",
-            path: "/expertise/horticulture#vertical-gardens",
-          },
-          {
-            title: "Corporate Green Solutions",
-            path: "/expertise/horticulture#corporate-green",
-          },
-          {
-            title: "Garden Design & Maintenance",
-            path: "/expertise/horticulture#garden-design",
-          },
-          {
-            title: "Grass Plantation",
-            path: "/expertise/horticulture#grass-plantation",
-            submenu: [
-              {
-                title: "Terrace Gardening",
-                path: "/expertise/horticulture#terrace",
-              },
-              {
-                title: "Kitchen Gardening",
-                path: "/expertise/horticulture#kitchen",
-              },
-              {
-                title: "Horticulture Expertise",
-                path: "/expertise/horticulture#expertise",
-              },
-              {
-                title: "Sustainable Practices",
-                path: "/expertise/horticulture#sustainable",
-              },
-            ],
-          },
-        ],
-      },
-      { title: "Construction", path: "/expertise/construction" },
-      { title: "Infrastructure", path: "/expertise/infrastructure" },
-      { title: "Highways", path: "/expertise/highways" },
-      { title: "Utilities", path: "/expertise/utilities" },
-      { title: "Housing Maintenance", path: "/expertise/housing-maintenance" },
-      { title: "Rail", path: "/expertise/rail" },
-      { title: "Property", path: "/expertise/property" },
-      {
-        title: "Facilities Management",
-        path: "/expertise/facilities-management",
-      },
-      {
-        title: "Environmental Targets",
-        path: "/expertise/environmental-targets",
-      },
-      {
-        title: "Sustainability Building Design",
-        path: "/expertise/sustainability-design",
-      },
+      { title: "Horticulture Services", path: "/expertise/horticulture" },
+      { title: "Our Sectors", path: "/sectors" },
     ],
   },
   { title: "Our Approach", path: "/approach" },
   { title: "Our Projects", path: "/projects" },
-  { title: "Our Sectors", path: "/sectors" },
-  { title: "Careers", path: "/careers" },
   { title: "Contact", path: "/contact" },
 ];
 
-// --- Updated Menu Item Component ---
-const MenuItem = ({ item, level = 0, closeMobileMenu }) => {
+// --- Desktop Fly-out Menu Item ---
+const DesktopMenuItem = ({ item, level = 0 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = useRef(null);
   const location = useLocation();
-
-  const isMobile = () =>
-    typeof window !== "undefined" && window.innerWidth < 1024;
   const hasSubmenu = item.submenu && item.submenu.length > 0;
 
   const handleMouseEnter = () => {
-    if (isMobile()) return;
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setIsOpen(true);
   };
 
   const handleMouseLeave = () => {
-    if (isMobile()) return;
-    timeoutRef.current = setTimeout(() => setIsOpen(false), 200);
+    timeoutRef.current = setTimeout(() => setIsOpen(false), 150);
   };
 
-  const handleLinkClick = (e) => {
-    if (hasSubmenu && isMobile()) {
-      e.preventDefault();
-      setIsOpen(!isOpen);
-    } else {
-      if (closeMobileMenu) closeMobileMenu();
-    }
-  };
+  const isActive =
+    (item.path === "/" && location.pathname === "/") ||
+    (item.path !== "/" && location.pathname.startsWith(item.path));
 
-  const commonLinkClasses =
-    "flex items-center justify-between w-full px-3 py-2 text-left transition duration-200 rounded-md text-sm";
-
-  // Check if the main path (before any #) is active
-  const isActive = location.pathname === (item.path || "").split("#")[0];
-
-  const activeLinkClasses = "font-semibold text-blue-600 bg-blue-100";
-  const inactiveLinkClasses =
-    "text-gray-700 hover:bg-gray-100 hover:text-blue-600";
+  const linkClasses = `flex items-center justify-between w-full px-3 py-2 text-left transition-all duration-200 rounded-lg text-sm font-medium ${
+    isActive
+      ? "text-indigo-600 bg-indigo-50"
+      : "text-slate-700 hover:bg-slate-100 hover:text-indigo-600"
+  }`;
 
   const renderLink = () => {
-    const isHashLink = item.path && item.path.includes("#");
+    const linkContent = (
+      <>
+        <span className="truncate">{item.title}</span>
+        {hasSubmenu && (
+          <ChevronRight
+            size={16}
+            className="ml-2 transition-transform duration-200 group-hover:rotate-90"
+          />
+        )}
+      </>
+    );
 
-    // Determine the classes for the link
-    const linkClasses = `${commonLinkClasses} ${
-      isActive && !hasSubmenu && !isHashLink
-        ? activeLinkClasses
-        : inactiveLinkClasses
-    }`;
-
-    // External Link
-    if (item.external) {
+    if (item.external)
       return (
         <a
           href={item.path}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={handleLinkClick}
-          className={linkClasses}
+          className={`${linkClasses} group`}
         >
-          <span>{item.title}</span>
-          <svg
-            className="w-3 h-3 ml-2 shrink-0"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+          <span className="flex items-center">
+            <span className="truncate">{item.title}</span>
+            <ArrowUpRight
+              size={14}
+              className="ml-2 opacity-60 group-hover:opacity-100"
             />
-          </svg>
+          </span>
         </a>
       );
-    }
-
-    // Hash Link for in-page scrolling
-    if (isHashLink) {
+    if (item.path?.includes("#"))
       return (
-        <HashLink
-          smooth
-          to={item.path}
-          onClick={handleLinkClick}
-          className={linkClasses}
-        >
-          <span>{item.title}</span>
+        <HashLink smooth to={item.path} className={linkClasses}>
+          {linkContent}
         </HashLink>
       );
-    }
-
-    // Regular Internal Link
     return (
-      <NavLink
-        to={item.path || "#"}
-        onClick={handleLinkClick}
-        className={linkClasses}
-      >
-        <span>{item.title}</span>
-        {hasSubmenu && (
-          <svg
-            className={`w-3 h-3 ml-2 shrink-0 transition-transform duration-200 ${
-              isOpen ? "rotate-180" : ""
-            }`}
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fillRule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clipRule="evenodd"
-            />
-          </svg>
-        )}
+      <NavLink to={item.path || "#"} className={linkClasses}>
+        {linkContent}
       </NavLink>
     );
   };
 
   return (
     <li
-      className="relative text-sm xl:text-base"
+      className="relative"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {renderLink()}
-      {hasSubmenu && (
-        <ul
-          className={`
-            lg:absolute lg:bg-white lg:shadow-xl lg:border lg:rounded-lg lg:p-2 lg:min-w-[240px]
-            lg:transition-all lg:duration-200
-            ${
+      <AnimatePresence>
+        {isOpen && hasSubmenu && (
+          <motion.ul
+            initial={{ opacity: 0, y: 5, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 5, scale: 0.98 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className={`list-none absolute bg-white shadow-2xl border border-slate-100 rounded-xl p-2 min-w-[240px] space-y-1 z-50 ${
               level === 0
-                ? "lg:left-0 lg:top-full lg:mt-1"
-                : "lg:left-full lg:top-0 lg:-mt-2 lg:ml-1"
-            }
-            ${
-              isOpen
-                ? "block opacity-100 lg:scale-100 lg:translate-y-0"
-                : "hidden opacity-0 lg:scale-95 lg:-translate-y-2"
-            }
-            space-y-1 mt-1 lg:mt-0
-          `}
-        >
-          {item.submenu.map((subItem) => (
-            <MenuItem
-              key={subItem.title}
-              item={subItem}
-              level={level + 1}
-              closeMobileMenu={closeMobileMenu}
-            />
-          ))}
-        </ul>
-      )}
+                ? "left-0 top-full mt-1"
+                : "left-full top-0 -mt-2 ml-1"
+            }`}
+          >
+            {item.submenu.map((subItem) => (
+              <DesktopMenuItem
+                key={subItem.title}
+                item={subItem}
+                level={level + 1}
+              />
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </li>
   );
 };
 
-// --- Navbar Component ---
+// --- Mobile/Tablet Sliding Panel Menu ---
+const MobileMenu = ({ isOpen, closeMenu }) => {
+  const [history, setHistory] = useState([{ title: "Menu", items: menuData }]);
+  const currentMenu = history[history.length - 1];
+  const location = useLocation();
+  const transition = { type: "spring", stiffness: 400, damping: 30, mass: 0.8 };
+
+  const goToSubmenu = (submenu, title) =>
+    setHistory([...history, { items: submenu, title }]);
+  const goBack = () => {
+    if (history.length > 1) {
+      setHistory(history.slice(0, -1));
+    }
+  };
+
+  useEffect(() => {
+    if (!isOpen) {
+      const timer = setTimeout(() => {
+        setHistory([{ title: "Menu", items: menuData }]);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
+
+  const SmartLink = ({ item, onClick, className }) => {
+    const isCurrentActive =
+      (item.path === "/" && location.pathname === "/") ||
+      (item.path !== "/" && location.pathname.startsWith(item.path));
+    const baseClassName = `${className} transition-all duration-200 ${
+      isCurrentActive ? "text-indigo-600 font-semibold" : "text-slate-700"
+    }`;
+    if (item.external)
+      return (
+        <a
+          href={item.path}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={onClick}
+          className={`${baseClassName} flex items-center justify-between w-full group`}
+        >
+          <span className="truncate">{item.title}</span>
+          <ArrowUpRight
+            size={16}
+            className="opacity-60 group-hover:opacity-100"
+          />
+        </a>
+      );
+    if (item.path?.includes("#"))
+      return (
+        <HashLink
+          smooth
+          to={item.path}
+          onClick={onClick}
+          className={baseClassName}
+        >
+          {item.title}
+        </HashLink>
+      );
+    return (
+      <NavLink
+        to={item.path || "#"}
+        onClick={onClick}
+        className={baseClassName}
+      >
+        {item.title}
+      </NavLink>
+    );
+  };
+
+  return (
+    <div
+      className={`fixed inset-0 z-40 md:z-50 ${
+        isOpen ? "pointer-events-auto" : "pointer-events-none"
+      }`}
+    >
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={closeMenu}
+          />
+        )}
+      </AnimatePresence>
+      <motion.div
+        initial={{ x: "100%" }}
+        animate={{ x: isOpen ? 0 : "100%" }}
+        transition={transition}
+        className="fixed top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl"
+      >
+        <div className="flex h-full flex-col">
+          <div className="flex h-16 items-center justify-between border-b border-slate-200 px-4 flex-shrink-0 bg-slate-50">
+            <div className="w-12">
+              <AnimatePresence>
+                {history.length > 1 && (
+                  <motion.button
+                    key="back"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    onClick={goBack}
+                    className="rounded-full p-2 hover:bg-white"
+                  >
+                    <ChevronLeft size={20} className="text-slate-600" />
+                  </motion.button>
+                )}
+              </AnimatePresence>
+            </div>
+            <motion.h2
+              key={currentMenu.title}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-lg font-semibold text-slate-800 truncate"
+            >
+              {currentMenu.title}
+            </motion.h2>
+            <div className="w-12 flex justify-end">
+              <button
+                onClick={closeMenu}
+                className="rounded-full p-2 hover:bg-white"
+              >
+                <X size={20} className="text-slate-600" />
+              </button>
+            </div>
+          </div>
+          <div className="flex-grow overflow-y-auto">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={history.length}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="p-4"
+              >
+                <ul className="space-y-1 list-none">
+                  {currentMenu.items.map((item) => (
+                    <li key={item.title}>
+                      <div className="flex items-center rounded-lg hover:bg-slate-50 transition-colors">
+                        <SmartLink
+                          item={item}
+                          onClick={() => {
+                            if (!item.submenu) closeMenu();
+                          }}
+                          className="block flex-grow px-4 py-3"
+                        />
+                        {item.submenu && (
+                          <button
+                            onClick={() =>
+                              goToSubmenu(item.submenu, item.title)
+                            }
+                            className="p-3 text-slate-400 hover:text-slate-600"
+                          >
+                            <ChevronRight size={18} />
+                          </button>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+          <div className="p-4 bg-slate-50 border-t border-slate-200 flex-shrink-0">
+            <Link
+              to="/partner"
+              onClick={closeMenu}
+              className="block w-full text-center px-6 py-3 rounded-lg text-white bg-gradient-to-r from-[#002651] to-[#003366] font-semibold shadow-md hover:shadow-lg transition-shadow"
+            >
+              <span className="text-sm">Become a Partner</span>
+            </Link>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
+// --- Main Navbar Component ---
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) setIsMobileMenuOpen(false);
-    };
-    const handleEscapeKey = (e) => {
-      if (e.key === "Escape") setIsMobileMenuOpen(false);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
-    document.addEventListener("keydown", handleEscapeKey);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-      document.removeEventListener("keydown", handleEscapeKey);
-    };
-  }, []);
+    setIsMobileMenuOpen(false);
+  }, [location]);
 
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
   }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      <motion.header
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className={`fixed top-0 left-0 w-full z-30 transition-all duration-300 ${
           scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-lg"
+            ? "bg-white/95 backdrop-blur-lg shadow-md border-b border-slate-200/50"
             : "bg-white/80 backdrop-blur-sm"
         }`}
       >
-        <div className="container mx-auto px-2 lg:px-2">
-          <div className="flex justify-between items-center h-20">
-            <Link
-              to="/"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center space-x-0 group"
-            >
-              <img
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <Link to="/" className="flex items-center space-x-0 group">
+              <motion.img
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.6 }}
                 src={dhdLogo}
                 alt="DHD Logo"
-                className="w-8 h-7 sm:w-9 sm:h-8 md:w-10 md:h-10 object-contain"
+                className="w-9 h-9 object-contain"
               />
               <div className="leading-tight">
-                <div className="text-[14px] sm:text-[14px] md:text-[20px] font-bold">
+                <div className="text-lg font-bold">
                   <span style={{ color: "#be2227" }}>D</span>
                   <span style={{ color: "#2b2a29" }}>H</span>
                   <span style={{ color: "#2b4c80" }}>D</span>
                   <span className="text-gray-800"> Group</span>
                 </div>
-                <div className="text-[10px] sm:text-[11px] md:text-[12px] text-gray-500 tracking-wide">
+                <div className="text-xs text-gray-500 tracking">
                   of Companies
                 </div>
               </div>
             </Link>
 
-            <ul className="hidden lg:flex items-center space-x-0">
-              {menuData.map((item) => (
-                <MenuItem key={item.title} item={item} />
-              ))}
-              <li>
-                <NavLink
+            <nav className="hidden lg:flex items-center">
+              <ul className="flex items-center space-x-1 list-none">
+                {menuData.map((item) => (
+                  <DesktopMenuItem key={item.title} item={item} />
+                ))}
+              </ul>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
                   to="/partner"
-                  className="ml-4 px-4 py-2.5 rounded-lg text-white bg-[#002651] hover:bg-[#003366] transition-all duration-200 text-sm shadow-md"
+                  className="ml-5 px-5 py-2 rounded-lg text-white bg-[#002651] hover:bg-[#003366] transition-colors font-semibold text-sm shadow-md"
                 >
                   Become a Partner
-                </NavLink>
-              </li>
-            </ul>
+                </Link>
+              </motion.div>
+            </nav>
 
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              aria-label="Toggle menu"
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="lg:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
+              aria-label="Open navigation menu"
             >
-              <div className="space-y-1.5">
-                <span
-                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
-                    isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
-                  }`}
-                />
-                <span
-                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
-                    isMobileMenuOpen ? "opacity-0" : ""
-                  }`}
-                />
-                <span
-                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
-                    isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-                  }`}
-                />
-              </div>
-            </button>
+              <Menu size={22} className="text-slate-800" />
+            </motion.button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
-      {/* Mobile Menu */}
-      <div
-        className={`fixed inset-0 z-40 lg:hidden ${
-          isMobileMenuOpen ? "block" : "hidden"
-        }`}
-      >
-        <div
-          className="fixed inset-0 bg-black/40"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-        <div
-          className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl transform transition-transform duration-300 ease-in-out ${
-            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-        >
-          <div className="flex items-center justify-between p-4 border-b">
-            <span className="font-semibold">Menu</span>
-            <button
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="p-2 rounded-full hover:bg-gray-100"
-              aria-label="Close menu"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-          <div className="overflow-y-auto h-full p-4 pb-24">
-            <ul className="flex flex-col space-y-1 scroll-mt-20">
-              {menuData.map((item) => (
-                <MenuItem
-                  key={item.title}
-                  item={item}
-                  closeMobileMenu={() => setIsMobileMenuOpen(false)}
-                />
-              ))}
-            </ul>
-            <div className="px-4 py-6 absolute bottom-0 left-0 w-full bg-white border-t">
-              <NavLink
-                to="/partner"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full text-center px-4 py-3 rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200 font-semibold shadow-md"
-              >
-                Become a Partner
-              </NavLink>
-            </div>
-          </div>
-        </div>
-      </div>
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        closeMenu={() => setIsMobileMenuOpen(false)}
+      />
     </>
   );
 }

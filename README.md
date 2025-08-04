@@ -1,770 +1,583 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import site from "../../assets/site.jpg";
 
 const HeroSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+return (
+// Added justify-center to ensure horizontal centering of the card
 
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
+<section className="bg-white-400 p-2 sm:p-4 md:p-6 min-h-screen flex items-center justify-center">
+<div className="max-w-6xl mx-auto w-full">
+<div className="bg-white rounded-lg shadow-lg overflow-hidden">
+{/_ This flex container stacks vertically on mobile (flex-col) and goes side-by-side on medium screens and up (md:flex-row) _/}
+<div className="flex flex-col md:flex-row">
+{/_ Left Image Section _/}
+<motion.div
+// On medium screens and up, this div takes half the width. md:h-auto allows its height to match the content on the right.
+className="md:w-1/2 relative h-64 sm:h-80 md:h-auto"
+initial={{ opacity: 0, scale: 0.95 }}
+animate={{ opacity: 1, scale: 1 }}
+transition={{ duration: 0.8, ease: "easeOut" }} >
+<div className="absolute inset-0">
+<img
+src={site}
+alt="Hero Background"
+// CHANGED: w-full and h-full make the image cover its container perfectly. object-cover maintains aspect ratio.
+className="w-full h-full object-cover"
+/>
+{/_ Gradient Overlay _/}
+{/_ <div className="absolute inset-0 bg-gradient-to-br from-orange-300/50 via-pink-300/50 to-purple-400/50" /> _/}
 
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: (e.clientX - rect.left) / rect.width,
-      y: (e.clientY - rect.top) / rect.height,
-    });
-  };
-
-  return (
-    <section 
-      className="relative bg-gradient-to-br from-slate-50 via-white to-blue-50 py-12 lg:py-16 min-h-screen flex items-center overflow-hidden"
-      onMouseMove={handleMouseMove}
-    >
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div 
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl animate-float"
-          style={{
-            transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px)`,
-            transition: 'transform 0.5s ease-out'
-          }}
-        />
-        <div 
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-red-400/10 to-pink-400/10 rounded-full blur-3xl animate-float-delayed"
-          style={{
-            transform: `translate(${-mousePosition.x * 15}px, ${-mousePosition.y * 15}px)`,
-            transition: 'transform 0.5s ease-out'
-          }}
-        />
-      </div>
-
-      <div className="container mx-auto px-4 max-w-7xl relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-          {/* Left Content */}
-          <div className={`w-full lg:w-1/2 text-center lg:text-left space-y-8 ${isVisible ? 'animate-slideInLeft' : 'opacity-0'}`}>
-            {/* Animated Badge */}
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-sm border border-blue-200/30 text-blue-700 text-sm font-medium rounded-full hover:scale-105 transition-all duration-300 animate-fadeInDown">
-              <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
-              <svg className="w-4 h-4 mr-2 animate-spin-slow" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              Trusted Industry Leader
-            </div>
-
-            {/* Main Heading with Staggered Animation */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.1] space-y-2">
-              <div className="animate-slideInUp text-slate-800 hover:text-slate-900 transition-colors duration-300">
-                Driven by 
-                <span className="inline-block ml-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-gradient">
-                  Vision
-                </span>
-                <span className="text-slate-800">.</span>
-              </div>
-              <div className="animate-slideInUp delay-200 hover:scale-105 transition-transform duration-300 origin-left">
-                <span className="bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent">
-                  Built on Trust
-                </span>
-                <span className="text-slate-800">.</span>
-              </div>
-              <div className="animate-slideInUp delay-400 text-slate-800 hover:scale-105 transition-transform duration-300 origin-left">
-                Delivered with 
-                <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
-                  Excellence
-                </span>
-                <span className="text-slate-800">.</span>
-              </div>
-            </h1>
-
-            {/* Description with Typewriter Effect */}
-            <div className="animate-fadeInUp delay-600">
-              <p className="text-slate-600 text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium">
-                <span className="font-bold text-slate-800 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  We
-                </span> are passionate about building value, committed to long-term partnerships, and shared success with stakeholders.
-              </p>
-            </div>
-
-            {/* CTA Buttons with Modern Hover Effects */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fadeInUp delay-800">
-              <Link
-                to="/contact"
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold rounded-xl text-sm overflow-hidden transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                <span className="relative z-10 flex items-center justify-center">
-                  Get Started
-                  <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </span>
-              </Link>
-              
-              <Link
-                to="/about/history"
-                className="group px-8 py-4 bg-white/80 backdrop-blur-sm text-slate-700 font-bold rounded-xl text-sm border-2 border-slate-200 hover:border-red-400 hover:text-red-600 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl hover:bg-white/90"
-              >
-                <span className="flex items-center justify-center">
-                  Contact Us
-                  <svg className="w-4 h-4 ml-2 transform group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-                </span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Right Image Section */}
-          <div className={`w-full lg:w-1/2 flex justify-center lg:justify-end relative ${isVisible ? 'animate-slideInRight' : 'opacity-0'}`}>
-            {/* Multiple Animated Background Layers */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-72 h-72 lg:w-96 lg:h-96 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full animate-pulse-slow blur-sm" />
-              <div className="w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-r from-red-500/15 to-pink-500/15 rounded-full animate-spin-very-slow absolute" />
-              <div className="w-56 h-56 lg:w-72 lg:h-72 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-full animate-bounce-slow absolute" />
-            </div>
-
-            {/* Main Image Container */}
-            <div className="relative z-10 w-full max-w-sm md:max-w-md lg:max-w-lg group">
-              <div className="relative overflow-hidden rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 hover:rotate-1">
-                <img
-                  src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                  alt="Professional businessman working with tablet and mobile phone - DHD Group"
-                  className="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-700"
-                  loading="lazy"
+                {/* Sun with subtle animation */}
+                <motion.div
+                  className="absolute top-1/4 left-1/2 transform -translate-x-1/2 w-16 sm:w-20 h-16 sm:h-20 bg-yellow-200/60 rounded-full blur-sm"
+                  animate={{
+                    scale: [1, 1.1, 1],
+                    opacity: [0.6, 0.8, 0.6],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/20 via-transparent to-transparent" />
               </div>
-              
-              {/* Floating UI Elements */}
-              <div className="absolute -top-4 -left-4 bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-xl animate-float hover:rotate-0 transition-all duration-300 -rotate-6 border border-blue-100">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-                  <span className="text-xs font-semibold text-slate-700">Live Status</span>
-                </div>
-              </div>
-              
-              <div className="absolute -bottom-4 -right-4 bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-xl animate-float-delayed rotate-6 hover:rotate-0 transition-all duration-300 border border-purple-100">
-                <div className="flex items-center gap-2">
-                  <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-xs font-semibold text-slate-700">Analytics</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Enhanced Scroll Indicator */}
-        <div className="hidden lg:flex justify-center mt-16 animate-fadeInUp delay-1000">
-          <div className="flex flex-col items-center gap-3 text-slate-400 hover:text-slate-600 transition-colors duration-300 cursor-pointer group">
-            <span className="text-sm font-medium tracking-wide">Discover More</span>
-            <div className="relative">
-              <svg className="w-6 h-6 animate-bounce group-hover:animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-500/20 rounded-full blur-lg scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
+              {/* Logo with hover animation */}
+              <motion.div
+                className="absolute top-4 sm:top-6 left-4 sm:left-6 flex items-center space-x-2 sm:space-x-3"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="w-6 sm:w-8 h-6 sm:h-8 bg-cyan-500 rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold text-xs sm:text-sm">
+                    C
+                  </span>
+                </div>
+                <span className="text-white text-lg sm:text-xl font-bold">
+                  COMPANY
+                </span>
+              </motion.div>
+            </motion.div>
+
+            {/* Right Content Section */}
+            <motion.div
+              // Takes the other half of the width on medium screens. flex and items-center vertically center the content.
+              className="md:w-1/2 bg-slate-800 p-6 sm:p-8 md:p-10 flex items-center"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <div className="w-full">
+                {/* Main Heading - Font size scales with screen size */}
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
+                  Driven by Vision.
+                  <br />
+                  Built on Trust. <br />
+                  <span className="text-cyan-300">
+                    Delivered with Excellence.
+                  </span>
+                </h1>
+
+                {/* Description */}
+                <p className="text-slate-200 text-base sm:text-lg mb-6 sm:mb-8">
+                  We are passionate about building value, committed to long-term
+                  partnerships, and shared success with stakeholders.
+                </p>
+
+                {/* CTA Buttons - Stacks on mobile (flex-col) and goes side-by-side on sm screens and up */}
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <motion.button
+                    className="bg-white text-slate-900 px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium cursor-pointer transition-all duration-300 ease-in-out hover:bg-blue-900 hover:text-white transform"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Read More
+                  </motion.button>
+                  <motion.button
+                    className="bg-white text-slate-900 px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium cursor-pointer transition-all duration-300 ease-in-out hover:bg-red-600 hover:text-white transform"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Contact Us
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes slideInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes fadeInDown {
-          from {
-            opacity: 0;
-            transform: translateY(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-20px);
-          }
-        }
-
-        @keyframes float-delayed {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-15px);
-          }
-        }
-
-        @keyframes gradient {
-          0%, 100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
-
-        @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        @keyframes spin-very-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        @keyframes pulse-slow {
-          0%, 100% {
-            opacity: 0.1;
-          }
-          50% {
-            opacity: 0.3;
-          }
-        }
-
-        @keyframes bounce-slow {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-
-        .animate-slideInLeft {
-          animation: slideInLeft 0.8s ease-out forwards;
-        }
-
-        .animate-slideInRight {
-          animation: slideInRight 0.8s ease-out forwards;
-        }
-
-        .animate-slideInUp {
-          animation: slideInUp 0.6s ease-out forwards;
-        }
-
-        .animate-fadeInUp {
-          animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        .animate-fadeInDown {
-          animation: fadeInDown 0.6s ease-out forwards;
-        }
-
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
-
-        .animate-float-delayed {
-          animation: float-delayed 8s ease-in-out infinite;
-        }
-
-        .animate-gradient {
-          background-size: 200% 200%;
-          animation: gradient 3s ease infinite;
-        }
-
-        .animate-spin-slow {
-          animation: spin-slow 10s linear infinite;
-        }
-
-        .animate-spin-very-slow {
-          animation: spin-very-slow 20s linear infinite;
-        }
-
-        .animate-pulse-slow {
-          animation: pulse-slow 4s ease-in-out infinite;
-        }
-
-        .animate-bounce-slow {
-          animation: bounce-slow 4s ease-in-out infinite;
-        }
-
-        .delay-200 {
-          animation-delay: 0.2s;
-        }
-
-        .delay-400 {
-          animation-delay: 0.4s;
-        }
-
-        .delay-600 {
-          animation-delay: 0.6s;
-        }
-
-        .delay-800 {
-          animation-delay: 0.8s;
-        }
-
-        .delay-1000 {
-          animation-delay: 1s;
-        }
-      `}</style>
     </section>
-  );
+
+);
 };
 
 export default HeroSection;
 
 
-import React from "react";
-import horticulture from "../../assets/horticulture.jpg";
-import cityPark from "../../assets/city-park-with-lake.jpg";
-import sustainablePractices from "../../assets/sustainable-practises.jpg";
-import customerCentric from "../../assets/customer-centric.jpg";
-import { FaLeaf, FaTree, FaRecycle, FaHandsHelping } from "react-icons/fa";
 
-function OurExpertise() {
+import React, { useState, useEffect, useRef } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { HashLink } from "react-router-hash-link"; // Import HashLink
+import dhdLogo from "../../assets/logo.png";
+
+const menuData = [
+  { title: "Home", path: "/" },
+  {
+    title: "About Us",
+    path: "/about",
+    submenu: [
+      {
+        title: "Profile",
+        submenu: [
+          { title: "History", path: "/about/history" },
+          { title: "Vision & Mission", path: "/about/vision-mission" },
+          { title: "Who We Are", path: "/about/who-we-are" },
+          { title: "What We Do", path: "/about/what-we-do" },
+        ],
+      },
+      {
+        title: "Our Purpose",
+        submenu: [
+          { title: "Sustainability", path: "/about/purpose/sustainability" },
+          { title: "Social Impact", path: "/about/purpose/social-impact" },
+          { title: "Physical Impact", path: "/about/purpose/physical-impact" },
+        ],
+      },
+      { title: "Our Policies", path: "/about/our-policies" },
+      { title: "Governance", path: "/about/governance" },
+      {
+        title: "Our Committee",
+        submenu: [
+          { title: "Modern Slavery", path: "/about/committee/modern-slavery" },
+          {
+            title: "Human Trafficking Statement",
+            path: "/about/committee/human-trafficking",
+          },
+          {
+            title: "Supervisor Board",
+            path: "/about/committee/supervisor-board",
+          },
+          {
+            title: "Auditors Department",
+            path: "/about/committee/auditors-department",
+          },
+          {
+            title: "Risk Department",
+            path: "/about/committee/risk-department",
+          },
+          {
+            title: "COVID-19 Secure Risk Assessment",
+            path: "/about/committee/covid-risk-assessment",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Our Expertise",
+    path: "/expertise",
+    submenu: [
+      {
+        title: "Real Estate End to End Solutions",
+        path: "https://iresworld.com/",
+        external: true,
+      },
+      {
+        title: "Horticulture Services",
+        path: "/expertise/infrastructure",
+        submenu: [
+          {
+            title: "Landscape Architecture & Design",
+            path: "/expertise/horticulture#design",
+          },
+          {
+            title: "Landscape Development & Construction",
+            path: "/expertise/horticulture#construction",
+          },
+          {
+            title: "Vertical Gardens & Bio Walls",
+            path: "/expertise/horticulture#vertical-gardens",
+          },
+          {
+            title: "Corporate Green Solutions",
+            path: "/expertise/horticulture#corporate-green",
+          },
+          {
+            title: "Garden Design & Maintenance",
+            path: "/expertise/horticulture#garden-design",
+          },
+          {
+            title: "Grass Plantation",
+            path: "/expertise/horticulture#grass-plantation",
+            submenu: [
+              {
+                title: "Terrace Gardening",
+                path: "/expertise/horticulture#terrace",
+              },
+              {
+                title: "Kitchen Gardening",
+                path: "/expertise/horticulture#kitchen",
+              },
+              {
+                title: "Horticulture Expertise",
+                path: "/expertise/horticulture#expertise",
+              },
+              {
+                title: "Sustainable Practices",
+                path: "/expertise/horticulture#sustainable",
+              },
+            ],
+          },
+        ],
+      },
+      { title: "Construction", path: "/expertise/construction" },
+      { title: "Infrastructure", path: "/expertise/infrastructure" },
+      { title: "Highways", path: "/expertise/highways" },
+      { title: "Utilities", path: "/expertise/utilities" },
+      { title: "Housing Maintenance", path: "/expertise/housing-maintenance" },
+      { title: "Rail", path: "/expertise/rail" },
+      { title: "Property", path: "/expertise/property" },
+      {
+        title: "Facilities Management",
+        path: "/expertise/facilities-management",
+      },
+      {
+        title: "Environmental Targets",
+        path: "/expertise/environmental-targets",
+      },
+      {
+        title: "Sustainability Building Design",
+        path: "/expertise/sustainability-design",
+      },
+    ],
+  },
+  { title: "Our Approach", path: "/approach" },
+  { title: "Our Projects", path: "/projects" },
+  { title: "Our Sectors", path: "/sectors" },
+  { title: "Careers", path: "/careers" },
+  { title: "Contact", path: "/contact" },
+];
+
+// --- Updated Menu Item Component ---
+const MenuItem = ({ item, level = 0, closeMobileMenu }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const timeoutRef = useRef(null);
+  const location = useLocation();
+
+  const isMobile = () =>
+    typeof window !== "undefined" && window.innerWidth < 1024;
+  const hasSubmenu = item.submenu && item.submenu.length > 0;
+
+  const handleMouseEnter = () => {
+    if (isMobile()) return;
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    if (isMobile()) return;
+    timeoutRef.current = setTimeout(() => setIsOpen(false), 200);
+  };
+
+  const handleLinkClick = (e) => {
+    if (hasSubmenu && isMobile()) {
+      e.preventDefault();
+      setIsOpen(!isOpen);
+    } else {
+      if (closeMobileMenu) closeMobileMenu();
+    }
+  };
+
+  const commonLinkClasses =
+    "flex items-center justify-between w-full px-3 py-2 text-left transition duration-200 rounded-md text-sm";
+
+  // Check if the main path (before any #) is active
+  const isActive = location.pathname === (item.path || "").split("#")[0];
+
+  const activeLinkClasses = "font-semibold text-blue-600 bg-blue-100";
+  const inactiveLinkClasses =
+    "text-gray-700 hover:bg-gray-100 hover:text-blue-600";
+
+  const renderLink = () => {
+    const isHashLink = item.path && item.path.includes("#");
+
+    // Determine the classes for the link
+    const linkClasses = `${commonLinkClasses} ${
+      isActive && !hasSubmenu && !isHashLink
+        ? activeLinkClasses
+        : inactiveLinkClasses
+    }`;
+
+    // External Link
+    if (item.external) {
+      return (
+        <a
+          href={item.path}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={handleLinkClick}
+          className={linkClasses}
+        >
+          <span>{item.title}</span>
+          <svg
+            className="w-3 h-3 ml-2 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+            />
+          </svg>
+        </a>
+      );
+    }
+
+    // Hash Link for in-page scrolling
+    if (isHashLink) {
+      return (
+        <HashLink
+          smooth
+          to={item.path}
+          onClick={handleLinkClick}
+          className={linkClasses}
+        >
+          <span>{item.title}</span>
+        </HashLink>
+      );
+    }
+
+    // Regular Internal Link
+    return (
+      <NavLink
+        to={item.path || "#"}
+        onClick={handleLinkClick}
+        className={linkClasses}
+      >
+        <span>{item.title}</span>
+        {hasSubmenu && (
+          <svg
+            className={`w-3 h-3 ml-2 shrink-0 transition-transform duration-200 ${
+              isOpen ? "rotate-180" : ""
+            }`}
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fillRule="evenodd"
+              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+        )}
+      </NavLink>
+    );
+  };
+
   return (
-    <section className="bg-gradient-to-b from-off-white to-blue-50 py-12 sm:py-16 md:py-20 lg:py-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Heading and Subtitle */}
-        <div className="text-center mb-12 sm:mb-16 md:mb-20">
-          <div className="inline-block mb-4">
-            <div className="w-16 h-1 bg-green-500 rounded-full mx-auto"></div>
-          </div>
-          <h4 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-            Our <span className="text-green-600">Expertise</span>
-          </h4>
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            We deliver excellence across industries, backed by multi-sector
-            expertise and a customer-first approach.
-          </p>
-        </div>
-
-        {/* Grid of Items */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10">
-          {/* Specialized Horticultural Services */}
-          <div
-            className="group relative overflow-hidden bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
-            data-aos="fade-up"
-            data-aos-delay="0"
-          >
-            <div className="relative overflow-hidden h-64">
-              <img
-                src={horticulture}
-                alt="Specialized Horticultural Services"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <div className="absolute top-4 right-4 w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white">
-                <FaLeaf className="text-xl" />
-              </div>
-            </div>
-            <div className="p-6">
-              <h5 className="text-xl font-bold text-gray-900 mb-3">
-                Specialized Horticultural Services
-              </h5>
-              <p className="text-gray-600 mb-4">
-                Transforming spaces through vertical gardens, terrace farming,
-                and sustainable green designs.
-              </p>
-            </div>
-          </div>
-
-          {/* DHD: Enhancing Landscapes, Enriching Lives */}
-          <div
-            className="group relative overflow-hidden bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
-            data-aos="fade-up"
-            data-aos-delay="50"
-          >
-            <div className="relative overflow-hidden h-64">
-              <img
-                src={cityPark}
-                alt="DHD: Enhancing Landscapes, Enriching Lives"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <div className="absolute top-4 right-4 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white">
-                <FaTree className="text-xl" />
-              </div>
-            </div>
-            <div className="p-6">
-              <h5 className="text-xl font-bold text-gray-900 mb-3">
-                Enhancing Landscapes, Enriching Lives
-              </h5>
-              <p className="text-gray-600 mb-4">
-                DHD is a leading provider of comprehensive horticulture and
-                landscape development solutions.
-              </p>
-            </div>
-          </div>
-
-          {/* Sustainable Practices */}
-          <div
-            className="group relative overflow-hidden bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            <div className="relative overflow-hidden h-64">
-              <img
-                src={sustainablePractices}
-                alt="Sustainable Practices"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <div className="absolute top-4 right-4 w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white">
-                <FaRecycle className="text-xl" />
-              </div>
-            </div>
-            <div className="p-6">
-              <h5 className="text-xl font-bold text-gray-900 mb-3">
-                Sustainable Practices
-              </h5>
-              <p className="text-gray-600 mb-4">
-                We are committed to environmentally sustainable practices,
-                utilizing water-efficient irrigation systems, organic
-                fertilizers, and integrated pest management strategies.
-              </p>
-            </div>
-          </div>
-
-          {/* Customer-Centric Approach */}
-          <div
-            className="group relative overflow-hidden bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
-            data-aos="fade-up"
-            data-aos-delay="150"
-          >
-            <div className="relative overflow-hidden h-64">
-              <img
-                src={customerCentric}
-                alt="Customer-Centric Approach"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              <div className="absolute top-4 right-4 w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center text-white">
-                <FaHandsHelping className="text-xl" />
-              </div>
-            </div>
-            <div className="p-6">
-              <h5 className="text-xl font-bold text-gray-900 mb-3">
-                Customer-Centric Approach
-              </h5>
-              <p className="text-gray-600 mb-4">
-                We prioritize building strong client relationships and providing
-                personalized service to ensure complete satisfaction.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export default OurExpertise;
-
-import React, { useState, useCallback } from "react";
-import { Link } from "react-router-dom";
-
-// Import your project images (verify paths)
-import landscapeArchi from "../../assets/landscapearchi.jpg";
-import landscapeDev from "../../assets/landscapedev.jpg";
-import verticalGarden from "../../assets/verticalGarden.jpg";
-import corporateGreen from "../../assets/corporategreen.jpg";
-import gardenDesign from "../../assets/gardendesign.jpg";
-import grassPlantation from "../../assets/grassplantation.jpg";
-import terraceGarden from "../../assets/terracegarden.jpg";
-import kitchenGarden from "../../assets/kitchengarden.jpg";
-
-// Optimized Image Component with lazy loading and error handling
-const OptimizedImage = ({ src, alt, className, onLoad }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [hasError, setHasError] = useState(false);
-
-  const handleLoad = useCallback(() => {
-    setIsLoaded(true);
-    onLoad?.();
-  }, [onLoad]);
-
-  const handleError = useCallback(() => {
-    setHasError(true);
-  }, []);
-
-  return (
-    <div className="relative overflow-hidden rounded-lg border border-gray-300">
-      {/* Loading skeleton */}
-      {!isLoaded && !hasError && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+    <li
+      className="relative text-sm xl:text-base"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {renderLink()}
+      {hasSubmenu && (
+        <ul
+          className={`
+            lg:absolute lg:bg-white lg:shadow-xl lg:border lg:rounded-lg lg:p-2 lg:min-w-[240px]
+            lg:transition-all lg:duration-200
+            ${
+              level === 0
+                ? "lg:left-0 lg:top-full lg:mt-1"
+                : "lg:left-full lg:top-0 lg:-mt-2 lg:ml-1"
+            }
+            ${
+              isOpen
+                ? "block opacity-100 lg:scale-100 lg:translate-y-0"
+                : "hidden opacity-0 lg:scale-95 lg:-translate-y-2"
+            }
+            space-y-1 mt-1 lg:mt-0
+          `}
+        >
+          {item.submenu.map((subItem) => (
+            <MenuItem
+              key={subItem.title}
+              item={subItem}
+              level={level + 1}
+              closeMobileMenu={closeMobileMenu}
+            />
+          ))}
+        </ul>
       )}
-
-      {/* Error fallback */}
-      {hasError && (
-        <div className="w-full h-64 bg-gray-100 flex items-center justify-center text-gray-500">
-          <span>Image unavailable</span>
-        </div>
-      )}
-
-      {/* Actual image */}
-      {!hasError && (
-        <img
-          src={src}
-          alt={alt}
-          className={`${className} ${
-            isLoaded ? "opacity-100" : "opacity-0"
-          } transition-opacity duration-300`}
-          loading="lazy"
-          onLoad={handleLoad}
-          onError={handleError}
-          decoding="async"
-        />
-      )}
-    </div>
+    </li>
   );
 };
 
-// Service Card Component for reusability
-const ServiceCard = ({ image, alt, title, description, delay = 0 }) => (
-  <article className="service-item" data-aos="fade-up" data-aos-delay={delay}>
-    <div className="horticulture-card">
-      <OptimizedImage
-        src={image}
-        alt={alt}
-        className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-      />
-      <h3 className="text-lg font-semibold text-charcoal-gray mt-4 uppercase">
-        {title}
-      </h3>
-      <p className="text-base text-medium-gray mt-2 leading-relaxed">
-        {description}
-      </p>
-    </div>
-  </article>
-);
+// --- Navbar Component ---
+export default function Navbar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-function OurServices() {
-  // Service data for better maintainability
-  const mainServices = [
-    {
-      id: 1,
-      image: landscapeArchi,
-      alt: "Professional landscape architecture and design services",
-      title: "Landscape Architecture & Design",
-      description:
-        "DHD offers expert architectural services including master planning, site analysis, and conceptual design aligned with your vision and the environment.",
-    },
-    {
-      id: 2,
-      image: landscapeDev,
-      alt: "Landscape development and construction services",
-      title: "Landscape Development & Construction",
-      description:
-        "Turnkey solutions from site prep to irrigation, ensuring precise execution of your landscape vision with top-tier industry standards.",
-    },
-    {
-      id: 3,
-      image: verticalGarden,
-      alt: "Vertical gardens and bio walls installation",
-      title: "Vertical Gardens & Bio Walls",
-      description:
-        "Innovative vertical green solutions that enhance aesthetics, save space, and improve biodiversity and air quality.",
-    },
-  ];
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) setIsMobileMenuOpen(false);
+    };
+    const handleEscapeKey = (e) => {
+      if (e.key === "Escape") setIsMobileMenuOpen(false);
+    };
 
-  const secondaryServices = [
-    {
-      id: 4,
-      image: corporateGreen,
-      alt: "Corporate green solutions and office plant rental",
-      title: "Corporate Green Solutions",
-      description:
-        "We offer 'Plants on Rent' and 'Maali on Rent' to improve office spaces, boosting employee morale and sustainability.",
-    },
-    {
-      id: 5,
-      image: gardenDesign,
-      alt: "Garden design and maintenance services",
-      title: "Garden Design & Maintenance",
-      description:
-        "From plant selection to regular care, our horticulture team ensures your garden stays vibrant and healthy year-round.",
-    },
-  ];
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+    document.addEventListener("keydown", handleEscapeKey);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      document.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, []);
 
-  const specializedServices = [
-    {
-      id: 6,
-      image: grassPlantation,
-      alt: "Professional grass plantation for lawns and sports fields",
-      title: "Grass Plantation",
-      description:
-        "High-quality grass options ideal for lawns, sports fields, and erosion control to suit all your green needs.",
-    },
-    {
-      id: 7,
-      image: terraceGarden,
-      alt: "Terrace gardening solutions for rooftops",
-      title: "Terrace Gardening",
-      description:
-        "Transform rooftops into lush green spaces that offer functionality and beauty for urban living.",
-    },
-    {
-      id: 8,
-      image: kitchenGarden,
-      alt: "Kitchen gardening setups for herbs and vegetables",
-      title: "Kitchen Gardening",
-      description:
-        "Grow your own herbs and vegetables even in compact spaces with our custom kitchen garden setups.",
-    },
-  ];
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset";
+  }, [isMobileMenuOpen]);
 
   return (
-    <section
-      className="bg-gradient-to-br from-gray-50 to-white py-12 sm:py-16"
-      role="main"
-      aria-labelledby="services-heading"
-    >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        {/* Main Services Heading */}
-        <header className="text-center mb-12 sm:mb-16">
-          <h1
-            id="services-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-oxford-blue mb-4"
-            data-aos="fade-down"
-          >
-            Our Services
-          </h1>
-          <p className="text-medium-gray text-lg sm:text-xl max-w-2xl mx-auto">
-            Comprehensive landscaping and horticulture solutions for all your
-            green space needs
-          </p>
-        </header>
-
-        {/* Main Services Grid */}
-        <section aria-labelledby="main-services" className="mb-16 sm:mb-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {mainServices.map((service, index) => (
-              <ServiceCard
-                key={service.id}
-                image={service.image}
-                alt={service.alt}
-                title={service.title}
-                description={service.description}
-                delay={index * 100}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* Secondary Services Grid */}
-        <section
-          aria-labelledby="secondary-services"
-          className="mb-16 sm:mb-20"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
-            {secondaryServices.map((service, index) => (
-              <ServiceCard
-                key={service.id}
-                image={service.image}
-                alt={service.alt}
-                title={service.title}
-                description={service.description}
-                delay={index * 100}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* Specialized Services */}
-        <section
-          aria-labelledby="specialized-services"
-          className="py-8 sm:py-12"
-        >
-          <header className="text-center mb-12 sm:mb-16">
-            <h2
-              id="specialized-services"
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-oxford-blue mb-4"
-              data-aos="fade-down"
+    <>
+      <header
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+          scrolled
+            ? "bg-white/95 backdrop-blur-md shadow-lg"
+            : "bg-white/80 backdrop-blur-sm"
+        }`}
+      >
+        <div className="container mx-auto px-2 lg:px-2">
+          <div className="flex justify-between items-center h-20">
+            <Link
+              to="/"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center space-x-0 group"
             >
-              Specialized Horticulture Services
-            </h2>
-            <p className="text-medium-gray text-lg sm:text-xl max-w-2xl mx-auto">
-              Expert solutions for specific gardening and landscaping needs
-            </p>
-          </header>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {specializedServices.map((service, index) => (
-              <ServiceCard
-                key={service.id}
-                image={service.image}
-                alt={service.alt}
-                title={service.title}
-                description={service.description}
-                delay={index * 100}
+              <img
+                src={dhdLogo}
+                alt="DHD Logo"
+                className="w-8 h-7 sm:w-9 sm:h-8 md:w-10 md:h-10 object-contain"
               />
-            ))}
-          </div>
-        </section>
+              <div className="leading-tight">
+                <div className="text-[14px] sm:text-[14px] md:text-[20px] font-bold">
+                  <span style={{ color: "#be2227" }}>D</span>
+                  <span style={{ color: "#2b2a29" }}>H</span>
+                  <span style={{ color: "#2b4c80" }}>D</span>
+                  <span className="text-gray-800"> Group</span>
+                </div>
+                <div className="text-[10px] sm:text-[11px] md:text-[12px] text-gray-500 tracking-wide">
+                  of Companies
+                </div>
+              </div>
+            </Link>
 
-        {/* Call to Action */}
-        <section className="text-center mt-12 sm:mt-16">
-          <Link
-            to="/contact"
-            className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg text-sm transition-all duration-300 hover:scale-105 shadow-md"
-          >
-            Get Started
-          </Link>
-        </section>
+            <ul className="hidden lg:flex items-center space-x-0">
+              {menuData.map((item) => (
+                <MenuItem key={item.title} item={item} />
+              ))}
+              <li>
+                <NavLink
+                  to="/partner"
+                  className="ml-4 px-4 py-2.5 rounded-lg text-white bg-[#002651] hover:bg-[#003366] transition-all duration-200 text-sm shadow-md"
+                >
+                  Become a Partner
+                </NavLink>
+              </li>
+            </ul>
+
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              aria-label="Toggle menu"
+            >
+              <div className="space-y-1.5">
+                <span
+                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
+                    isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
+                  }`}
+                />
+                <span
+                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
+                    isMobileMenuOpen ? "opacity-0" : ""
+                  }`}
+                />
+                <span
+                  className={`block w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
+                    isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+                  }`}
+                />
+              </div>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Menu */}
+      <div
+        className={`fixed inset-0 z-40 lg:hidden ${
+          isMobileMenuOpen ? "block" : "hidden"
+        }`}
+      >
+        <div
+          className="fixed inset-0 bg-black/40"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+        <div
+          className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl transform transition-transform duration-300 ease-in-out ${
+            isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex items-center justify-between p-4 border-b">
+            <span className="font-semibold">Menu</span>
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="p-2 rounded-full hover:bg-gray-100"
+              aria-label="Close menu"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div className="overflow-y-auto h-full p-4 pb-24">
+            <ul className="flex flex-col space-y-1 scroll-mt-20">
+              {menuData.map((item) => (
+                <MenuItem
+                  key={item.title}
+                  item={item}
+                  closeMobileMenu={() => setIsMobileMenuOpen(false)}
+                />
+              ))}
+            </ul>
+            <div className="px-4 py-6 absolute bottom-0 left-0 w-full bg-white border-t">
+              <NavLink
+                to="/partner"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block w-full text-center px-4 py-3 rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200 font-semibold shadow-md"
+              >
+                Become a Partner
+              </NavLink>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+    </>
   );
 }
-
-export default OurServices;

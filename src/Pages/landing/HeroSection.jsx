@@ -1,210 +1,132 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import { Link } from "react-router-dom";
-import hero from "../../assets/hero.png";
-
+import React from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { ArrowRightIcon, PhoneIcon } from "@heroicons/react/24/outline";
+import site from "../../assets/site.jpg";
+import dhdLogo from "../../assets/w-logo.png";
 const HeroSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const sectionRef = useRef(null);
-
-  const handleMouseMove = useCallback((e) => {
-    if (sectionRef.current) {
-      const rect = sectionRef.current.getBoundingClientRect();
-      requestAnimationFrame(() => {
-        setMousePosition({
-          x: (e.clientX - rect.left) / rect.width,
-          y: (e.clientY - rect.top) / rect.height,
-        });
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative bg-gradient-to-br from-slate-50 via-white to-blue-50 py-12 lg:py-16 min-h-screen flex items-center overflow-hidden"
-      onMouseMove={handleMouseMove}
+    <motion.section
+      className="bg-white p-2 sm:p-4 md:p-6 min-h-screen flex items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
     >
-      {/* Background Blur Circles */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-2xl animate-float"
-          style={{
-            transform: `translate(${mousePosition.x * 30 - 15}px, ${
-              mousePosition.y * 30 - 15
-            }px)`,
-            transition: "transform 0.3s ease-out",
-          }}
-        />
-        <div
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-red-400/10 to-pink-400/10 rounded-full blur-2xl animate-float-delayed"
-          style={{
-            transform: `translate(${-mousePosition.x * 25 + 10}px, ${
-              -mousePosition.y * 25 + 10
-            }px)`,
-            transition: "transform 0.3s ease-out",
-          }}
-        />
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-            w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px]
-            bg-blue-900/15 rounded-full blur-3xl animate-pulse-slow-alt"
-          style={{
-            transform: `translate(-50%, -50%) translate(${
-              mousePosition.x * 20 - 10
-            }px, ${mousePosition.y * 20 - 10}px)`,
-            transition: "transform 0.4s ease-out",
-          }}
-        />
-      </div>
-
-      {/* Content */}
-      <div className="container mx-auto px-4 max-w-7xl relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-          {/* Left Text Content */}
-          <div
-            className={`w-full lg:w-1/2 text-center lg:text-left space-y-6 ${
-              isVisible ? "animate-fadeInUp" : "opacity-0"
-            }`}
-          >
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-sm border border-blue-200/30 text-blue-700 text-sm font-medium rounded-full hover:scale-105 transition-transform duration-200 animate-pulse-slow">
-              <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse" />
-              Trusted Industry Leader
-            </div>
-
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-snug space-y-2">
-              <div className="overflow-hidden">
-                <span className="inline-block animate-slideUp text-slate-800 hover:text-slate-900 transition-colors duration-200">
-                  Driven by{" "}
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    Vision
-                  </span>
-                  .
-                </span>
-              </div>
-              <div className="overflow-hidden delay-100">
-                <span className="inline-block animate-slideUp text-slate-800 hover:text-slate-900 transition-colors duration-200">
-                  <span className="bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent">
-                    Built on Trust
-                  </span>
-                  .
-                </span>
-              </div>
-              <div className="overflow-hidden delay-200">
-                <span className="inline-block animate-slideUp text-slate-800 hover:text-slate-900 transition-colors duration-200">
-                  Delivered with{" "}
-                  <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
-                    Excellence
-                  </span>
-                  .
-                </span>
-              </div>
-            </h1>
-
-            <p className="text-slate-600 text-base leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium animate-typewriter">
-              <span className="font-bold text-slate-800 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                We
-              </span>{" "}
-              are passionate about building value, committed to long-term
-              partnerships, and shared success with stakeholders.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fadeInUp delay-300 mt-2">
-              <Link
-                to="/contact"
-                className="group relative px-6 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg text-sm hover:scale-105 transition-all duration-200 shadow-md"
-              >
-                <span className="relative z-10 flex items-center">
-                  Get Started
-                  <svg
-                    className="w-4 h-4 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M13 7l5 5m0 0l-5 5m5-5H6"
-                    />
-                  </svg>
-                </span>
-              </Link>
-              <Link
-                to="/about/history"
-                className="group px-6 py-2.5 bg-white/80 backdrop-blur-sm text-slate-700 font-semibold rounded-lg text-sm border border-slate-200 hover:border-red-400 hover:text-red-600 transition-all duration-200 hover:scale-105 shadow-md"
-              >
-                <span className="flex items-center">
-                  Contact Us
-                  <svg
-                    className="w-4 h-4 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                    />
-                  </svg>
-                </span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Image Section */}
-          <div
-            className={`w-full lg:w-1/2 flex justify-center lg:justify-end relative ${
-              isVisible ? "animate-slideInRight" : "opacity-0"
-            }`}
-          >
-            <div className="relative z-10 w-full max-w-lg sm:max-w-xl lg:max-w-4xl group">
-              <div className="relative">
+      <div className="relative bottom-6 max-w-6xl mx-auto w-full">
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className="flex flex-col md:flex-row">
+            {/* Left Image Section */}
+            <motion.div
+              className="md:w-1/2 relative h-64 sm:h-80 md:h-auto"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <div className="absolute inset-0">
                 <img
-                  src={hero}
-                  alt="Professional businessman working with tablet"
-                  className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                  src={site}
+                  alt="Hero Background"
                   loading="lazy"
+                  className="w-full h-full object-cover"
+                />
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-black/10 to-transparent" />
+
+                {/* Sun Animation */}
+                <motion.div
+                  className="absolute top-1/4 left-1/2 transform -translate-x-1/2 w-16 sm:w-20 h-16 sm:h-20 bg-yellow-200/60 rounded-full blur-sm"
+                  animate={{
+                    scale: [1, 1.1, 1],
+                    opacity: [0.6, 0.8, 0.6],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                 />
               </div>
-              <div className="absolute bottom-8 -right-3 bg-white/90 backdrop-blur-md p-2 rounded-xl shadow-md animate-float-alt border border-blue-100" />
-            </div>
-          </div>
-        </div>
 
-        {/* Explore More */}
-        <div className="hidden lg:flex justify-center mt-8 animate-fadeInUp delay-500">
-          <div className="flex flex-col items-center gap-1 text-slate-400 hover:text-slate-600 transition duration-200 cursor-pointer group">
-            <span className="text-sm font-medium">Explore More</span>
-            <svg
-              className="w-5 h-5 animate-bounce-slow group-hover:animate-pulse"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+              {/* Company Logo - Top Left Transparent Overlay */}
+              <motion.div
+                className="absolute top-2 left-4 flex items-center space-x-2 sm:space-x-0 p-2 sm:p-2.5 z-20"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4, duration: 0.7 }}
+              >
+                <img
+                  src={dhdLogo}
+                  alt="DHD Logo"
+                  className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 object-contain"
+                />
+                <div className="leading-tight text-[12px] sm:text-sm md:text-base">
+                  <div className="font-bold tracking-wider">
+                    <span style={{ color: "#FF0000" }}>D</span>
+                    <span style={{ color: "#000000" }}>H</span>
+                    <span style={{ color: "#00008B" }}>D</span>
+                    <span className="text-white"> Group</span>
+                  </div>
+                  <div className="text-white text-xs sm:text-sm">
+                    of Companies
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+            <motion.div
+              ref={ref}
+              className="md:w-1/2 bg-slate-800 p-6 sm:p-8 md:p-10 flex items-center"
+              initial={{ opacity: 0, x: 50 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"
-              />
-            </svg>
+              <div className="w-full">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+                  Driven by Vision.
+                  <br />
+                  Built on Trust.
+                  <br />
+                  <span className="text-cyan-300">
+                    Delivered with Excellence.
+                  </span>
+                </h1>
+
+                <p className="text-slate-200 text-base sm:text-lg mb-6 sm:mb-8">
+                  We are passionate about building value, committed to long-term
+                  partnerships, and shared success with stakeholders.
+                </p>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <motion.button
+                    aria-label="Read more about our company"
+                    className="bg-white text-slate-900 px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium cursor-pointer transition-all duration-300 ease-in-out hover:bg-blue-900 hover:text-white flex items-center justify-center gap-2"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    Read More
+                    <ArrowRightIcon className="h-5 w-5" />
+                  </motion.button>
+
+                  <motion.button
+                    aria-label="Contact us now"
+                    className="bg-white text-slate-900 px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium cursor-pointer transition-all duration-300 ease-in-out hover:bg-red-600 hover:text-white flex items-center justify-center gap-2"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    Contact Us
+                    <PhoneIcon className="h-5 w-5" />
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
