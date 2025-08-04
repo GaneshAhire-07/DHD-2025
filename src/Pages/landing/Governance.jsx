@@ -1,7 +1,7 @@
 import usePageTitle from "../../hooks/usePageTitle";
 import InfoSection from "../landing/InfoSection";
 import supervisorBoard from "../../assets/supervisorBoard.jpg";
-import corpgov from "../../assets/corpgov.jpg";
+import corpgov from "../../assets/b1.jpeg";
 import boardCommittees from "../../assets/board.jpg";
 
 const images = {

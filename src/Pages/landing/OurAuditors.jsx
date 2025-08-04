@@ -1,7 +1,7 @@
 import React from "react";
 import usePageTitle from "../../hooks/usePageTitle";
 import InfoSection from "../landing/InfoSection";
-import word from "../../assets/word.jpg";
+import word from "../../assets/b1.jpeg";
 
 const images = {
   auditors: word,

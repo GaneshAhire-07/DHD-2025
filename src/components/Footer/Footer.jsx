@@ -6,7 +6,7 @@ import {
   FaClock,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/DHDLogo.png"; 
+import Logo from "../../assets/logo.png"; 
 import usePageTitle from "../../hooks/usePageTitle";
 
 const links = [
