@@ -2,64 +2,122 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft, Menu, X } from "lucide-react";
+import {
+  ChevronRight,
+  ChevronLeft,
+  Menu,
+  X,
+  Home,
+  Users,
+  Briefcase,
+  Target,
+  FolderKanban,
+  Mail,
+  UserCircle,
+  Heart,
+  FileText,
+  Sparkles,
+  Building,
+  Sprout,
+  LayoutGrid,
+} from "lucide-react";
 import dhdLogo from "../../assets/logo.png";
 import logo from "../../assets/logo.png";
 import horticultureLogo from "../../assets/horticulture.png";
 
-// --- Data ---
 const menuData = [
-  { title: "Home", path: "/" },
+  { id: "home", title: "Home", path: "/", icon: Home },
   {
+    id: "about",
     title: "About Us",
     path: "/about",
+    icon: Users,
     submenu: [
       {
+        id: "profile",
         title: "Profile",
+        icon: UserCircle,
         submenu: [
-          { title: "History", path: "/about/history" },
-          { title: "Vision & Mission", path: "/about/vision-mission" },
-          { title: "Who We Are", path: "/about/Who-We-Are" },
-          { title: "What We Do", path: "/about/What-We-Do" },
+          { id: "history", title: "History", path: "/about/history" },
+          {
+            id: "vision",
+            title: "Vision & Mission",
+            path: "/about/vision-mission",
+          },
+          { id: "who", title: "Who We Are", path: "/about/Who-We-Are" },
+          { id: "what", title: "What We Do", path: "/about/What-We-Do" },
         ],
       },
       {
+        id: "purpose",
         title: "Our Purpose",
+        icon: Heart,
         submenu: [
-          { title: "Sustainability", path: "/about/purpose/sustainability" },
-          { title: "Social Impact", path: "/about/purpose/social" },
-          { title: "Physical Impact", path: "/about/purpose/physical" },
+          {
+            id: "sustainability",
+            title: "Sustainability",
+            path: "/about/purpose/sustainability",
+          },
+          {
+            id: "social",
+            title: "Social Impact",
+            path: "/about/purpose/social",
+          },
+          {
+            id: "physical",
+            title: "Physical Impact",
+            path: "/about/purpose/physical",
+          },
         ],
       },
-      { title: "Our Policies", path: "/about/our-policies" },
-      { title: "Careers", path: "/careers" },
+      {
+        id: "policies",
+        title: "Our Policies",
+        path: "/about/our-policies",
+        icon: FileText,
+      },
+      { id: "careers", title: "Careers", path: "/careers", icon: Briefcase },
     ],
   },
   {
+    id: "expertise",
     title: "Our Expertise",
     path: "/expertise",
+    icon: Sparkles,
     submenu: [
-      // --- CHANGE 1: Assign the logo to the Real Estate item ---
       {
+        id: "realestate",
         title: "Real Estate Solutions",
         path: "https://iresworld.com/",
         external: true,
-        logo: logo, // Added this line
+        logo: logo,
+        icon: Building,
       },
       {
+        id: "horticulture",
         title: "Horticulture Services",
         path: "/expertise/horticulture",
         logo: horticultureLogo,
+        icon: Sprout,
       },
-      { title: "Our Sectors", path: "/sectors" },
+      {
+        id: "sectors",
+        title: "Our Sectors",
+        path: "/sectors",
+        icon: LayoutGrid,
+      },
     ],
   },
-  { title: "Our Approach", path: "/approach" },
-  { title: "Our Projects", path: "/projects" },
-  { title: "Contact", path: "/contact" },
+  { id: "approach", title: "Our Approach", path: "/approach", icon: Target },
+  {
+    id: "projects",
+    title: "Our Projects",
+    path: "/projects",
+    icon: FolderKanban,
+  },
+  { id: "contact", title: "Contact", path: "/contact", icon: Mail },
 ];
 
-// --- Desktop Fly-out Menu Item ---
 const DesktopMenuItem = ({ item, level = 0 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = useRef(null);
@@ -70,7 +128,6 @@ const DesktopMenuItem = ({ item, level = 0 }) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setIsOpen(true);
   };
-
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => setIsOpen(false), 150);
   };
@@ -78,7 +135,6 @@ const DesktopMenuItem = ({ item, level = 0 }) => {
   const isActive =
     (item.path === "/" && location.pathname === "/") ||
     (item.path !== "/" && location.pathname.startsWith(item.path));
-
   const linkClasses = `flex items-center justify-between w-full px-3 py-2 text-left transition-all duration-200 rounded-lg text-sm font-medium ${
     isActive
       ? "text-indigo-600 bg-indigo-50"
@@ -97,7 +153,6 @@ const DesktopMenuItem = ({ item, level = 0 }) => {
         )}
       </>
     );
-
     if (item.external)
       return (
         <a
@@ -122,7 +177,6 @@ const DesktopMenuItem = ({ item, level = 0 }) => {
           {defaultLinkContent}
         </HashLink>
       );
-
     return (
       <NavLink to={item.path || "#"} className={linkClasses}>
         {item.logo ? (
@@ -171,7 +225,7 @@ const DesktopMenuItem = ({ item, level = 0 }) => {
           >
             {item.submenu.map((subItem) => (
               <DesktopMenuItem
-                key={subItem.title}
+                key={subItem.id}
                 item={subItem}
                 level={level + 1}
               />
@@ -183,12 +237,10 @@ const DesktopMenuItem = ({ item, level = 0 }) => {
   );
 };
 
-// --- Mobile/Tablet Sliding Panel Menu ---
 const MobileMenu = ({ isOpen, closeMenu }) => {
   const [history, setHistory] = useState([{ title: "Menu", items: menuData }]);
   const currentMenu = history[history.length - 1];
   const location = useLocation();
-  const transition = { type: "spring", stiffness: 400, damping: 30, mass: 0.8 };
 
   const goToSubmenu = (submenu, title) =>
     setHistory([...history, { items: submenu, title }]);
@@ -200,36 +252,15 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
 
   useEffect(() => {
     if (!isOpen) {
-      const timer = setTimeout(() => {
-        setHistory([{ title: "Menu", items: menuData }]);
-      }, 300);
+      const timer = setTimeout(
+        () => setHistory([{ title: "Menu", items: menuData }]),
+        300
+      );
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
-  // --- CHANGE 2: Updated SmartLink to show logo for external links ---
-  const SmartLink = ({ item, onClick, className }) => {
-    const isCurrentActive =
-      (item.path === "/" && location.pathname === "/") ||
-      (item.path !== "/" && location.pathname.startsWith(item.path));
-    const baseClassName = `${className} transition-all duration-200 ${
-      isCurrentActive ? "text-indigo-600 font-semibold" : "text-slate-700"
-    }`;
-
-    // This content structure is now used by ALL links to consistently show a logo if it exists
-    const linkContent = (
-      <span className="flex items-center gap-2">
-        {item.title}
-        {item.logo && (
-          <img
-            src={item.logo}
-            alt={`${item.title} logo`}
-            className="w-6 h-4 object-contain"
-          />
-        )}
-      </span>
-    );
-
+  const SmartLink = ({ item, onClick, className, children }) => {
     if (item.external)
       return (
         <a
@@ -237,39 +268,36 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
           target="_blank"
           rel="noopener noreferrer"
           onClick={onClick}
-          className={baseClassName} // Use baseClassName for consistent styling
+          className={className}
         >
-          {/* Re-use linkContent to show the logo instead of the arrow icon */}
-          {linkContent}
+          {children}
         </a>
       );
-
     if (item.path?.includes("#"))
       return (
-        <HashLink
-          smooth
-          to={item.path}
-          onClick={onClick}
-          className={baseClassName}
-        >
-          {linkContent}
+        <HashLink smooth to={item.path} onClick={onClick} className={className}>
+          {children}
         </HashLink>
       );
-
     return (
-      <NavLink
-        to={item.path || "#"}
-        onClick={onClick}
-        className={baseClassName}
-      >
-        {linkContent}
+      <NavLink to={item.path || "#"} onClick={onClick} className={className}>
+        {children}
       </NavLink>
     );
   };
 
+  const listVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.06 } },
+  };
+  const itemVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: { opacity: 1, x: 0 },
+  };
+
   return (
     <div
-      className={`fixed inset-0 z-40 md:z-50 ${
+      className={`fixed inset-0 z-40 lg:hidden ${
         isOpen ? "pointer-events-auto" : "pointer-events-none"
       }`}
     >
@@ -279,8 +307,7 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm"
             onClick={closeMenu}
           />
         )}
@@ -288,23 +315,23 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
       <motion.div
         initial={{ x: "100%" }}
         animate={{ x: isOpen ? 0 : "100%" }}
-        transition={transition}
-        className="fixed top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl"
+        transition={{ type: "spring", stiffness: 400, damping: 40 }}
+        className="fixed top-0 right-0 h-full w-full max-w-sm bg-slate-50 shadow-2xl"
       >
         <div className="flex h-full flex-col">
-          <div className="flex h-16 items-center justify-between border-b border-slate-200 px-4 flex-shrink-0 bg-slate-50">
-            <div className="w-12">
+          <div className="flex h-16 items-center justify-between border-b border-slate-200 px-3">
+            <div className="w-24">
               <AnimatePresence>
                 {history.length > 1 && (
                   <motion.button
-                    key="back"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
                     onClick={goBack}
-                    className="rounded-full p-2 hover:bg-white"
+                    className="flex items-center gap-1 rounded-full p-2 pr-3 text-slate-600 transition-colors hover:bg-slate-200"
                   >
-                    <ChevronLeft size={20} className="text-slate-600" />
+                    <ChevronLeft size={18} />
+                    <span className="text-sm font-medium">Back</span>
                   </motion.button>
                 )}
               </AnimatePresence>
@@ -313,16 +340,17 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
               key={currentMenu.title}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-lg font-semibold text-slate-800 truncate"
+              className="text-base font-semibold text-slate-800 truncate"
             >
               {currentMenu.title}
             </motion.h2>
-            <div className="w-12 flex justify-end">
+            <div className="w-24 flex justify-end">
               <button
                 onClick={closeMenu}
-                className="rounded-full p-2 hover:bg-white"
+                className="rounded-full p-2 text-slate-600 transition-colors hover:bg-slate-200"
+                aria-label="Close menu"
               >
-                <X size={20} className="text-slate-600" />
+                <X size={20} />
               </button>
             </div>
           </div>
@@ -333,38 +361,103 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                className="p-4"
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+                className="p-2"
               >
-                <ul className="space-y-1 list-none">
-                  {currentMenu.items.map((item) => (
-                    <li key={item.title}>
-                      <div className="flex items-center rounded-lg hover:bg-slate-50 transition-colors">
-                        <SmartLink
-                          item={item}
-                          onClick={() => {
-                            if (!item.submenu) closeMenu();
-                          }}
-                          className="block flex-grow px-4 py-3"
-                        />
-                        {item.submenu && (
-                          <button
-                            onClick={() =>
-                              goToSubmenu(item.submenu, item.title)
-                            }
-                            className="p-3 text-slate-400 hover:text-slate-600"
-                          >
-                            <ChevronRight size={18} />
-                          </button>
+                <motion.ul
+                  variants={listVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="space-y-1 list-none"
+                >
+                  {/*
+                  // =================================================================
+                  // --- FIX: Simplified structure to correct the icon alignment ---
+                  // =================================================================
+                  */}
+                  {currentMenu.items.map((item) => {
+                    const Icon = item.icon;
+                    const isCurrentActive =
+                      (item.path === "/" && location.pathname === "/") ||
+                      (item.path &&
+                        item.path !== "/" &&
+                        location.pathname.startsWith(item.path));
+
+                    // This is the content that will be on the left side of the row
+                    const leftSideContent = (
+                      <div className="flex items-center gap-3">
+                        {Icon && (
+                          <Icon
+                            className={`h-5 w-5 flex-shrink-0 ${
+                              isCurrentActive
+                                ? "text-indigo-500"
+                                : "text-slate-400"
+                            }`}
+                          />
+                        )}
+                        <span
+                          className={`font-medium text-sm ${
+                            isCurrentActive ? "font-semibold" : ""
+                          }`}
+                        >
+                          {item.title}
+                        </span>
+                        {item.logo && (
+                          <img
+                            src={item.logo}
+                            alt=""
+                            className="w-5 h-4 object-contain"
+                          />
                         )}
                       </div>
-                    </li>
-                  ))}
-                </ul>
+                    );
+
+                    return (
+                      <motion.li key={item.id} variants={itemVariants}>
+                        <motion.div
+                          whileTap={{ scale: 0.98 }}
+                          className="rounded-lg overflow-hidden"
+                        >
+                          {item.submenu ? (
+                            <button
+                              onClick={() =>
+                                goToSubmenu(item.submenu, item.title)
+                              }
+                              className={`flex items-center justify-between w-full p-3 text-left transition-colors ${
+                                isCurrentActive
+                                  ? "bg-white shadow-sm"
+                                  : "text-slate-700 hover:bg-white/70"
+                              }`}
+                            >
+                              {leftSideContent}
+                              <ChevronRight
+                                size={18}
+                                className="text-slate-400 flex-shrink-0"
+                              />
+                            </button>
+                          ) : (
+                            <SmartLink
+                              item={item}
+                              onClick={closeMenu}
+                              className={`flex items-center justify-between w-full p-3 transition-colors ${
+                                isCurrentActive
+                                  ? "bg-white text-indigo-600 shadow-sm"
+                                  : "text-slate-700 hover:bg-white/70"
+                              }`}
+                            >
+                              {leftSideContent}
+                              {/* No chevron needed for direct links */}
+                            </SmartLink>
+                          )}
+                        </motion.div>
+                      </motion.li>
+                    );
+                  })}
+                </motion.ul>
               </motion.div>
             </AnimatePresence>
           </div>
-          <div className="p-4 bg-slate-50 border-t border-slate-200 flex-shrink-0">
+          <div className="p-4 bg-white border-t border-slate-200 flex-shrink-0">
             <Link
               to="/partner"
               onClick={closeMenu}
@@ -379,7 +472,6 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
   );
 };
 
-// --- Main Navbar Component ---
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -388,7 +480,6 @@ export default function Navbar() {
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
-
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset";
     return () => {
@@ -443,7 +534,7 @@ export default function Navbar() {
             <nav className="hidden lg:flex items-center">
               <ul className="flex items-center space-x-1 list-none">
                 {menuData.map((item) => (
-                  <DesktopMenuItem key={item.title} item={item} />
+                  <DesktopMenuItem key={item.id} item={item} />
                 ))}
               </ul>
               <motion.div
