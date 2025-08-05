@@ -20,6 +20,7 @@ import InvestorRelations from "../../Pages/InvestorRelations/InvestorRelations";
 import NRIPropertyInvestmentGuide from "../../Pages/NRIPropertyInvestmentGuide/NRIPropertyInvestmentGuide";
 import CustomerServiceGuide from "../../Pages/customerGuide/CustomerServiceGuide";
 import PrivacySecurity from "../../Pages/PrivacySecurity/PrivacySecurity";
+import AboutUs from "../../Pages/landing/AboutUs";
 
 export function AboutRoutes() {
   return (
@@ -30,8 +31,8 @@ export function AboutRoutes() {
       <Route path="/about/who-we-are" element={<PageLoaderWrapper><WhoWeArePage /></PageLoaderWrapper>} />
       <Route path="/about/what-we-do" element={<PageLoaderWrapper><WhatWeDoPage /></PageLoaderWrapper>} />
       <Route path="/about/purpose/sustainability" element={<PageLoaderWrapper><SustainabilityPage /></PageLoaderWrapper>} />
-      <Route path="/about/purpose/social-impact" element={<PageLoaderWrapper><SocialImpactPage /></PageLoaderWrapper>} />
-      <Route path="/about/purpose/physical-impact" element={<PageLoaderWrapper><PhysicalImpactPage /></PageLoaderWrapper>} />
+      <Route path="/about/purpose/social" element={<PageLoaderWrapper><SocialImpactPage /></PageLoaderWrapper>} />
+      <Route path="/about/purpose/physical" element={<PageLoaderWrapper><PhysicalImpactPage /></PageLoaderWrapper>} />
       <Route path="/about/committee/modern-slavery" element={<PageLoaderWrapper><ModernSlaveryPage /></PageLoaderWrapper>} />
       <Route path="/about/committee/human-trafficking" element={<PageLoaderWrapper><HumanTraffickingPage /></PageLoaderWrapper>} />
       <Route path="/about/committee/supervisor-board" element={<PageLoaderWrapper><SupervisorBoardPage /></PageLoaderWrapper>} />
@@ -43,6 +44,8 @@ export function AboutRoutes() {
       <Route path="/about/NRI" element={<PageLoaderWrapper><NRIPropertyInvestmentGuide /></PageLoaderWrapper>} />
       <Route path="/about/customer" element={<PageLoaderWrapper><CustomerServiceGuide /></PageLoaderWrapper>} />
       <Route path="/about/our-policies" element={<PageLoaderWrapper><PrivacySecurity /></PageLoaderWrapper>} />
+      <Route path="/about" element={<PageLoaderWrapper><AboutUs /></PageLoaderWrapper>} />
+
     </>
   );
 }

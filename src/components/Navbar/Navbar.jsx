@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft, ArrowUpRight, Menu, X } from "lucide-react";
+import { ChevronRight, ChevronLeft, Menu, X } from "lucide-react";
 import dhdLogo from "../../assets/logo.png";
+import logo from "../../assets/logo.png";
+import horticultureLogo from "../../assets/horticulture.png";
 
 // --- Data ---
 const menuData = [
@@ -17,12 +19,16 @@ const menuData = [
         submenu: [
           { title: "History", path: "/about/history" },
           { title: "Vision & Mission", path: "/about/vision-mission" },
+          { title: "Who We Are", path: "/about/Who-We-Are" },
+          { title: "What We Do", path: "/about/What-We-Do" },
         ],
       },
       {
         title: "Our Purpose",
         submenu: [
           { title: "Sustainability", path: "/about/purpose/sustainability" },
+          { title: "Social Impact", path: "/about/purpose/social" },
+          { title: "Physical Impact", path: "/about/purpose/physical" },
         ],
       },
       { title: "Our Policies", path: "/about/our-policies" },
@@ -33,12 +39,18 @@ const menuData = [
     title: "Our Expertise",
     path: "/expertise",
     submenu: [
+      // --- CHANGE 1: Assign the logo to the Real Estate item ---
       {
         title: "Real Estate Solutions",
         path: "https://iresworld.com/",
         external: true,
+        logo: logo, // Added this line
       },
-      { title: "Horticulture Services", path: "/expertise/horticulture" },
+      {
+        title: "Horticulture Services",
+        path: "/expertise/horticulture",
+        logo: horticultureLogo,
+      },
       { title: "Our Sectors", path: "/sectors" },
     ],
   },
@@ -74,7 +86,7 @@ const DesktopMenuItem = ({ item, level = 0 }) => {
   }`;
 
   const renderLink = () => {
-    const linkContent = (
+    const defaultLinkContent = (
       <>
         <span className="truncate">{item.title}</span>
         {hasSubmenu && (
@@ -94,11 +106,12 @@ const DesktopMenuItem = ({ item, level = 0 }) => {
           rel="noopener noreferrer"
           className={`${linkClasses} group`}
         >
-          <span className="flex items-center">
+          <span className="flex items-center gap-2">
             <span className="truncate">{item.title}</span>
-            <ArrowUpRight
-              size={14}
-              className="ml-2 opacity-60 group-hover:opacity-100"
+            <img
+              src={logo}
+              alt="logo"
+              className="relative left-9 w-7 h-5 object-contain"
             />
           </span>
         </a>
@@ -106,12 +119,32 @@ const DesktopMenuItem = ({ item, level = 0 }) => {
     if (item.path?.includes("#"))
       return (
         <HashLink smooth to={item.path} className={linkClasses}>
-          {linkContent}
+          {defaultLinkContent}
         </HashLink>
       );
+
     return (
       <NavLink to={item.path || "#"} className={linkClasses}>
-        {linkContent}
+        {item.logo ? (
+          <>
+            <span className="flex items-center gap-14">
+              <span className="truncate">{item.title}</span>
+              <img
+                src={item.logo}
+                alt={`${item.title} logo`}
+                className="w-7 h-5 object-contain"
+              />
+            </span>
+            {hasSubmenu && (
+              <ChevronRight
+                size={16}
+                className="ml-2 transition-transform duration-200 group-hover:rotate-90"
+              />
+            )}
+          </>
+        ) : (
+          defaultLinkContent
+        )}
       </NavLink>
     );
   };
@@ -174,6 +207,7 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
     }
   }, [isOpen]);
 
+  // --- CHANGE 2: Updated SmartLink to show logo for external links ---
   const SmartLink = ({ item, onClick, className }) => {
     const isCurrentActive =
       (item.path === "/" && location.pathname === "/") ||
@@ -181,6 +215,21 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
     const baseClassName = `${className} transition-all duration-200 ${
       isCurrentActive ? "text-indigo-600 font-semibold" : "text-slate-700"
     }`;
+
+    // This content structure is now used by ALL links to consistently show a logo if it exists
+    const linkContent = (
+      <span className="flex items-center gap-2">
+        {item.title}
+        {item.logo && (
+          <img
+            src={item.logo}
+            alt={`${item.title} logo`}
+            className="w-6 h-4 object-contain"
+          />
+        )}
+      </span>
+    );
+
     if (item.external)
       return (
         <a
@@ -188,15 +237,13 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
           target="_blank"
           rel="noopener noreferrer"
           onClick={onClick}
-          className={`${baseClassName} flex items-center justify-between w-full group`}
+          className={baseClassName} // Use baseClassName for consistent styling
         >
-          <span className="truncate">{item.title}</span>
-          <ArrowUpRight
-            size={16}
-            className="opacity-60 group-hover:opacity-100"
-          />
+          {/* Re-use linkContent to show the logo instead of the arrow icon */}
+          {linkContent}
         </a>
       );
+
     if (item.path?.includes("#"))
       return (
         <HashLink
@@ -205,16 +252,17 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
           onClick={onClick}
           className={baseClassName}
         >
-          {item.title}
+          {linkContent}
         </HashLink>
       );
+
     return (
       <NavLink
         to={item.path || "#"}
         onClick={onClick}
         className={baseClassName}
       >
-        {item.title}
+        {linkContent}
       </NavLink>
     );
   };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { HashLink } from "react-router-hash-link";
 import {
   BookOpen,
   Eye,
@@ -13,13 +14,16 @@ import {
   Globe,
   ArrowRight,
   X,
+  Heart,
+  ArrowDown,
+  Building2,
 } from "lucide-react";
 import usePageTitle from "../../hooks/usePageTitle";
-import { Heart } from "lucide-react";
 
 // Import all your images
+import aboutUsHeroImage from "../../assets/b1.jpeg";
 import history from "../../assets/history.jpg";
-import visionMission from "../../assets/b1.jpeg"; // You may need to add this image
+import visionMission from "../../assets/b1.jpeg";
 import whoWeAre from "../../assets/who.webp";
 import whatWeDo from "../../assets/what-we-do1.png";
 import purpose from "../../assets/purpose.png";
@@ -33,9 +37,8 @@ import healthSafety from "../../assets/Health.avif";
 import equalOpportunities from "../../assets/pari.jpg";
 import environmental from "../../assets/environmental.webp";
 
-// --- Structured Data for the Cards ---
+// --- Data for the Cards ---
 const aboutUsTopics = [
-  // Category: Profile
   {
     id: "history",
     category: "Profile",
@@ -67,13 +70,13 @@ const aboutUsTopics = [
     details: {
       content: (
         <div>
-          <h4 class="font-bold mb-2">Our Vision:</h4>
-          <p class="mb-4">
+          <h4 className="font-bold mb-2">Our Vision:</h4>
+          <p className="mb-4">
             To be a leading and innovative global property developer, fostering
             sustainability and well-being for all.
           </p>
-          <h4 class="font-bold mb-2">Our Mission:</h4>
-          <ul class="list-disc list-inside space-y-1">
+          <h4 className="font-bold mb-2">Our Mission:</h4>
+          <ul className="list-disc list-inside space-y-1">
             <li>Embrace diverse talents for collaboration.</li>
             <li>Cultivate a knowledge-driven culture.</li>
             <li>Create innovative living solutions.</li>
@@ -115,14 +118,12 @@ const aboutUsTopics = [
         <p>
           We operate across the entire asset lifecycle, from land assembly and
           planning to construction and asset management. Our expertise in
-          navigating India\'s complex planning rules benefits both DHD and our
+          navigating India's complex planning rules benefits both DHD and our
           partners.
         </p>
       ),
     },
   },
-
-  // Category: Our Impact
   {
     id: "sustainability",
     category: "Our Impact",
@@ -136,7 +137,7 @@ const aboutUsTopics = [
         <p>
           For 25 years, we have delivered value to the communities we serve. Our
           initiatives include launching the DHD Real Estate Academy, committing
-          to India\'s Green agenda, and delivering net-zero carbon developments
+          to India's Green agenda, and delivering net-zero carbon developments
           by 2030.
         </p>
       ),
@@ -174,14 +175,12 @@ const aboutUsTopics = [
         <p>
           We are committed to reducing embodied carbon through intelligent
           design while maintaining the bespoke aesthetics that define DHD. We
-          take a leading role in transforming India\'s biodiversity by creating
+          take a leading role in transforming India's biodiversity by creating
           better, greener spaces.
         </p>
       ),
     },
   },
-
-  // Category: Our Policies
   {
     id: "quality",
     category: "Our Policies",
@@ -211,7 +210,7 @@ const aboutUsTopics = [
     details: {
       content: (
         <p>
-          DHD\'s policy is to comply with the Royal Institution of Chartered
+          DHD's policy is to comply with the Royal Institution of Chartered
           Surveyors Code of Professional Conduct, which obligates us to provide
           adequate resources in terms of qualified staff and works undertaken.
         </p>
@@ -249,16 +248,14 @@ const aboutUsTopics = [
         <p>
           The management of DHD recognizes its legal duty of care towards
           protecting the Health and Safety of its employees and others who may
-          be affected by the Firm\'s activities.
+          be affected by the Firm's activities.
         </p>
       ),
     },
   },
 ];
-
 const filterCategories = ["All", "Profile", "Our Impact", "Our Policies"];
 
-// --- New Small Card Component ---
 const InfoCard = ({ topic, onCardClick }) => (
   <motion.div
     layout
@@ -294,14 +291,13 @@ const InfoCard = ({ topic, onCardClick }) => (
   </motion.div>
 );
 
-// --- Modal Component for Details ---
 const InfoDetailModal = ({ topic, onClose }) => (
   <AnimatePresence>
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       onClick={onClose}
     >
       <motion.div
@@ -315,7 +311,7 @@ const InfoDetailModal = ({ topic, onClose }) => (
             alt={topic.title}
             className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           <div className="relative p-6 h-full flex flex-col justify-end text-white">
             <topic.icon className="w-10 h-10 mb-2" />
             <h2 className="text-3xl font-bold">{topic.title}</h2>
@@ -335,12 +331,10 @@ const InfoDetailModal = ({ topic, onClose }) => (
   </AnimatePresence>
 );
 
-// --- Main AboutUs Component ---
-const HistoryPage = () => {
+const FrontAbout = () => {
   usePageTitle("About Us - DHD");
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [activeFilter, setActiveFilter] = useState("All");
-
   const filteredTopics =
     activeFilter === "All"
       ? aboutUsTopics
@@ -348,38 +342,20 @@ const HistoryPage = () => {
 
   return (
     <div className="bg-slate-50 font-sans text-slate-800">
-      <section className="bg-gradient-to-br from-[#002147] to-[#003366] text-white text-center py-24 px-5">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-5xl font-bold"
-        >
-          About Us
-        </motion.h1>
-      </section>
-
-      <div className="container mx-auto px-4">
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="-mt-16 relative z-10 bg-white rounded-2xl shadow-2xl text-center px-6 py-12"
-        >
-          <h2 className="text-3xl font-semibold mb-4">
-            Uncovering the{" "}
-            <span className="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">
-              DHD Story
-            </span>
+      <main id="main-content" className="container mx-auto px-4 py-16 sm:py-24">
+        {/* --- Centered Header Section --- */}
+        <div className="text-center mb-12">
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-black mb-4">
+            About Us
           </h2>
-          <p className="text-slate-600 max-w-2xl mx-auto">
-            Learn about our journey, vision, mission, and the core principles
-            that drive us to transform India's real estate landscape.
+          <p className="max-w-3xl mx-auto text-slate-600">
+            Discover our story, our mission, and the principles that guide us.
+            Learn more about our commitment to quality, sustainability, and
+            community impact.
           </p>
-        </motion.section>
-      </div>
+        </div>
 
-      <main className="container mx-auto px-4 py-16 sm:py-24">
-        {/* Filter Buttons */}
+        {/* --- Filter Buttons --- */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
           {filterCategories.map((category) => (
             <button
@@ -396,7 +372,7 @@ const HistoryPage = () => {
           ))}
         </div>
 
-        {/* Grid of Small Cards */}
+        {/* --- Cards Grid --- */}
         <motion.div
           layout
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
@@ -413,7 +389,7 @@ const HistoryPage = () => {
         </motion.div>
       </main>
 
-      {/* The Modal */}
+      {/* --- Modal --- */}
       {selectedTopic && (
         <InfoDetailModal
           topic={selectedTopic}
@@ -424,4 +400,4 @@ const HistoryPage = () => {
   );
 };
 
-export default HistoryPage;
+export default FrontAbout;

@@ -10,13 +10,14 @@ import ProfessionalTeamSection from "../Pages/landing/ProfessionalTeam";
 import GetStartedSection from "../Pages/landing/GetStrated";
 import OurClientsSection from "../Pages/landing/OurClients";
 import usePageTitle from "../hooks/usePageTitle.js";
+import FrontAbout from "./AboutUsPages/FrontAbout.jsx";
 
 function LandingPage() {
   usePageTitle("Home");
   return (
     <div className="bg-off-white">
       <HeroSection />
-      <AboutUs />
+      <FrontAbout />
       <OurServicesSection />
       <OurExpertiseSection />
       <WhyChooseDHDSection />

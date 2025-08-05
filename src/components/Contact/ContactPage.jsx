@@ -81,12 +81,10 @@ const ContactPage = () => {
           console.log("Email sent:", result.text);
           setIsSubmitted(true);
           setShowSuccessPopup(true);
-          setFormData(initialFormState); // Reset form only after success
-
-          // Auto-close popup after 5 seconds
+          setFormData(initialFormState);
           setTimeout(() => {
             setShowSuccessPopup(false);
-            setIsSubmitted(false); // Reset button state when popup closes
+            setIsSubmitted(false); 
           }, 5000);
         },
         (error) => {

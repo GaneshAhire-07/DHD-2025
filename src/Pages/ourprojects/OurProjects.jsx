@@ -14,28 +14,22 @@ import usePageTitle from "../../hooks/usePageTitle.js";
 // Import your project images
 import image1 from "../../assets/projectImage1.jpg";
 import image2 from "../../assets/mbr-816x524.jpg";
-import overviewBg from "../../assets/aboutus.jpg"; 
+import overviewBg from "../../assets/aboutus.jpg";
 
-// Optimized Image Component (no changes needed)
 const OptimizedImage = ({ src, alt, className }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [hasError, setHasError] = useState(false);
   const [currentSrc, setCurrentSrc] = useState(src);
   const handleLoad = useCallback(() => setIsLoaded(true), []);
   const handleError = useCallback(() => {
-    setHasError(true);
+    setCurrentSrc("https://via.placeholder.com/800x600?text=Image+Error");
   }, []);
   return (
     <div className="relative overflow-hidden h-full w-full bg-slate-200">
-      {!isLoaded && !hasError && (
+      {!isLoaded && (
         <div className="absolute inset-0 bg-slate-200 animate-pulse" />
       )}
       <img
-        src={
-          hasError
-            ? "https://via.placeholder.com/800x600?text=Image+Not+Found"
-            : currentSrc
-        }
+        src={currentSrc}
         alt={alt}
         className={`${className} ${
           isLoaded ? "opacity-100" : "opacity-0"
@@ -48,7 +42,6 @@ const OptimizedImage = ({ src, alt, className }) => {
   );
 };
 
-// --- Animation Variants ---
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
@@ -58,56 +51,42 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
-// --- NEW Project Card for the Gallery ---
-const ProjectCard = ({ project }) => {
-  return (
-    <motion.div
-      variants={itemVariants}
-      className="group relative rounded-2xl overflow-hidden shadow-lg"
-    >
-      <OptimizedImage
-        src={project.image}
-        alt={project.title}
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-      <div className="absolute inset-0 p-6 flex flex-col justify-end">
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="text-white"
-        >
-          <div
-            className={`inline-block px-3 py-1 rounded-full text-xs font-semibold mb-2 ${
-              project.status === "In Development"
-                ? "bg-green-600"
-                : "bg-blue-600"
-            }`}
-          >
-            {project.status}
-          </div>
-          <h3 className="text-xl md:text-2xl font-bold mb-2">
-            {project.title}
-          </h3>
-          {/* Hide description initially, show on hover */}
-          <div className="max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500">
-            <p className="text-slate-200 mb-4 text-sm">{project.description}</p>
-            <Link
-              to={`/projects/${project.id}`}
-              className="inline-flex items-center text-white font-semibold hover:text-indigo-300"
-            >
-              View Project <ArrowRight className="w-4 h-4 ml-2" />
-            </Link>
-          </div>
-        </motion.div>
+const ProjectCard = ({ project }) => (
+  <motion.div
+    variants={itemVariants}
+    className="group relative rounded-2xl overflow-hidden shadow-lg h-full"
+  >
+    <OptimizedImage
+      src={project.image}
+      alt={project.title}
+      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+    />
+    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+    <div className="absolute inset-0 p-6 flex flex-col justify-end text-white">
+      <div
+        className={`inline-block px-3 py-1 rounded-full text-xs font-semibold mb-2 self-start ${
+          project.status === "In Development" ? "bg-green-600" : "bg-blue-600"
+        }`}
+      >
+        {project.status}
       </div>
-    </motion.div>
-  );
-};
+      <h3 className="text-xl md:text-2xl font-bold mb-2">{project.title}</h3>
+      <div className="max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500">
+        <p className="text-slate-200 mb-4 text-sm">{project.description}</p>
+        <Link
+          to={`/projects/${project.id}`}
+          className="inline-flex items-center text-white font-semibold hover:text-indigo-300"
+        >
+          View Project <ArrowRight className="w-4 h-4 ml-2" />
+        </Link>
+      </div>
+    </div>
+  </motion.div>
+);
 
 const OurProjectsPage = () => {
   usePageTitle("DHD - Projects");
-  const [activeTab, setActiveTab] = useState("featured"); // Default to featured projects
+  const [activeTab, setActiveTab] = useState("featured");
 
   const featuredProjects = [
     {
@@ -117,9 +96,7 @@ const OurProjectsPage = () => {
       description:
         "A multi-story development aligned with the Pradhan Mantri Awas Yojana.",
       status: "In Development",
-      area: "5 acres",
-      location: "Sortapwadi, Pune",
-      span: "col-span-1 md:col-span-2 row-span-2",
+      span: "md:col-span-2 md:row-span-2",
     },
     {
       id: 2,
@@ -127,8 +104,7 @@ const OurProjectsPage = () => {
       image: image2,
       description: "A cornerstone of Pune's thriving construction sector.",
       status: "Coming Soon",
-      location: "Pune, Maharashtra",
-      span: "col-span-1",
+      span: "",
     },
     {
       id: 3,
@@ -137,8 +113,7 @@ const OurProjectsPage = () => {
       description:
         "State-of-the-art industrial park for manufacturing and logistics.",
       status: "Completed",
-      location: "Chakan, Maharashtra",
-      span: "col-span-1",
+      span: "",
     },
   ];
   const constructionServices = [
@@ -180,12 +155,11 @@ const OurProjectsPage = () => {
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-5xl font-bold drop-shadow-lg"
+          className="text-4xl md:text-5xl font-bold"
         >
           Our Projects
         </motion.h1>
       </section>
-
       <div className="container mx-auto px-4 max-w-5xl">
         <motion.section
           initial={{ opacity: 0, y: 50 }}
@@ -201,7 +175,6 @@ const OurProjectsPage = () => {
           </h2>
         </motion.section>
       </div>
-
       <nav className="bg-white/70 backdrop-blur-lg shadow-sm sticky top-0 z-40 border-b border-gray-200 mt-12">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="relative flex justify-center">
@@ -241,7 +214,7 @@ const OurProjectsPage = () => {
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-2 gap-6 h-[80vh]"
+                className="grid grid-cols-1 md:grid-cols-3 grid-rows-[minmax(300px,_auto)] md:grid-rows-2 gap-6 min-h-[80vh]"
               >
                 {featuredProjects.map((project) => (
                   <div key={project.id} className={project.span}>
@@ -250,7 +223,6 @@ const OurProjectsPage = () => {
                 ))}
               </motion.div>
             )}
-
             {activeTab === "overview" && (
               <motion.div
                 variants={containerVariants}
@@ -261,7 +233,7 @@ const OurProjectsPage = () => {
                 <div className="relative rounded-2xl overflow-hidden p-8 md:p-16 text-center text-white bg-[#002147]">
                   <img
                     src={overviewBg}
-                    alt="Construction site background"
+                    alt="Construction background"
                     className="absolute inset-0 w-full h-full object-cover opacity-10"
                   />
                   <motion.h2
@@ -274,8 +246,7 @@ const OurProjectsPage = () => {
                     variants={itemVariants}
                     className="text-lg text-slate-300 max-w-4xl mx-auto relative"
                   >
-                    We deliver exceptional results across all project types,
-                    guided by our core commitments to quality, innovation, and
+                    Guided by our core commitments to quality, innovation, and
                     partnership.
                   </motion.p>
                 </div>
@@ -309,14 +280,12 @@ const OurProjectsPage = () => {
                       Full Management
                     </h4>
                     <p className="text-gray-600">
-                      Guiding your project from concept to completion as Main
-                      Contractor.
+                      Guiding your project from concept to completion.
                     </p>
                   </div>
                 </motion.div>
               </motion.div>
             )}
-
             {activeTab === "services" && (
               <motion.div
                 variants={containerVariants}
@@ -333,7 +302,7 @@ const OurProjectsPage = () => {
                     <motion.div
                       key={index}
                       variants={itemVariants}
-                      className="bg-white p-6 rounded-2xl shadow-lg text-center hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
+                      className="bg-white p-6 rounded-2xl shadow-lg text-center hover:shadow-xl hover:-translate-y-2 transition-all"
                     >
                       <div
                         className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${service.color}`}
@@ -373,5 +342,4 @@ const OurProjectsPage = () => {
     </div>
   );
 };
-
 export default OurProjectsPage;

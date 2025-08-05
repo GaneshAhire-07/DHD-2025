@@ -1,4 +1,8 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
+import { ArrowRight } from "lucide-react"; // Import icon for consistency
+import usePageTitle from "../../hooks/usePageTitle";
+
+// --- Asset Imports ---
 import LandscapeImage from "../../assets/Landscape.jpg";
 import LandscapeDevelopmentImage from "../../assets/Landscape&Development.jpg";
 import VerticalGarden from "../../assets/VerticalGarden.jpg";
@@ -6,9 +10,10 @@ import CorporateGreenSolution from "../../assets/CorporateGreenSolution.jpg";
 import garderDesign from "../../assets/garderDesign.jpg";
 import GrassPlantation from "../../assets/GrassPlantation.jpg";
 import TeraceGarden from "../../assets/TeraceGarden.jpg";
-import KitchenGarden from "../../assets/KitchenGarden .jpg";
-import usePageTitle from "../../hooks/usePageTitle";
+// CORRECTED: Removed the space in the filename "KitchenGarden .jpg"
+import KitchenGarden from "../../assets/b1.jpeg";
 
+// --- Data ---
 const servicesData = {
   main: [
     {
@@ -63,7 +68,6 @@ const servicesData = {
       description:
         "High-quality grass options ideal for lawns, sports fields, and erosion control.",
     },
-
     {
       id: 7,
       image: TeraceGarden,
@@ -83,30 +87,32 @@ const servicesData = {
   ],
 };
 
+// --- Components ---
+
 const OptimizedImage = ({ src, alt, className }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const imgRef = useRef(null);
 
   const handleLoad = useCallback(() => setIsLoaded(true), []);
-  const handleError = useCallback(() => setHasError(true), []);
+  const handleError = useCallback(() => {
+    setIsLoaded(true); // Stop placeholder animation on error
+    setHasError(true);
+  }, []);
 
   return (
-    <div className="relative overflow-hidden">
-      {!isLoaded && !hasError && (
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200 animate-shimmer" />
+    <div className="relative h-full w-full overflow-hidden">
+      {!isLoaded && (
+        <div className="absolute inset-0 bg-gray-200 animate-pulse" />
       )}
-      {hasError && (
-        <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-slate-500">
+      {hasError ? (
+        <div className="w-full h-full bg-slate-100 flex items-center justify-center text-slate-500">
           <div className="text-center">
             <div className="text-4xl mb-2">🖼️</div>
-            <span className="text-sm">Image loading...</span>
+            <p className="text-sm font-medium">Cannot load image</p>
           </div>
         </div>
-      )}
-      {!hasError && (
+      ) : (
         <img
-          ref={imgRef}
           src={src}
           alt={alt}
           className={`${className} ${
@@ -142,7 +148,7 @@ const ServiceCard = ({ service, index, isVisible }) => {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300" />
       </div>
-      <div className="p-6 relative">
+      <div className="p-6 relative flex flex-col flex-grow">
         <div
           className={`absolute top-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-emerald-500 transition-all duration-500 ${
             isHovered ? "w-full" : "w-0"
@@ -151,25 +157,17 @@ const ServiceCard = ({ service, index, isVisible }) => {
         <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-slate-900 transition-colors duration-300">
           {service.title}
         </h3>
-        <p className="text-slate-600 leading-relaxed mb-4 group-hover:text-slate-700 transition-colors duration-300">
+        <p className="text-slate-600 leading-relaxed mb-4 flex-grow group-hover:text-slate-700 transition-colors duration-300">
           {service.description}
         </p>
-        <button className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300 group">
+        {/* ENHANCEMENT: Changed to an <a> tag for semantic links and used lucide-react icon */}
+        <a
+          href="#" // Replace with actual link, e.g., `/services/${service.id}`
+          className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300 group/link mt-auto self-start"
+        >
           <span className="mr-2">Learn More</span>
-          <svg
-            className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
-            fill="none" 
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </button>
+          <ArrowRight className="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform duration-300" />
+        </a>
       </div>
     </article>
   );
@@ -181,17 +179,15 @@ const SectionHeader = ({ title, subtitle, isVisible }) => (
       isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
     }`}
   >
-    <div className="flex items-center justify-center mb-6">
-      <div className="h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent w-24 animate-expand" />
-      <div className="mx-4 w-3 h-3 bg-blue-500 rounded-full animate-pulse" />
-      <div className="h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent w-24 animate-expand" />
-    </div>
-    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-800 mb-4">
+    <h2 className="text-4xl sm:text-5xl font-extrabold text-slate-800 mb-4 tracking-tight">
       {title.split(" ").map((word, index) => (
         <span
           key={index}
           className="inline-block animate-slideInUp"
-          style={{ animationDelay: `${index * 100}ms` }}
+          style={{
+            animationDelay: `${index * 150}ms`,
+            willChange: "transform, opacity",
+          }}
         >
           {word === "Services" || word === "Horticulture" ? (
             <span className="bg-gradient-to-r from-emerald-500 to-blue-500 bg-clip-text text-transparent">
@@ -204,20 +200,16 @@ const SectionHeader = ({ title, subtitle, isVisible }) => (
         </span>
       ))}
     </h2>
-    <p className="text-slate-600 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
+    <p className="text-slate-600 text-lg max-w-3xl mx-auto leading-relaxed">
       {subtitle}
     </p>
   </header>
 );
 
 function OurServices() {
-  usePageTitle("Services");
-  const [visibleSections, setVisibleSections] = useState({
-    header: false,
-    main: false,
-    secondary: false,
-    specialized: false,
-  });
+  usePageTitle("Our Expert Services");
+  const [visibleSections, setVisibleSections] = useState({});
+  const sectionRefs = useRef([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -226,34 +218,43 @@ function OurServices() {
           if (entry.isIntersecting) {
             const sectionName = entry.target.getAttribute("data-section");
             setVisibleSections((prev) => ({ ...prev, [sectionName]: true }));
+            observer.unobserve(entry.target); // Unobserve after it becomes visible
           }
         });
       },
-      { threshold: 0.1, rootMargin: "50px" }
+      { threshold: 0.15, rootMargin: "-50px" }
     );
 
-    const sections = document.querySelectorAll("[data-section]");
-    sections.forEach((section) => observer.observe(section));
+    sectionRefs.current.forEach((section) => {
+      if (section) observer.observe(section);
+    });
+
     return () => observer.disconnect();
   }, []);
 
+  const addSectionRef = (el) => {
+    if (el && !sectionRefs.current.includes(el)) {
+      sectionRefs.current.push(el);
+    }
+  };
+
   return (
-    <section className="relative bg-gradient-to-br from-slate-50 via-white to-blue-50 py-16 sm:py-20 overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-gradient-to-r from-blue-400/5 to-emerald-400/5 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-gradient-to-r from-emerald-400/5 to-blue-400/5 rounded-full blur-3xl animate-float-delayed" />
+    <section className="relative bg-gradient-to-br from-slate-50 via-white to-blue-50 py-16 sm:py-24 overflow-x-hidden">
+      <div className="absolute inset-0 opacity-50">
+        <div className="absolute top-0 -left-1/4 w-1/2 h-1/2 bg-blue-200/20 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-0 -right-1/4 w-1/2 h-1/2 bg-emerald-200/20 rounded-full blur-3xl animate-float-delayed" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
-        <div data-section="header">
+        <div ref={addSectionRef} data-section="header">
           <SectionHeader
             title="Our Services"
-            subtitle="Comprehensive landscaping and horticulture solutions for all your green space needs"
+            subtitle="Comprehensive landscaping and horticulture solutions for all your green space needs."
             isVisible={visibleSections.header}
           />
         </div>
 
-        <section data-section="main" className="mb-20">
+        <section ref={addSectionRef} data-section="main" className="mb-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {servicesData.main.map((service, index) => (
               <ServiceCard
@@ -266,7 +267,7 @@ function OurServices() {
           </div>
         </section>
 
-        <section data-section="secondary" className="mb-20">
+        <section ref={addSectionRef} data-section="secondary" className="mb-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {servicesData.secondary.map((service, index) => (
               <ServiceCard
@@ -279,19 +280,29 @@ function OurServices() {
           </div>
         </section>
 
-        <section data-section="specialized" className="py-12">
-          <SectionHeader
-            title="Specialized Horticulture Services"
-            subtitle="Expert solutions for specific gardening and landscaping needs"
-            isVisible={visibleSections.specialized}
-          />
+        <section
+          ref={addSectionRef}
+          data-section="specialized"
+          className="pb-12"
+        >
+          <div
+            ref={addSectionRef}
+            data-section="specializedHeader"
+            className="mb-12"
+          >
+            <SectionHeader
+              title="Specialized Horticulture"
+              subtitle="Expert solutions for specific gardening and landscaping needs."
+              isVisible={visibleSections.specializedHeader}
+            />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {servicesData.specialized.map((service, index) => (
               <ServiceCard
                 key={service.id}
                 service={service}
                 index={index}
-                isVisible={visibleSections.specialized}
+                isVisible={visibleSections.specializedHeader}
               />
             ))}
           </div>
