@@ -370,11 +370,6 @@ const MobileMenu = ({ isOpen, closeMenu }) => {
                   animate="visible"
                   className="space-y-1 list-none"
                 >
-                  {/*
-                  // =================================================================
-                  // --- FIX: Simplified structure to correct the icon alignment ---
-                  // =================================================================
-                  */}
                   {currentMenu.items.map((item) => {
                     const Icon = item.icon;
                     const isCurrentActive =

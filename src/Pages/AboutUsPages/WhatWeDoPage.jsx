@@ -1,4 +1,4 @@
-import WhatWeDoImage from "../../assets/WhatWeDoPage.jpg";
+import WhatWeDoImage from "../../assets/who.jpg";
 import usePageTitle from "../../hooks/usePageTitle";
 const WhatWeDoPage = () => {
   usePageTitle("What We Do");

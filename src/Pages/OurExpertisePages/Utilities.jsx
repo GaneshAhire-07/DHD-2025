@@ -1,5 +1,5 @@
 import React from "react";
-import power from "../../assets/u1.webp";
+import power from "../../assets/b1.jpeg";
 import usePageTitle from "../../hooks/usePageTitle";
 // The main component for the Utilities page.
 

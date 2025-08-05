@@ -72,7 +72,7 @@ const HeroSection = () => {
                 />
               </div>
               <motion.div
-                className="absolute top-4 left-4 flex items-center space-x-2 p-2 z-20"
+                className="absolute top-4 left-4 flex items-center space-x-0 p-2 z-20"
                 // Animation is now controlled by the parent's stagger effect
               >
                 <img

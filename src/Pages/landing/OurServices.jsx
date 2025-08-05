@@ -5,7 +5,7 @@ import usePageTitle from "../../hooks/usePageTitle";
 // --- Asset Imports ---
 import LandscapeImage from "../../assets/Landscape.jpg";
 import LandscapeDevelopmentImage from "../../assets/Landscape&Development.jpg";
-import VerticalGarden from "../../assets/VerticalGarden.jpg";
+import VerticalGarden from "../../assets/terracegarden.jpg";
 import CorporateGreenSolution from "../../assets/CorporateGreenSolution.jpg";
 import garderDesign from "../../assets/garderDesign.jpg";
 import GrassPlantation from "../../assets/GrassPlantation.jpg";

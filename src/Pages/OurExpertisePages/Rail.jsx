@@ -1,6 +1,6 @@
 import React from "react";
 import usePageTitle from "../../hooks/usePageTitle";
-import rail from "../../assets/rail1.jpg"
+import rail from "../../assets/rail.jpg"
 
 export default function Rail() {
   usePageTitle("Rail");

@@ -19,7 +19,7 @@ import kitchen from "../../assets/KitchenGarden .jpg";
 import infrastructure from "../../assets/Infrastructure.jpg";
 import utilities from "../../assets/utilities.jpg";
 import housing from "../../assets/housing.jpg";
-import rail from "../../assets/rail.jpeg";
+import rail from "../../assets/rail.jpg";
 import property from "../../assets/property.jpg";
 import fm from "../../assets/FacilitiesManagement.jpg";
 

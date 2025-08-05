@@ -20,9 +20,9 @@ import { Heart } from "lucide-react";
 // Import all your images
 import history from "../../assets/history.jpg";
 import visionMission from "../../assets/b1.jpeg"; // You may need to add this image
-import whoWeAre from "../../assets/who.webp";
-import whatWeDo from "../../assets/what-we-do1.png";
-import purpose from "../../assets/purpose.png";
+import whoWeAre from "../../assets/who.jpg";
+import whatWeDo from "../../assets/team.jpg";
+import purpose from "../../assets/purpose.jpg";
 import sustainability from "../../assets/sustainability.webp";
 import socialImpact from "../../assets/social.webp";
 import physicalImpact from "../../assets/physical.webp";

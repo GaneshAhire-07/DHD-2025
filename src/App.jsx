@@ -5,7 +5,7 @@ import { MainRoutes } from "./components/routes/MainRoutes";
 import { AboutRoutes } from "./components/routes/AboutRoutes";
 import { ExpertiseRoutes } from "./components/routes/ExpertiseRoutes";
 import { OtherRoutes } from "./components/routes/OtherRoutes";
-
+import "./index.css";
 function App() {
   return (
     <Router>
@@ -14,7 +14,7 @@ function App() {
         <Routes>
           {MainRoutes()}
           {AboutRoutes()}
-          {ExpertiseRoutes()}  
+          {ExpertiseRoutes()}
           {OtherRoutes()}
         </Routes>
       </main>

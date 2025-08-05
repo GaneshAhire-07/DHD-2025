@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import johnSmith from "../../assets/mbr-1-816x544.jpg";
 import sarahPalmer from "../../assets/mbr-3-596x397.jpg";
-import jamesSwift from "../../assets/mbr-2-596x397.jpg";
+import jamesSwift from "../../assets/man.avif";
 import helenSmith from "../../assets/mbr-596x401.jpeg";
 
 const teamMembers = [

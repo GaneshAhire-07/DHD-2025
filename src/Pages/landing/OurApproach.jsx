@@ -8,7 +8,7 @@ import commitmentImage from "../../assets/commitment.jpeg";
 import modernMethodsImage from "../../assets/modernMethodsImage.jpg";
 import covidResponseImage from "../../assets/covid.webp";
 import careerEventsImage from "../../assets/careerEventsImage.avif";
-import offsiteMethodsImage from "../../assets/offsiteMethodsImage.jpg";
+import offsiteMethodsImage from "../../assets/b1.jpeg";
 import bimIntegrationImage from "../../assets/bimIntegrationImage.jpg";
 import bimTechnologyImage from "../../assets/bimTechnologyImage.jpg";
 import bimCollaborationImage from "../../assets/bimCollaborationImage.jpg";
