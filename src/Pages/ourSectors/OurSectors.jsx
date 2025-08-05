@@ -272,17 +272,6 @@ const SectorCard = ({ sector, onCardClick, onAddToCart }) => (
           <span className="text-sm xs:text-base">View Details</span>
           <ArrowRight className="w-4 xs:w-5 h-4 xs:h-5 ml-2 transform group-hover:translate-x-1 transition-transform" />
         </div>
-        <motion.button
-          className="bg-gradient-to-r from-[#002147] to-[#003366] text-white px-3 xs:px-4 sm:px-5 py-1 xs:py-1.5 sm:py-2 rounded-full font-medium text-sm xs:text-base transition-all duration-300"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent modal opening when clicking button
-            onAddToCart(sector);
-          }}
-        >
-          Add to Cart
-        </motion.button>
       </div>
     </div>
   </motion.div>
