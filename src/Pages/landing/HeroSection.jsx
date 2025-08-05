@@ -135,7 +135,7 @@ const HeroSection = () => {
                   {/* Secondary Button */}
                   <motion.button
                     aria-label="Read more about our company"
-                    className="group inline-flex items-center justify-center gap-2 px-6 py-3 bg-transparent text-white font-medium rounded-full border border-white/50 hover:border-white transition-all duration-300"
+                    className="group inline-flex items-center justify-center gap-2 px-6 py-3 bg-transparent text-white hover:bg-red-500 font-medium rounded-full border border-white/50 hover:border-white transition-all duration-300"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => navigate("/about")}
@@ -146,7 +146,7 @@ const HeroSection = () => {
                   {/* Primary Button */}
                   <motion.button
                     aria-label="Contact us now"
-                    className="group inline-flex items-center justify-center gap-2 px-6 py-3 bg-red-600 text-white font-bold rounded-full shadow-lg hover:shadow-red-500/40 hover:bg-red-700 transition-all duration-300"
+                    className="group inline-flex items-center justify-center gap-2 px-6 py-3 bg-transparent text-white hover:bg-red-500 font-medium rounded-full border border-white/50 hover:border-white transition-all duration-300"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => navigate("/contact")}
