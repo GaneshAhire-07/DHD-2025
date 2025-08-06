@@ -51,16 +51,6 @@ function OurClients() {
             <ClientLogo key={index} client={client} />
           ))}
         </div>
-
-        <div className="mt-16 text-center">
-          <button
-            type="button"
-            className="inline-flex items-center px-8 py-4 bg-[#162034] text-white font-semibold rounded-lg shadow-md hover:bg-[#273c64] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300"
-          >
-            <FaBuilding className="mr-3" />
-            Become Our Partner
-          </button>
-        </div>
       </div>
     </section>
   );

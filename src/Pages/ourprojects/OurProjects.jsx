@@ -333,7 +333,9 @@ const OurProjectsPage = () => {
           </h3>
           <Link
             to="/contact"
-            className="bg-white text-gray-900 px-8 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors transform hover:scale-105 inline-block"
+            className="inline-block px-8 py-3 rounded-lg font-semibold transform transition-colors
+                       bg-white text-red-600 border-2 border-red-600
+                       hover:bg-red-600 hover:text-white hover:scale-105"
           >
             Get in Touch
           </Link>
