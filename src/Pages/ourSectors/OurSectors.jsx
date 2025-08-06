@@ -23,11 +23,11 @@ import environmental from "../../assets/environmental.avif";
 import health from "../../assets/health.avif";
 import highways from "../../assets/highways.avif";
 import industrial from "../../assets/industrial.avif";
-import leisure from "../../assets/board.jpg"; // Replace with actual image
-import localGov from "../../assets/board.jpg"; // Replace with actual image
-import offices from "../../assets/board.jpg"; // Replace with actual image
-import rail from "../../assets/board.jpg"; // Replace with actual image
-import residential from "../../assets/board.jpg"; // Replace with actual image
+import leisure from "../../assets/leisure.jpg"; // Replace with actual image
+import localGov from "../../assets/government.jpg"; // Replace with actual image
+import offices from "../../assets/offices.jpg"; // Replace with actual image
+import rail from "../../assets/rail.jpg"; // Replace with actual image
+import residential from "../../assets/recidential.jpg"; // Replace with actual image
 
 const allSectorsData = [
   {
