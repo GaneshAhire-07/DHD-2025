@@ -13,15 +13,21 @@ import {
   Train,
   Home,
   ArrowRight,
-  ShoppingCart,
   X,
 } from "lucide-react";
+
+// Import images
 import degree from "../../assets/degree.avif";
 import energy from "../../assets/energy.avif";
 import environmental from "../../assets/environmental.avif";
 import health from "../../assets/health.avif";
 import highways from "../../assets/highways.avif";
 import industrial from "../../assets/industrial.avif";
+import leisure from "../../assets/board.jpg"; // Replace with actual image
+import localGov from "../../assets/board.jpg"; // Replace with actual image
+import offices from "../../assets/board.jpg"; // Replace with actual image
+import rail from "../../assets/board.jpg"; // Replace with actual image
+import residential from "../../assets/board.jpg"; // Replace with actual image
 
 const allSectorsData = [
   {
@@ -197,7 +203,7 @@ const allSectorsData = [
     title: "Leisure & Hospitality",
     icon: Hotel,
     color: "from-teal-500 to-cyan-600",
-    image: highways, // Placeholder; replace with actual image
+    image: leisure,
     description:
       "Designing and maintaining world-class leisure facilities and hotels with unique experiences.",
     price: 50,
@@ -207,7 +213,7 @@ const allSectorsData = [
     title: "Local Government",
     icon: Building2,
     color: "from-amber-500 to-orange-600",
-    image: industrial, // Placeholder; replace with actual image
+    image: localGov,
     description:
       "Assisting councils in maximizing estate value and delivering essential community infrastructure.",
     price: 50,
@@ -217,7 +223,7 @@ const allSectorsData = [
     title: "Offices",
     icon: Building,
     color: "from-blue-600 to-indigo-700",
-    image: degree, // Placeholder; replace with actual image
+    image: offices,
     description:
       "Providing innovative, sustainable, and high-quality office spaces that foster productivity.",
     price: 50,
@@ -227,7 +233,7 @@ const allSectorsData = [
     title: "Rail & Signaling",
     icon: Train,
     color: "from-emerald-600 to-teal-700",
-    image: energy, // Placeholder; replace with actual image
+    image: rail,
     description:
       "Delivering complex rail infrastructure, including new lines, station upgrades, and signaling.",
     price: 50,
@@ -237,17 +243,16 @@ const allSectorsData = [
     title: "Residential",
     icon: Home,
     color: "from-rose-500 to-pink-600",
-    image: health, // Placeholder; replace with actual image
+    image: residential,
     description:
       "Developing diverse residential properties, from luxury homes to affordable housing.",
     price: 50,
   },
 ];
 
-const SectorCard = ({ sector, onCardClick, onAddToCart }) => (
+const SectorCard = ({ sector, onCardClick }) => (
   <motion.div
     layoutId={`card-${sector.id}`}
-    onClick={() => onCardClick(sector)}
     className="group flex flex-col bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer transform hover:-translate-y-2"
     initial={{ opacity: 0, y: 50 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -255,10 +260,16 @@ const SectorCard = ({ sector, onCardClick, onAddToCart }) => (
     transition={{ duration: 0.5, ease: "easeOut" }}
   >
     <div
-      className={`h-40 xs:h-44 sm:h-48 bg-gradient-to-br ${sector.color} relative flex items-center justify-center text-white p-4 xs:p-5`}
+      className="h-40 xs:h-44 sm:h-48 relative"
+      onClick={() => onCardClick(sector)}
     >
-      <div className="absolute inset-0 bg-black/20"></div>
-      <sector.icon className="w-12 xs:w-14 sm:w-16 h-12 xs:h-14 sm:h-16 opacity-80 group-hover:scale-110 transition-transform duration-300" />
+      <img
+        src={sector.image}
+        alt={sector.title}
+        className="w-full h-full object-cover"
+        loading="lazy"
+        onError={(e) => (e.target.src = "/fallback-image.jpg")} // Fallback image
+      />
     </div>
     <div className="p-4 xs:p-5 sm:p-6 flex flex-col flex-grow">
       <h3 className="text-lg xs:text-xl sm:text-2xl font-bold text-slate-800 mb-2">
@@ -268,7 +279,10 @@ const SectorCard = ({ sector, onCardClick, onAddToCart }) => (
         {sector.description}
       </p>
       <div className="flex items-center justify-between mt-auto">
-        <div className="flex items-center text-blue-600 font-semibold group-hover:text-blue-700 transition-colors">
+        <div
+          className="flex items-center text-blue-600 font-semibold group-hover:text-blue-700 transition-colors cursor-pointer"
+          onClick={() => onCardClick(sector)}
+        >
           <span className="text-sm xs:text-base">View Details</span>
           <ArrowRight className="w-4 xs:w-5 h-4 xs:h-5 ml-2 transform group-hover:translate-x-1 transition-transform" />
         </div>
@@ -290,17 +304,15 @@ const SectorDetailModal = ({ sector, onClose }) => (
       onClick={(e) => e.stopPropagation()}
       className="bg-gray-50 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden"
     >
-      <div
-        className={`h-48 xs:h-56 sm:h-64 bg-gradient-to-br ${sector.color} relative flex items-center justify-center text-white p-4 xs:p-5 sm:p-6`}
-      >
+      <div className="h-48 xs:h-56 sm:h-64 relative">
         <img
           src={sector.image}
           alt={sector.title}
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
+          className="w-full h-full object-cover"
           loading="lazy"
+          onError={(e) => (e.target.src = "/fallback-image.jpg")} // Fallback image
         />
-        <div className="relative z-10 text-center">
-          <sector.icon className="w-16 xs:w-18 sm:w-20 h-16 xs:h-18 sm:h-20 mx-auto mb-3 xs:mb-4" />
+        <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-4 xs:p-5 sm:p-6">
           <h2 className="text-2xl xs:text-3xl sm:text-4xl font-bold">
             {sector.title}
           </h2>
@@ -345,31 +357,10 @@ const SectorDetailModal = ({ sector, onClose }) => (
 
 const OurSectors = () => {
   const [selectedSector, setSelectedSector] = useState(null);
-  const [cartItems, setCartItems] = useState([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-
-  const addToCart = (sector) => {
-    setCartItems((prev) => {
-      const existingItem = prev.find((item) => item.id === sector.id);
-      if (existingItem) {
-        return prev.map((item) =>
-          item.id === sector.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      return [...prev, { ...sector, quantity: 1 }];
-    });
-  };
-
-  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = cartItems
-    .reduce((sum, item) => sum + item.price * item.quantity, 0)
-    .toFixed(2);
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section with Cart */}
+      {/* Hero Section */}
       <section className="bg-gradient-to-br from-[#002147] to-[#003366] text-white text-center py-16 xs:py-20 sm:py-24 px-4 xs:px-5 sm:px-6 relative overflow-hidden">
         <div
           className="absolute inset-0"
@@ -387,90 +378,6 @@ const OurSectors = () => {
           >
             Our Sectors
           </motion.h1>
-          {/* Cart Icon with Badge */}
-          <motion.div
-            className="absolute top-4 xs:top-5 sm:top-6 right-4 xs:right-5 sm:right-6"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => setIsCartOpen(!isCartOpen)}
-          >
-            <div className="relative">
-              <ShoppingCart className="w-6 xs:w-7 sm:w-8 md:w-9 h-6 xs:h-7 sm:h-8 md:h-9 text-white" />
-              {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs xs:text-sm font-bold rounded-full w-4 xs:w-5 sm:w-6 h-4 xs:h-5 sm:h-6 flex items-center justify-center">
-                  {totalItems}
-                </span>
-              )}
-            </div>
-          </motion.div>
-          {/* Cart Dropdown */}
-          <AnimatePresence>
-            {isCartOpen && (
-              <motion.div
-                className="absolute top-12 xs:top-14 sm:top-16 md:top-20 right-4 xs:right-5 sm:right-6 bg-white rounded-lg shadow-lg w-64 xs:w-72 sm:w-80 md:w-96 max-h-[70vh] overflow-y-auto z-60"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="p-4 xs:p-5 sm:p-6">
-                  <h2 className="text-lg xs:text-xl sm:text-2xl font-bold text-[#002147] mb-3 xs:mb-4 sm:mb-5">
-                    Your Cart
-                  </h2>
-                  {cartItems.length > 0 ? (
-                    <>
-                      {cartItems.map((item) => (
-                        <div
-                          key={item.id}
-                          className="flex items-center gap-3 xs:gap-4 mb-2 xs:mb-3 sm:mb-4 border-b border-slate-200 pb-2 xs:pb-3"
-                        >
-                          <img
-                            src={item.image}
-                            alt={item.title}
-                            className="w-12 xs:w-14 sm:w-16 h-12 xs:h-14 sm:h-16 object-cover rounded-lg"
-                            loading="lazy"
-                            onError={(e) =>
-                              (e.target.src = "/fallback-image.jpg")
-                            } // Fallback image
-                          />
-                          <div className="flex-1">
-                            <p className="text-sm xs:text-base sm:text-lg text-[#002147] font-medium">
-                              {item.title}
-                            </p>
-                            <p className="text-xs xs:text-sm text-slate-600">
-                              ${item.price} x {item.quantity}
-                            </p>
-                          </div>
-                          <p className="text-sm xs:text-base sm:text-lg text-[#002147] font-medium">
-                            ${(item.price * item.quantity).toFixed(2)}
-                          </p>
-                        </div>
-                      ))}
-                      <div className="flex justify-between items-center mt-3 xs:mt-4 sm:mt-5">
-                        <p className="text-sm xs:text-base sm:text-lg font-bold text-[#002147]">
-                          Total
-                        </p>
-                        <p className="text-sm xs:text-base sm:text-lg font-bold text-[#002147]">
-                          ${totalPrice}
-                        </p>
-                      </div>
-                      <motion.button
-                        className="w-full bg-gradient-to-r from-[#002147] to-[#003366] text-white px-4 xs:px-5 sm:px-6 py-1.5 xs:py-2 sm:py-2.5 rounded-full font-medium mt-3 xs:mt-4 sm:mt-5 transition-all duration-300"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        Checkout
-                      </motion.button>
-                    </>
-                  ) : (
-                    <p className="text-sm xs:text-base sm:text-lg text-slate-600">
-                      Your cart is empty.
-                    </p>
-                  )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </section>
 
@@ -502,7 +409,6 @@ const OurSectors = () => {
               key={sector.id}
               sector={sector}
               onCardClick={setSelectedSector}
-              onAddToCart={addToCart}
             />
           ))}
         </div>
