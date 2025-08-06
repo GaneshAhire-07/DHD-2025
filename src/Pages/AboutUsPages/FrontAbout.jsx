@@ -341,7 +341,7 @@ const FrontAbout = () => {
       : aboutUsTopics.filter((topic) => topic.category === activeFilter);
 
   return (
-    <div className="bg-slate-50 font-sans text-slate-800">
+    <div className="bg-[#F1F5F9] font-sans text-slate-800">
       <main id="main-content" className="container mx-auto px-4 py-16 sm:py-24">
         {/* --- Centered Header Section --- */}
         <div className="text-center mb-12">

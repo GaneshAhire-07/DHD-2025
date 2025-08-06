@@ -25,6 +25,18 @@ import dhdLogo from "../../assets/logo.png";
 import logo from "../../assets/logo.png";
 import horticultureLogo from "../../assets/horticulture.png";
 
+// --- SCROLL TO TOP HELPER COMPONENT ---
+// This component will scroll the window to the top on every route change.
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]); // This effect runs every time the pathname changes
+
+  return null; // This component doesn't render anything
+};
+
 const menuData = [
   { id: "home", title: "Home", path: "/", icon: Home },
   {
@@ -472,9 +484,12 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
+  // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
+
+  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset";
     return () => {
@@ -482,6 +497,7 @@ export default function Navbar() {
     };
   }, [isMobileMenuOpen]);
 
+  // Handle header style on scroll
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -493,6 +509,7 @@ export default function Navbar() {
 
   return (
     <>
+      <ScrollToTop /> {/* This component handles the scrolling */}
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -556,7 +573,6 @@ export default function Navbar() {
           </div>
         </div>
       </motion.header>
-
       <MobileMenu
         isOpen={isMobileMenuOpen}
         closeMenu={() => setIsMobileMenuOpen(false)}

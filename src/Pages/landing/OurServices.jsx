@@ -10,7 +10,6 @@ import CorporateGreenSolution from "../../assets/CorporateGreenSolution.jpg";
 import garderDesign from "../../assets/garderDesign.jpg";
 import GrassPlantation from "../../assets/GrassPlantation.jpg";
 import TeraceGarden from "../../assets/TeraceGarden.jpg";
-// CORRECTED: Removed the space in the filename "KitchenGarden .jpg"
 import KitchenGarden from "../../assets/b1.jpeg";
 
 // --- Data ---
@@ -102,10 +101,10 @@ const OptimizedImage = ({ src, alt, className }) => {
   return (
     <div className="relative h-full w-full overflow-hidden">
       {!isLoaded && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+        <div className="absolute inset-0 bg-[#F1F5F9] animate-pulse" />
       )}
       {hasError ? (
-        <div className="w-full h-full bg-slate-100 flex items-center justify-center text-slate-500">
+        <div className="w-full h-full bg-[#F1F5F9] flex items-center justify-center text-slate-500">
           <div className="text-center">
             <div className="text-4xl mb-2">🖼️</div>
             <p className="text-sm font-medium">Cannot load image</p>
@@ -160,7 +159,6 @@ const ServiceCard = ({ service, index, isVisible }) => {
         <p className="text-slate-600 leading-relaxed mb-4 flex-grow group-hover:text-slate-700 transition-colors duration-300">
           {service.description}
         </p>
-        {/* ENHANCEMENT: Changed to an <a> tag for semantic links and used lucide-react icon */}
         <a
           href="#" // Replace with actual link, e.g., `/services/${service.id}`
           className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300 group/link mt-auto self-start"
@@ -173,6 +171,7 @@ const ServiceCard = ({ service, index, isVisible }) => {
   );
 };
 
+// MODIFIED SECTION: The SectionHeader component is simplified here
 const SectionHeader = ({ title, subtitle, isVisible }) => (
   <header
     className={`text-center mb-16 transform transition-all duration-800 ${
@@ -180,25 +179,7 @@ const SectionHeader = ({ title, subtitle, isVisible }) => (
     }`}
   >
     <h2 className="text-4xl sm:text-5xl font-extrabold text-slate-800 mb-4 tracking-tight">
-      {title.split(" ").map((word, index) => (
-        <span
-          key={index}
-          className="inline-block animate-slideInUp"
-          style={{
-            animationDelay: `${index * 150}ms`,
-            willChange: "transform, opacity",
-          }}
-        >
-          {word === "Services" || word === "Horticulture" ? (
-            <span className="bg-gradient-to-r from-emerald-500 to-blue-500 bg-clip-text text-transparent">
-              {word}
-            </span>
-          ) : (
-            word
-          )}
-          {index < title.split(" ").length - 1 && " "}
-        </span>
-      ))}
+      {title}
     </h2>
     <p className="text-slate-600 text-lg max-w-3xl mx-auto leading-relaxed">
       {subtitle}
@@ -302,7 +283,7 @@ function OurServices() {
                 key={service.id}
                 service={service}
                 index={index}
-                isVisible={visibleSections.specializedHeader}
+                isVisible={visibleSections.specializedHeader} // Corrected this to use the header's visibility
               />
             ))}
           </div>

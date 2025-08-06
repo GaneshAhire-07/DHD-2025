@@ -153,32 +153,37 @@ function OurExpertise() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => setVisibleCards(entry.isIntersecting),
-      { threshold: 0.1, rootMargin: "50px" }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisibleCards(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="bg-gradient-to-b from-off-white to-blue-50 py-16 sm:py-20 lg:py-24 overflow-hidden"
+      className="bg-gradient-to-b from-white to-gray-50 py-16 sm:py-20 lg:py-24 overflow-hidden"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-12 sm:mb-16 md:mb-20">
-          <div className="inline-block mb-4">
-            <div className="w-16 h-1 bg-green-500 rounded-full mx-auto"></div>
-          </div>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-4">
-            Our <span className="text-green-600">Expertise</span>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* --- MODIFIED HEADER SECTION --- */}
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900">
+            Our Expertise
           </h2>
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            We deliver excellence across industries, backed by multi-sector
-            expertise and a customer-first approach.
-          </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10">
+        {/* --- END OF MODIFIED HEADER SECTION --- */}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {expertiseData.map((expertise, index) => (
             <ExpertiseCard
               key={expertise.id}
@@ -189,43 +194,7 @@ function OurExpertise() {
           ))}
         </div>
       </div>
-      <style jsx>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-        @keyframes pulse {
-          0%,
-          100% {
-            opacity: 0.6;
-          }
-          50% {
-            opacity: 1;
-          }
-        }
-        .animate-float {
-          animation: float 6s ease-in-out infinite;
-        }
-        .animate-pulse {
-          animation: pulse 3s ease-in-out infinite;
-        }
-        @media (max-width: 640px) {
-          .grid-cols-1 {
-            grid-template-columns: 1fr;
-          }
-          .grid-cols-2 {
-            grid-template-columns: 1fr;
-          }
-          .grid-cols-4 {
-            grid-template-columns: 1fr;
-          }
-        }
-      `}</style>
+      {/* Removed the style jsx block as Tailwind classes cover these needs */}
     </section>
   );
 }

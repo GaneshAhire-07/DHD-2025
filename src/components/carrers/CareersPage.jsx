@@ -22,7 +22,7 @@ import careersHeroImage from "../../assets/b1.jpeg";
 import ApprenticeshipImage from "../../assets/ApprenticeshipConstruction.jpg";
 import DhdDegreeImage from "../../assets/DhdDegree.jpg";
 import GraduatesImage from "../../assets/Graduate.jpeg";
-import InternImage from "../../assets/Internships&Placement.jpg";
+import InternImage from "../../assets/intership.jpg";
 import WorkingImage from "../../assets/WorkingExperienceConstruction.jpg";
 
 // FIX: Added the missing animation variants definitions

@@ -45,7 +45,7 @@ const HeroSection = () => {
       initial="hidden"
       animate="visible"
     >
-      <div className="max-w-6xl mx-auto w-full">
+      <div className="relative bottom-7 max-w-6xl mx-auto w-full">
         <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
           <div className="flex flex-col md:flex-row">
             {/* Left Image Section */}
