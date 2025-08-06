@@ -22,7 +22,7 @@ import energy from "../../assets/energy.avif";
 import environmental from "../../assets/environmental.avif";
 import health from "../../assets/health.avif";
 import highways from "../../assets/highways.avif";
-import industrial from "../../assets/industrial.avif";
+import industrial from "../../assets/industrial.jpg";
 import leisure from "../../assets/leisure.jpg"; // Replace with actual image
 import localGov from "../../assets/government.jpg"; // Replace with actual image
 import offices from "../../assets/offices.jpg"; // Replace with actual image
