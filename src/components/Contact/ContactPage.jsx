@@ -18,7 +18,6 @@ const ContactPage = () => {
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  // FIX 2: Added state to store the last submitted topic for the popup
   const [lastSubmittedTopic, setLastSubmittedTopic] = useState("");
 
   const topics = [
@@ -52,12 +51,9 @@ const ContactPage = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // FIX 3: Completely refactored handleSubmit to be logical and sequential
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true); // Start loading state immediately
-
-    // Store the topic before it gets cleared
+    setIsLoading(true); 
     setLastSubmittedTopic(formData.topic);
 
     const templateParams = {
@@ -93,18 +89,17 @@ const ContactPage = () => {
         }
       )
       .finally(() => {
-        setIsLoading(false); // Stop loading state regardless of success or failure
+        setIsLoading(false); e
       });
   };
 
   const closePopup = () => {
     setShowSuccessPopup(false);
-    setIsSubmitted(false); // Also reset button state on manual close
+    setIsSubmitted(false); 
   };
 
   return (
     <div className="bg-slate-50 font-sans text-slate-800 relative">
-      {/* Loading Modal (Now works correctly) */}
       {isLoading && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl shadow-2xl p-8 text-center max-w-sm mx-4">
@@ -222,7 +217,6 @@ const ContactPage = () => {
         </div>
       </section>
 
-      {/* FIX 5: Changed div to a proper <form> element with onSubmit */}
       <form
         onSubmit={handleSubmit}
         className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white rounded-2xl shadow-xl max-w-4xl mx-auto my-10 px-8 py-10"
@@ -287,7 +281,6 @@ const ContactPage = () => {
           className="md:col-span-2 p-4 border border-gray-300 rounded-lg bg-gray-100 resize-vertical min-h-[120px] focus:outline-none focus:ring-2 focus:ring-blue-900"
         />
 
-        {/* FIX 6: Changed to type="submit" and removed onClick */}
         <button
           type="submit"
           disabled={isLoading || isSubmitted}

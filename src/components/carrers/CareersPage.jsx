@@ -3,12 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import usePageTitle from "../../hooks/usePageTitle";
 import {
-  Briefcase,
   Award,
   Heart,
   TrendingUp,
   Users,
-  Lightbulb,
   Handshake,
   DollarSign,
   CheckCircle,
@@ -17,7 +15,6 @@ import {
   UploadCloud,
 } from "lucide-react";
 
-// Import your images
 import careersHeroImage from "../../assets/b1.jpeg";
 import ApprenticeshipImage from "../../assets/ApprenticeshipConstruction.jpg";
 import DhdDegreeImage from "../../assets/DhdDegree.jpg";
@@ -25,7 +22,6 @@ import GraduatesImage from "../../assets/Graduate.jpeg";
 import InternImage from "../../assets/intership.jpg";
 import WorkingImage from "../../assets/WorkingExperienceConstruction.jpg";
 
-// FIX: Added the missing animation variants definitions
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
@@ -35,7 +31,6 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-// --- Data ---
 const pathways = [
   {
     image: WorkingImage,
@@ -150,8 +145,6 @@ const ApplicationModal = ({ position, onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    // Note: You need to set up an EmailJS template that accepts attachments.
-    // This example sends the text data. Replace with your actual credentials.
     emailjs
       .send(
         "YOUR_SERVICE_ID",
@@ -282,7 +275,6 @@ const ApplicationModal = ({ position, onClose }) => {
   );
 };
 
-// --- Career Card Component ---
 const CareerCard = ({ pathway, onApplyClick }) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}

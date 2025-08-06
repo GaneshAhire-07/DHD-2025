@@ -16,26 +16,19 @@ import {
 } from "lucide-react";
 import usePageTitle from "../../hooks/usePageTitle";
 import { Heart } from "lucide-react";
-
-// Import all your images
 import history from "../../assets/history.jpg";
-import visionMission from "../../assets/b1.jpeg"; // You may need to add this image
+import visionMission from "../../assets/b1.jpeg"; 
 import whoWeAre from "../../assets/who.jpg";
 import whatWeDo from "../../assets/team.jpg";
-import purpose from "../../assets/purpose.jpg";
 import sustainability from "../../assets/sustainability.webp";
 import socialImpact from "../../assets/social.webp";
 import physicalImpact from "../../assets/physical.webp";
-import qualityStandards from "../../assets/behind.jpg";
-import cpdTraining from "../../assets/CPD.webp";
+import qualityStandards from "../../assets/board.jpg";
+import cpdTraining from "../../assets/paymentPracticesImage.jpg";
 import performanceAppraisals from "../../assets/performance.webp";
 import healthSafety from "../../assets/Health.avif";
-import equalOpportunities from "../../assets/pari.jpg";
-import environmental from "../../assets/environmental.webp";
 
-// --- Structured Data for the Cards ---
 const aboutUsTopics = [
-  // Category: Profile
   {
     id: "history",
     category: "Profile",
@@ -122,7 +115,6 @@ const aboutUsTopics = [
     },
   },
 
-  // Category: Our Impact
   {
     id: "sustainability",
     category: "Our Impact",
@@ -181,7 +173,6 @@ const aboutUsTopics = [
     },
   },
 
-  // Category: Our Policies
   {
     id: "quality",
     category: "Our Policies",
@@ -258,7 +249,6 @@ const aboutUsTopics = [
 
 const filterCategories = ["All", "Profile", "Our Impact", "Our Policies"];
 
-// --- New Small Card Component ---
 const InfoCard = ({ topic, onCardClick }) => (
   <motion.div
     layout
@@ -294,7 +284,6 @@ const InfoCard = ({ topic, onCardClick }) => (
   </motion.div>
 );
 
-// --- Modal Component for Details ---
 const InfoDetailModal = ({ topic, onClose }) => (
   <AnimatePresence>
     <motion.div
@@ -335,7 +324,6 @@ const InfoDetailModal = ({ topic, onClose }) => (
   </AnimatePresence>
 );
 
-// --- Main AboutUs Component ---
 const HistoryPage = () => {
   usePageTitle("About Us - DHD");
   const [selectedTopic, setSelectedTopic] = useState(null);
@@ -379,7 +367,6 @@ const HistoryPage = () => {
       </div>
 
       <main className="container mx-auto px-4 py-16 sm:py-24">
-        {/* Filter Buttons */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
           {filterCategories.map((category) => (
             <button
@@ -396,7 +383,6 @@ const HistoryPage = () => {
           ))}
         </div>
 
-        {/* Grid of Small Cards */}
         <motion.div
           layout
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
@@ -413,7 +399,6 @@ const HistoryPage = () => {
         </motion.div>
       </main>
 
-      {/* The Modal */}
       {selectedTopic && (
         <InfoDetailModal
           topic={selectedTopic}
